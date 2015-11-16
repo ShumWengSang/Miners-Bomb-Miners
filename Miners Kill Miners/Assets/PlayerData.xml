@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PlayerDataCollection>
+ 	<PlayerDatas>
+ 		<PlayerData name="a">
+ 			<AmountOfGames>5</AmountOfGames>
+ 		</PlayerData>
+ 		<PlayerData name="b">
+ 			<AmountOfGames>3</AmountOfGames>
+ 		</PlayerData>
+ 	</PlayerDatas>
+</PlayerDataCollection>
