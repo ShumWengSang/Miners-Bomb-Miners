@@ -8,9 +8,14 @@ namespace Roland
     {
         Player theCurrentPlayer = null;
         PlayerDataContainer playerDataColleciton = null;
+        bool loaded = false;
         protected CurrentPlayer()
         {
-            //playerDataColleciton = PlayerDataContainer.Load(Path.Combine(Application.dataPath, "PlayerData.xml"));
+            if (!loaded)
+            {
+                playerDataColleciton = PlayerDataContainer.Load(Path.Combine(Application.dataPath, "PlayerData.xml"));
+                loaded = true;
+            }
         }
         ~CurrentPlayer()
         {
@@ -22,6 +27,7 @@ namespace Roland
             get { return theCurrentPlayer; }
             set
             {
+                theCurrentPlayer = value;
                 if(value.thePlayerData.Name == "Generic Player")
                 {
                     return;
@@ -78,7 +84,11 @@ namespace Roland
 
         void Awake()
         {
-            playerDataColleciton = PlayerDataContainer.Load(Path.Combine(Application.dataPath, "PlayerData.xml"));
+            if (!loaded)
+            {
+                playerDataColleciton = PlayerDataContainer.Load(Path.Combine(Application.dataPath, "PlayerData.xml"));
+                loaded = true;
+            }
         }
 
     }

@@ -34,7 +34,7 @@ namespace Roland
         {
             numberOfItemText.text = numberOfItem_i.ToString();
             CurrentPlayer.Instance.ThePlayer.AmountOfItems[thisItem] = numberOfItem_i;
-            Debug.Log("I have " + numberOfItem_i + " amount of " + thisItem);
+            //Debug.Log("I have " + numberOfItem_i + " amount of " + thisItem);
         }
     }
 }

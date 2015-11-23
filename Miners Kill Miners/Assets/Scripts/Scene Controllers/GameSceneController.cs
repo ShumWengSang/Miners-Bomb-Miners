@@ -27,7 +27,7 @@ namespace Roland
 
         //temp
         TileMap theTileMap;
-
+        GameObject theObj;
 
         void Awake()
         {
@@ -38,22 +38,21 @@ namespace Roland
             //If it is single player, generate the default map.
             //else, generate data and send over and generate again after taking.
 
-
+            if (Sandbox == true)
+            {
+                Debug.Log("Tile is at" + theTileMap.ConvertTileToWorld(new Vector2(1, 1)));
+                theObj = GameObject.Instantiate(PlayerPrefab, theTileMap.ConvertTileToWorld(new Vector2(1, 1)), Quaternion.identity) as GameObject;
+                Player genericplayer = theObj.GetComponent<Player>();
+                genericplayer.thePlayerData.CreatePlayerData("Generic Player", 0);
+                CurrentPlayer.Instance.ThePlayer = genericplayer;
+            }
 
         }
 
         void Start()
         {
-            if (Sandbox == true)
-            {
-                Debug.Log("Tile is at" + theTileMap.ConvertTileToWorld(new Vector2(1, 1)));
-                GameObject theObj = GameObject.Instantiate(PlayerPrefab, theTileMap.ConvertTileToWorld(new Vector2(1, 1)), Quaternion.identity) as GameObject;
-                Player genericplayer = theObj.GetComponent<Player>();
-                genericplayer.thePlayerData.CreatePlayerData("Generic Player", 0);
-                CurrentPlayer.Instance.ThePlayer = genericplayer;
-            }
+            theObj.transform.position = theTileMap.ConvertTileToWorld(new Vector2(1, 1));
         }
-
 
         public void ChangeScene(string newScene)
         {

@@ -35,6 +35,7 @@ namespace Roland
             thePlayerData = new PlayerData();
 
             EventManager.OnKeyboardButtonDown += OnButtonPressed;
+            EventManager.OnMouseButtonDown += OnMouseButtonDown;
         }
 
         void Start()
@@ -48,6 +49,7 @@ namespace Roland
         void OnDestroy()
         {
             EventManager.OnKeyboardButtonDown -= OnButtonPressed;
+            EventManager.OnMouseButtonDown -= OnMouseButtonDown;
         }
 
         public void InitializePlayer()
@@ -62,18 +64,33 @@ namespace Roland
         void Update()
         {
             Vector2 CheckNextPosition = MoveDirection + theTileMap.ConvertWorldToTile(transform.position);
-            Debug.Log("Our tile pos is " + theTileMap.ConvertWorldToTile(transform.position));
+           // Debug.Log("Our tile pos is " + theTileMap.ConvertWorldToTile(transform.position));
             Block theNextBlock = theTileMap.theMap.GetTileAt(CheckNextPosition);
             if (theNextBlock is Noblock)
             {
-                Debug.Log("Changing transform and move direction is" + MoveDirection);
+                //Debug.Log("Changing transform and move direction is" + MoveDirection);
                 transform.localPosition += new Vector3(MoveDirection.x, MoveDirection.y, 0) * Time.deltaTime * speed;
             }
             else
             {
                 //dig
-                Debug.Log("Digging Through");
+               // Debug.Log("Digging Through");
                 theTileMap.DigTile(CheckNextPosition, DigPower);
+            }
+        }
+        public void OnMouseButtonDown(int button, int id, Items_e theItem)
+        {
+            Debug.Log("Mouse pressed");
+            if(id == player_id)
+            {
+                switch(theItem)
+                {
+                    case Items_e.SmallBomb:
+                        GameObject.Instantiate(Resources.Load("SmallBomb"), transform.position, Quaternion.identity);
+                        break;
+                    default:
+                        break;
+                }
             }
         }
 

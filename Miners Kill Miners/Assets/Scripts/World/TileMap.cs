@@ -44,7 +44,7 @@ namespace Roland
             return new Vector2((tile.x * theMeshRenderer.bounds.size.x / size_x) + HalfTileX, (tile.y * theMeshRenderer.bounds.size.y / size_z) + HalfTileY);
         }
 
-        void Start()
+        void Awake()
         {
             map = new Map(size_x, size_z);
             theMeshFilter = GetComponent<MeshFilter>();
@@ -106,8 +106,6 @@ namespace Roland
                 theMeshRenderer.sharedMaterial = standardMaterial;
             }
             theMeshRenderer.sharedMaterial.mainTexture = texture;
-
-            Debug.Log("Done Texture!");
         }
 
         public void BuildMesh()
@@ -189,8 +187,17 @@ namespace Roland
                 //Dug through the tile
                 map.SetTileAt(tile, new Noblock());
                 BuildTexture();
+            } 
+        }
+
+        public void DigTile(int x, int y, int power)
+        {
+            if (!map.GetTileAt(x, y).Dig(power))
+            {
+                //Dug through the tile
+                map.SetTileAt(x, y, new Noblock());
+                BuildTexture();
             }
-            
         }
     }
 }
