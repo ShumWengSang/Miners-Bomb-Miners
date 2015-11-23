@@ -22,7 +22,7 @@ namespace Roland
         public void TurnOnMultiplayer()
         {
             //Load the XML
-            playerDataCollection = PlayerDataContainer.Load(Path.Combine(Application.dataPath, "PlayerData.xml"));
+            playerDataCollection = CurrentPlayer.Instance.GetPlayerDataCollection;
             if(playerDataCollection.playerDatas.Count > 0)
             {
                 //Display the new create scene.

@@ -1,11 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<PlayerDataCollection>
- 	<PlayerDatas>
- 		<PlayerData name="a">
- 			<AmountOfGames>5</AmountOfGames>
- 		</PlayerData>
- 		<PlayerData name="b">
- 			<AmountOfGames>3</AmountOfGames>
- 		</PlayerData>
- 	</PlayerDatas>
+<?xml version="1.0" encoding="Windows-1252"?>
+<PlayerDataCollection xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <PlayerDatas />
 </PlayerDataCollection>

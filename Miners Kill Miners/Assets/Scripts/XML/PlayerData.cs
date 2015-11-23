@@ -9,5 +9,11 @@ namespace Roland
         public string Name;
 
         public int AmountOfGames;
+
+        public void CreatePlayerData(string name, int games)
+        {
+            Name = name;
+            AmountOfGames = games;
+        }
     }
 }
