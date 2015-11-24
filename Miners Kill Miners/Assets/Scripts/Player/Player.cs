@@ -16,6 +16,7 @@ namespace Roland
     [System.Serializable]
     public class Player : MonoBehaviour
     {
+        public bool isControllable;
         int player_id;
         TileMap theTileMap;
         public PlayerData thePlayerData;

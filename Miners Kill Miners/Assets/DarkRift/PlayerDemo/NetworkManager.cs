@@ -73,6 +73,7 @@ public class NetworkManager : MonoBehaviour
 					player = clone.transform;
 				}
 			}
+
 		}
 	}
 }
