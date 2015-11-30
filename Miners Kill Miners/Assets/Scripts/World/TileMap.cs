@@ -46,11 +46,13 @@ namespace Roland
 
         void Awake()
         {
+            TileMapInterfacer.Instance.TileMap = this;
             map = new Map(size_x, size_z);
             theMeshFilter = GetComponent<MeshFilter>();
             theMeshRenderer = GetComponent<MeshRenderer>();
             theMeshCollider = GetComponent<MeshCollider>();
             BuildMesh();
+
 
         }
 
@@ -173,8 +175,9 @@ namespace Roland
             transform.localPosition = new Vector3(0, theMeshCollider.bounds.size.y + transform.localPosition.y, 0);
             Camera.main.transform.localPosition = new Vector3(theMeshRenderer.bounds.center.x, theMeshRenderer.bounds.center.y, -10);
 
-            RatioX = theMeshRenderer.bounds.size.x * size_x;
-            RatioY = theMeshRenderer.bounds.size.y * size_z;
+
+            RatioX = theMeshRenderer.bounds.size.x * (float)size_x;
+            RatioY = theMeshRenderer.bounds.size.y * (float)size_z;
             HalfTileX = theMeshRenderer.bounds.size.x / size_x / 2;
             HalfTileY = theMeshRenderer.bounds.size.y / size_z / 2;
 
