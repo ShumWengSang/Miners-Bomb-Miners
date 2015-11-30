@@ -99,6 +99,7 @@
     <Compile Include="Assets\Scripts\Player\Player.cs" />
     <Compile Include="Assets\Scripts\Scene Controllers\GameSceneController.cs" />
     <Compile Include="Assets\Scripts\Scene Controllers\InformationSceneClick.cs" />
+    <Compile Include="Assets\Scripts\Scene Controllers\RoomController.cs" />
     <Compile Include="Assets\Scripts\Scene Controllers\SelectModeScene.cs" />
     <Compile Include="Assets\Scripts\TileMapMouseTest.cs" />
     <Compile Include="Assets\Scripts\Utility\ChangeFont.cs" />
@@ -107,6 +108,7 @@
     <Compile Include="Assets\Scripts\Utility\MonoBehaviourExtended.cs" />
     <Compile Include="Assets\Scripts\Utility\Singleton.cs" />
     <Compile Include="Assets\Scripts\Utility\Toolbox.cs" />
+    <Compile Include="Assets\Scripts\Utility\UnityInputFieldExtended.cs" />
     <Compile Include="Assets\Scripts\World\Blocks.cs" />
     <Compile Include="Assets\Scripts\World\GenerateMap.cs" />
     <Compile Include="Assets\Scripts\World\IndivBlocks\DirtBlock.cs" />

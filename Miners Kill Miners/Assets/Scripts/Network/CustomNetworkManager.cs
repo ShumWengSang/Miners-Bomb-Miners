@@ -4,11 +4,8 @@ using DarkRift;
 
 namespace Roland
 {
-    public class CustomNetworkManager : MonoBehaviour
+    public class CustomNetworkManager : Singleton<CustomNetworkManager>
     {
-        //The server IP to connect to.
-        public string serverIP = "127.0.0.1";
-
         //The player that we will instantiate when someone joins.
         public GameObject playerObject;
 
@@ -19,19 +16,22 @@ namespace Roland
         void Start()
         {
             theInstance = TileMapInterfacer.Instance.theTileMap;
+        }
+
+        public void Connect(string serverIP)
+        {
             //Connect to the DarkRift Server using the Ip specified (will hang until connected or timeout)
             DarkRiftAPI.Connect(serverIP);
             //Setup a receiver so we can create players when told to.
-            DarkRiftAPI.onDataDetailed += ReceiveData;
-
+            DarkRiftAPI.onDataDetailed += ReceiveData; 
+            
             //Tell others that we've entered the game and to instantiate a player object for us.
             if (DarkRiftAPI.isConnected)
             {
                 //Get everyone else to tell us to spawn them a player (this doesn't need the data field so just put whatever)
-                DarkRiftAPI.SendMessageToOthers(TagIndex.Controller, TagIndex.ControllerSubjects.JoinMessage, "hi");
-                int i = 0;
+                DarkRiftAPI.SendMessageToOthers(NetworkingTags.Controller, NetworkingTags.ControllerSubjects.JoinMessage, "hi");
                 //Then tell them to spawn us a player! (this time the data is the spawn position)
-                DarkRiftAPI.SendMessageToAll(TagIndex.Controller, TagIndex.ControllerSubjects.SpawnPlayer,i);
+                //DarkRiftAPI.SendMessageToAll(TagIndex.Controller, TagIndex.ControllerSubjects.SpawnPlayer,i);
             }
             else
                 Debug.Log("Failed to connect to DarkRift Server!");

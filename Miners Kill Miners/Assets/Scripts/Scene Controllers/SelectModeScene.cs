@@ -33,5 +33,10 @@ namespace Roland
                 //Display the scene that allows the player to select which player he is, or create a new player.
             }
         }
+
+        public void Connect(string ipAddress)
+        {
+            CustomNetworkManager.Instance.Connect(ipAddress);
+        }
     }
 }

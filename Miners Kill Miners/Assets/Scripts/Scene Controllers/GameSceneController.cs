@@ -29,6 +29,8 @@ namespace Roland
         TileMap theTileMap;
         GameObject theObj;
 
+        
+
         void Awake()
         {
             theTileMap = GameObject.Find("TileMap").GetComponent<TileMap>();
@@ -45,6 +47,10 @@ namespace Roland
                 Player genericplayer = theObj.GetComponent<Player>();
                 genericplayer.thePlayerData.CreatePlayerData("Generic Player", 0);
                 CurrentPlayer.Instance.ThePlayer = genericplayer;
+            }
+            else
+            {
+
             }
 
         }

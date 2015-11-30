@@ -16,24 +16,23 @@ public class NetworkManager : MonoBehaviour
 	//A reference to our player
 	Transform player;
 
-	void Start ()
-	{
-		//Connect to the DarkRift Server using the Ip specified (will hang until connected or timeout)
-		DarkRiftAPI.Connect (serverIP);
-		//Setup a receiver so we can create players when told to.
-		DarkRiftAPI.onDataDetailed += ReceiveData;
+    public void Connect()
+    {
+        //Connect to the DarkRift Server using the Ip specified (will hang until connected or timeout)
+        DarkRiftAPI.Connect(serverIP);
+        //Setup a receiver so we can create players when told to.
+        DarkRiftAPI.onDataDetailed += ReceiveData;
 
-		//Tell others that we've entered the game and to instantiate a player object for us.
-		if (DarkRiftAPI.isConnected)
-		{
-			//Get everyone else to tell us to spawn them a player (this doesn't need the data field so just put whatever)
-			DarkRiftAPI.SendMessageToOthers (TagIndex.Controller, TagIndex.ControllerSubjects.JoinMessage, "hi");
-			//Then tell them to spawn us a player! (this time the data is the spawn position)
-			DarkRiftAPI.SendMessageToAll (TagIndex.Controller, TagIndex.ControllerSubjects.SpawnPlayer, new Vector3(0f,0f,0f));
-		}
-		else
-			Debug.Log ("Failed to connect to DarkRift Server!");
-	}
+        if (DarkRiftAPI.isConnected)
+        {
+            //Get everyone else to tell us to spawn them a player (this doesn't need the data field so just put whatever)
+            DarkRiftAPI.SendMessageToOthers(TagIndex.Controller, TagIndex.ControllerSubjects.JoinMessage, "hi");
+            //Then tell them to spawn us a player! (this time the data is the spawn position)
+            DarkRiftAPI.SendMessageToAll(TagIndex.Controller, TagIndex.ControllerSubjects.SpawnPlayer, new Vector3(0f, 0f, 0f));
+        }
+        else
+            Debug.Log("Failed to connect to DarkRift Server!");
+    }
 
 	void OnApplicationQuit ()
 	{
