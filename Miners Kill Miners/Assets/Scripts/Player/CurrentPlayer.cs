@@ -2,15 +2,17 @@
 using System.Collections;
 using System.IO;
 using System.Collections.Generic;
-
+using DarkRift;
 namespace Roland
 {
     public class CurrentPlayer : Singleton<CurrentPlayer>
     {
-        Player theCurrentPlayer = null;
         PlayerDataContainer playerDataColleciton = null;
         bool loaded = false;
         public Dictionary<int, Player> theActivePlayers = new Dictionary<int, Player>();
+        public int OurID;
+        public int AmountOfPlayers = 0;
+
 
         protected CurrentPlayer()
         {
@@ -19,28 +21,20 @@ namespace Roland
                 playerDataColleciton = PlayerDataContainer.Load(Path.Combine(Application.dataPath, "PlayerData.xml"));
                 loaded = true;
             }
+            OurID = DarkRiftAPI.id;
         }
         ~CurrentPlayer()
         {
             //playerDataColleciton.Save(Path.Combine(Application.dataPath, "PlayerData.xml"));
         }
+        public void AddActivePlayer(int id, Player thePlayer)
+        {
+            theActivePlayers.Add(id, thePlayer);
+        }
 
         public Player ThePlayer
         {
-            get { return theCurrentPlayer; }
-            set
-            {
-                theCurrentPlayer = value;
-                if(value.thePlayerData.Name == "Generic Player")
-                {
-                    return;
-                }
-                if(!playerDataColleciton.playerDatas.Contains(value.thePlayerData))
-                {
-                    AddPlayer(value.thePlayerData);
-                }
-                theCurrentPlayer = value;
-            }
+            get { return theActivePlayers[OurID]; }
         }
 
         public PlayerDataContainer GetPlayerDataCollection

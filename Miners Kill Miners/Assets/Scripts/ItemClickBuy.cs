@@ -21,7 +21,8 @@ namespace Roland
                 obj.transform.localPosition = new Vector3(0, -10, 0);
                 numberOfItemText = transform.FindChild(AmountOfItemStringName).GetComponent<Text>();
             }
-            UpdateItemNumber();
+            
+            numberOfItemText.text = 0.ToString();
         }
         
         public void BuyItem()
@@ -34,7 +35,6 @@ namespace Roland
         {
             numberOfItemText.text = numberOfItem_i.ToString();
             CurrentPlayer.Instance.ThePlayer.AmountOfItems[thisItem] = numberOfItem_i;
-            //Debug.Log("I have " + numberOfItem_i + " amount of " + thisItem);
         }
     }
 }

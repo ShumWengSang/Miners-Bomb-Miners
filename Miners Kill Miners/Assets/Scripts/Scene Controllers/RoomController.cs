@@ -23,6 +23,11 @@ namespace Roland
             }
         }
 
+        void OnDestroy()
+        {
+            CurrentPlayer.Instance.AmountOfPlayers = theActivePlayers.Count;
+        }
+
         void Start()
         {
             if(!DarkRiftAPI.isConnected)

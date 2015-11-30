@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Linq;
+using DarkRift;
 
 namespace Roland
 {
@@ -22,9 +23,9 @@ namespace Roland
         public PlayerData thePlayerData;
         public Dictionary<Items_e, int> AmountOfItems = new Dictionary<Items_e, int>();
         public int DigPower = 1;
-        static int totalPlayerids = 0;
         public int speed = 5;
         public int player_id;
+
 
         Vector2 MoveDirection = new Vector2(0, 0);
         Animator theAnimator;
@@ -36,6 +37,8 @@ namespace Roland
 
             EventManager.OnKeyboardButtonDown += OnButtonPressed;
             EventManager.OnMouseButtonDown += OnMouseButtonDown;
+            player_id = DarkRiftAPI.id;
+            
         }
 
         void Start()
