@@ -46,7 +46,7 @@ namespace Roland
 
         void Awake()
         {
-            TileMapInterfacer.Instance.theTileMap = this;
+            TileMapInterfacer.Instance.TileMap = this;
             map = new Map(size_x, size_z);
             theMeshFilter = GetComponent<MeshFilter>();
             theMeshRenderer = GetComponent<MeshRenderer>();

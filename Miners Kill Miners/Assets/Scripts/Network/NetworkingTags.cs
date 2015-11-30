@@ -29,6 +29,7 @@ namespace Roland
             public const int JoinRoom = 0;
             public const int ExitRoom = 1;
             public const int Message = 2;
+            public const int ReplayToJoin = 3;
         }
 
     }

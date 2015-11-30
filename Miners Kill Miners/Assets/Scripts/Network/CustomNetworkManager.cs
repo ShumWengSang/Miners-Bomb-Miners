@@ -15,7 +15,7 @@ namespace Roland
         // Use this for initialization
         void Start()
         {
-            theInstance = TileMapInterfacer.Instance.theTileMap;
+            theInstance = TileMapInterfacer.Instance.TileMap;
         }
 
         public void Connect(string serverIP)
@@ -29,7 +29,7 @@ namespace Roland
             if (DarkRiftAPI.isConnected)
             {
                 //Get everyone else to tell us to spawn them a player (this doesn't need the data field so just put whatever)
-                DarkRiftAPI.SendMessageToOthers(NetworkingTags.Controller, NetworkingTags.ControllerSubjects.JoinMessage, "hi");
+               // DarkRiftAPI.SendMessageToOthers(NetworkingTags.Controller, NetworkingTags.ControllerSubjects.JoinMessage, "hi");
                 //Then tell them to spawn us a player! (this time the data is the spawn position)
                 //DarkRiftAPI.SendMessageToAll(TagIndex.Controller, TagIndex.ControllerSubjects.SpawnPlayer,i);
             }
@@ -39,8 +39,12 @@ namespace Roland
 
         void OnApplicationQuit()
         {
-            DarkRiftAPI.onDataDetailed -= ReceiveData;
-            DarkRiftAPI.Disconnect();
+            if (!DarkRiftAPI.isConnected)
+            {
+                Debug.Log("Disconnectin");
+                DarkRiftAPI.onDataDetailed -= ReceiveData;
+                DarkRiftAPI.Disconnect();
+            }
         }
 
         void ReceiveData(ushort senderID, byte tag, ushort subject, object data)
@@ -51,6 +55,8 @@ namespace Roland
             //stuff like that.
 
             //Ok, if data has a Controller tag then it's for us
+
+            Debug.Log("I receive data.");
             if (tag == NetworkingTags.Controller)
             {
                 //If a player has joined tell them to give us a player

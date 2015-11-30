@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using DarkRift;
+using System.Collections.Generic;
 
 namespace Roland
 {
@@ -10,65 +11,71 @@ namespace Roland
         GameObject[] thePlayerBoxes;
         int currentPlayerCount;
         // Use this for initialization
+        public Dictionary<int, GameObject> theActivePlayers = new Dictionary<int,GameObject>();
+
+        void OnApplicationQuit()
+        {
+            if (DarkRiftAPI.isConnected)
+            {
+                Debug.Log("Disconnectin from room");
+                DarkRiftAPI.onDataDetailed -= ReceiveData;
+                DarkRiftAPI.Disconnect();
+            }
+        }
+
         void Start()
         {
-            DarkRiftAPI.onData += ReceiveData; 
+            if(!DarkRiftAPI.isConnected)
+            {
+                CustomNetworkManager.Instance.Connect("127.0.0.1");
+            }
+            DarkRiftAPI.onDataDetailed += ReceiveData;
             currentPlayerCount = 0;
-            for (int i = 0; i < thePlayerBoxesParent.child; i++)
+            thePlayerBoxes = new GameObject[thePlayerBoxesParent.childCount];
+            for (int i = 0; i < thePlayerBoxesParent.childCount; i++)
             {
                 thePlayerBoxes[i] = thePlayerBoxesParent.GetChild(i).gameObject;
                 thePlayerBoxes[i].SetActive(false);
             }
-
             DarkRiftAPI.SendMessageToAll(NetworkingTags.Room, NetworkingTags.RoomSubjects.JoinRoom, "");
         }
         
-        public int AddPlayer()
+        public int AddPlayer(int id)
         {
-            if(currentPlayerCount > thePlayerBoxesParent.childCount )
+            if (!theActivePlayers.ContainsKey(id))
             {
-                return -1;
+
+                thePlayerBoxes[currentPlayerCount].SetActive(true);
+                theActivePlayers.Add(id, thePlayerBoxes[currentPlayerCount]);
+                return currentPlayerCount++;
             }
-            thePlayerBoxes[currentPlayerCount].SetActive(true);
-            return currentPlayerCount++;
+            return -1;
         }
 
         public void RemovePlayer(int i)
         {
-            if(i >= 0 && i < thePlayerBoxesParent.childCount)
-            {
-                thePlayerBoxes[currentPlayerCount].SetActive(false);
-            }
+            theActivePlayers[i].SetActive(false);
+            theActivePlayers.Remove(i);
         }
 
-        void ReceiveData(byte tag, ushort subject, object data)
+        void ReceiveData(ushort senderID, byte tag, ushort subject, object data)
         {
+            Debug.Log("receiving data");
             if(tag == NetworkingTags.Room)
             {
                 if(subject == NetworkingTags.RoomSubjects.JoinRoom)
                 {
-                    AddPlayer();
+                    AddPlayer(senderID);
+                    DarkRiftAPI.SendMessageToID(senderID, NetworkingTags.Room, NetworkingTags.RoomSubjects.ReplayToJoin, "");
                 }
                 else if(subject == NetworkingTags.RoomSubjects.ExitRoom)
                 {
-                    RemovePlayer(currentPlayerCount - 1);
+                    RemovePlayer(senderID);
                 }
-            }
-        }
-
-        bool down1 = false;
-        bool down2 = false;
-        void Update()
-        {
-            if(Input.GetKeyDown(KeyCode.P) && !down1)
-            {
-                down1 = true;
-                AddPlayer();
-            }
-            if(Input.GetKeyDown(KeyCode.O) && !down2)
-            {
-                down2 = true;
-                RemovePlayer(currentPlayerCount - 1);
+                else if(subject == NetworkingTags.RoomSubjects.ReplayToJoin)
+                {
+                    AddPlayer(senderID);
+                }
             }
         }
     }

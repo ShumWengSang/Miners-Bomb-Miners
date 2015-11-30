@@ -12,6 +12,11 @@ namespace Roland
         {
             inputField = this.GetComponent<InputField>();
             selectmodescene = GameObject.Find("SelectMode").GetComponent<SelectModeScene>();
+            if(selectmodescene == null)
+            {
+                Debug.Log("Its null");
+            }
+            
         }
 
         void Update()

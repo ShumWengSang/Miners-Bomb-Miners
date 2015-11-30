@@ -5,7 +5,19 @@ namespace Roland
 {
     public class TileMapInterfacer : Singleton<TileMapInterfacer>
     {
-        public TileMap theTileMap;
+        private TileMap theTileMap;
         protected TileMapInterfacer() { }
+
+        public TileMap TileMap
+        {
+            get { return theTileMap; }
+            set
+            {
+                if (value is TileMap)
+                {
+                    theTileMap = value;
+                }
+            }
+        }
     }
 }

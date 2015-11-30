@@ -17,21 +17,20 @@ namespace Roland
     public class Player : MonoBehaviour
     {
         public bool isControllable;
-        int player_id;
+        
         TileMap theTileMap;
         public PlayerData thePlayerData;
         public Dictionary<Items_e, int> AmountOfItems = new Dictionary<Items_e, int>();
         public int DigPower = 1;
         static int totalPlayerids = 0;
         public int speed = 5;
+        public int player_id;
 
         Vector2 MoveDirection = new Vector2(0, 0);
         Animator theAnimator;
         void Awake()
         {
             theAnimator = GetComponent<Animator>();
-            player_id = totalPlayerids;
-            totalPlayerids++;
             InitializePlayer();
             thePlayerData = new PlayerData();
 

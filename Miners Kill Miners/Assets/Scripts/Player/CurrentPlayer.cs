@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.IO;
+using System.Collections.Generic;
 
 namespace Roland
 {
@@ -9,6 +10,8 @@ namespace Roland
         Player theCurrentPlayer = null;
         PlayerDataContainer playerDataColleciton = null;
         bool loaded = false;
+        public Dictionary<int, Player> theActivePlayers = new Dictionary<int, Player>();
+
         protected CurrentPlayer()
         {
             if (!loaded)
@@ -90,6 +93,5 @@ namespace Roland
                 loaded = true;
             }
         }
-
     }
 }
