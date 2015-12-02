@@ -23,7 +23,7 @@ namespace Roland
             }
         }
 
-        void OnDestroy()
+        public void GiveAmountOfPlayers()
         {
             CurrentPlayer.Instance.AmountOfPlayers = theActivePlayers.Count;
         }
@@ -43,6 +43,7 @@ namespace Roland
                 thePlayerBoxes[i].SetActive(false);
             }
             DarkRiftAPI.SendMessageToAll(NetworkingTags.Room, NetworkingTags.RoomSubjects.JoinRoom, "");
+            DarkRiftAPI.SendMessageToServer(NetworkingTags.Server, NetworkingTags.ServerSubjects.ChangeStateToRoom, "");
         }
         
         public int AddPlayer(int id)
@@ -65,7 +66,6 @@ namespace Roland
 
         void ReceiveData(ushort senderID, byte tag, ushort subject, object data)
         {
-            Debug.Log("receiving data");
             if(tag == NetworkingTags.Room)
             {
                 if(subject == NetworkingTags.RoomSubjects.JoinRoom)

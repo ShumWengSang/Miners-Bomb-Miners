@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
-
+using DarkRift;
 namespace Roland
 {
 
@@ -15,6 +15,8 @@ namespace Roland
 
         GameSceneController theSceneController;
 
+        int client_id;
+
         void Awake()
         {
             theSceneController = GetComponent<GameSceneController>();
@@ -22,7 +24,7 @@ namespace Roland
         // Use this for initialization
         void Start()
         {
-
+            client_id = DarkRiftAPI.id;
         }
 
         void Update()
@@ -32,22 +34,22 @@ namespace Roland
                 if (Input.GetKeyDown(KeyCode.W))
                 {
                     //up
-                    OnKeyboardButtonDown(Direction.Up, 0);
+                    OnKeyboardButtonDown(Direction.Up, client_id);
                 }
                 else if (Input.GetKeyDown(KeyCode.A))
                 {
                     //left
-                    OnKeyboardButtonDown(Direction.Left, 0);
+                    OnKeyboardButtonDown(Direction.Left, client_id);
                 }
                 else if (Input.GetKeyDown(KeyCode.S))
                 {
                     //down
-                    OnKeyboardButtonDown(Direction.Down, 0);
+                    OnKeyboardButtonDown(Direction.Down, client_id);
                 }
                 else if (Input.GetKeyDown(KeyCode.D))
                 {
                     //right
-                    OnKeyboardButtonDown(Direction.Right, 0);
+                    OnKeyboardButtonDown(Direction.Right, client_id);
                 }
 
                 if (Input.GetMouseButtonDown(0))
@@ -55,7 +57,7 @@ namespace Roland
                     if (!LeftMouseDown)
                     {
                         LeftMouseDown = true;
-                        OnMouseButtonDown(0, 0, Items_e.SmallBomb);
+                        OnMouseButtonDown(0, client_id, Items_e.SmallBomb);
                     }
                 }
                 if (Input.GetMouseButtonUp(0))

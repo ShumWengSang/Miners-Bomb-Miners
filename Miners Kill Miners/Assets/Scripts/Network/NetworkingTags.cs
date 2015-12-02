@@ -22,6 +22,8 @@ namespace Roland
             public const int SpawnPlayer = 1;			
             public const int PlacePlayer = 2;
             public const int CleanNumber = 3;
+            public const int ReadyToStartGame = 4;
+            public const int ReplyToJoin = 5;
         }
 
         public class RoomSubjects
@@ -30,7 +32,14 @@ namespace Roland
             public const int ExitRoom = 1;
             public const int Message = 2;
             public const int ReplayToJoin = 3;
+            public const int ReadyToMoveToGameScene = 4;
         }
 
+        public class ServerSubjects
+        {
+            public const int GetRandomSpawn = 0;
+            public const int ChangeStateToRoom = 1;
+            public const int ChangeStateToGame = 2;
+        }
     }
 }

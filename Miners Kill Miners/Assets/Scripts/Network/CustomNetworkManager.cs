@@ -25,7 +25,7 @@ namespace Roland
 
         void OnApplicationQuit()
         {
-            if (!DarkRiftAPI.isConnected)
+            if (DarkRiftAPI.isConnected)
             {
                 Debug.Log("Disconnectin");
                 DarkRiftAPI.Disconnect();

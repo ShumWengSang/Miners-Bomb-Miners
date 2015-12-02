@@ -12,12 +12,21 @@ namespace Roland
         Right,
         Stop
     }
+
+    [System.Serializable]
+    struct intHolder
+    {
+        public int data;
+    }
+
     public class GameSceneController : MonoBehaviour
     {
         ChangeScenes changeScene = null;
         public bool Sandbox = false;
         public bool GameHasStarted = false;
         public float timeToWaitToStart = 5;
+
+        int PlayerReady;
 
         WaitForSeconds waitForTimer;
         public Text TimerCountDownText;
@@ -29,11 +38,14 @@ namespace Roland
         TileMap theTileMap;
         GameObject theObj;
 
-        Transform OurPlayerTransform;
-        
+        public GameObject ReadyText;
+        public GameObject Game;
+        public GameObject Shop;
 
+        int Spawn_id;
         void Awake()
         {
+            PlayerReady = 0;
             theTileMap = TileMapInterfacer.Instance.TileMap;
             changeScene = GetGlobalObject.FindAndGetComponent<ChangeScenes>(this.gameObject, "Global");
             waitForTimer = new WaitForSeconds(1);
@@ -53,7 +65,7 @@ namespace Roland
 
         void Start()
         {
-            
+            CurrentPlayer.Instance.AmountOfPlayers = 0;
             if (Sandbox == true)
             {
                 theObj.transform.position = theTileMap.ConvertTileToWorld(new Vector2(1, 1));
@@ -65,7 +77,9 @@ namespace Roland
                     CustomNetworkManager.Instance.Connect("127.0.0.1");
                 }
                 DarkRiftAPI.SendMessageToAll(NetworkingTags.Controller, NetworkingTags.ControllerSubjects.JoinMessage, "hi");
-                DarkRiftAPI.SendMessageToAll(TagIndex.Controller, TagIndex.ControllerSubjects.SpawnPlayer, "");
+                DarkRiftAPI.SendMessageToOthers(NetworkingTags.Controller, NetworkingTags.ControllerSubjects.SpawnPlayer, "");
+                DarkRiftAPI.SendMessageToServer(NetworkingTags.Server, NetworkingTags.ServerSubjects.GetRandomSpawn, "");
+                DarkRiftAPI.SendMessageToServer(NetworkingTags.Server, NetworkingTags.ServerSubjects.ChangeStateToGame, "");
                 DarkRiftAPI.onDataDetailed += ReceiveData;
             }
         }
@@ -75,14 +89,32 @@ namespace Roland
             changeScene.LoadScene(newScene);
         }
 
+        
 
         public void StartTimer()
         {
+            ReadyText.SetActive(true);
             StartCoroutine(StartCountdown());
+        }
+
+        IEnumerator WaitForOtherPlayers()
+        {
+            //send we are ready.
+            DarkRiftAPI.SendMessageToAll(NetworkingTags.Controller, NetworkingTags.ControllerSubjects.ReadyToStartGame, "");
+            if(DarkRiftAPI.isConnected)
+            {
+                Debug.Log("Amount of ready is " + PlayerReady + " Amount of players is" + CurrentPlayer.Instance.AmountOfPlayers);
+                while(PlayerReady < CurrentPlayer.Instance.AmountOfPlayers)
+                {
+                    yield return null;
+                }
+                Debug.Log("I'm through");
+            }
         }
 
         IEnumerator StartCountdown()
         {
+            yield return StartCoroutine(WaitForOtherPlayers());
             for (int i = 0; i < timeToWaitToStart; i++)
             {
                 TimerCountDownText.text = (timeToWaitToStart - i).ToString();
@@ -90,6 +122,8 @@ namespace Roland
             }
             GameHasStarted = true;
             TimerCountDownText.gameObject.SetActive(false);
+            Shop.SetActive(false);
+            Game.SetActive(true);
         }
 
         void ReceiveData(ushort senderID, byte tag, ushort subject, object data)
@@ -100,22 +134,21 @@ namespace Roland
             //stuff like that.
 
             //Ok, if data has a Controller tag then it's for us
-
-            Debug.Log("I receive data.");
+            
             if (tag == NetworkingTags.Controller)
             {
                 //If a player has joined tell them to give us a player
+                //Also internally increase the amount of players.
                 if (subject == NetworkingTags.ControllerSubjects.JoinMessage)
                 {
-                    //Basically reply to them.
-                    int a = 1;
-                    DarkRiftAPI.SendMessageToID(senderID, NetworkingTags.Controller, NetworkingTags.ControllerSubjects.SpawnPlayer, a);
+                    CurrentPlayer.Instance.AmountOfPlayers++;
+                    DarkRiftAPI.SendMessageToID(senderID, NetworkingTags.Controller, NetworkingTags.ControllerSubjects.SpawnPlayer, "");
+                    if(senderID != DarkRiftAPI.id)
+                        DarkRiftAPI.SendMessageToID(senderID, NetworkingTags.Controller, NetworkingTags.ControllerSubjects.ReplyToJoin, "");
                 }
 
-                if (subject == NetworkingTags.ControllerSubjects.SpawnPlayer)
+                else if (subject == NetworkingTags.ControllerSubjects.SpawnPlayer)
                 {
-                    int Spawn_id = (int)data;
-
                     Vector2 SpawnTile = new Vector2(0, 0);
                     switch (Spawn_id)
                     {
@@ -135,17 +168,27 @@ namespace Roland
                             Debug.LogError("Not associated spawn_id. " + Spawn_id);
                             break;
                     }
+                    Debug.Log("I'm spawning player at tile " + SpawnTile);
                     //Instantiate the player
                     GameObject clone = (GameObject)Instantiate(PlayerPrefab, theTileMap.ConvertTileToWorld(SpawnTile), Quaternion.identity);
 
                     CurrentPlayer.Instance.AddActivePlayer(senderID, clone.GetComponent<Player>());
+                }
+                else if (subject == NetworkingTags.ControllerSubjects.ReadyToStartGame)
+                {
+                    PlayerReady++;
+                }
+                else if(subject == NetworkingTags.ControllerSubjects.ReplyToJoin)
+                {
+                    CurrentPlayer.Instance.AmountOfPlayers++;
 
-                    //If it's our player being created allow control and set the reference
-                    if (senderID == DarkRiftAPI.id)
-                    {
-                        clone.GetComponent<Player>().isControllable = true;
-                        OurPlayerTransform = clone.transform;
-                    }
+                }
+            }
+            else if(tag == NetworkingTags.Server)
+            {
+                if(subject == NetworkingTags.ServerSubjects.GetRandomSpawn)
+                {
+                    Spawn_id = (int)data;
                 }
             }
         }

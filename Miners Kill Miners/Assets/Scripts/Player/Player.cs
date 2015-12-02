@@ -37,7 +37,7 @@ namespace Roland
 
             EventManager.OnKeyboardButtonDown += OnButtonPressed;
             EventManager.OnMouseButtonDown += OnMouseButtonDown;
-            player_id = DarkRiftAPI.id;
+
             
         }
 
@@ -48,6 +48,7 @@ namespace Roland
             {
                 Debug.LogWarning("Tile Map not found! Error!");
             }
+            player_id = DarkRiftAPI.id;
         }
         void OnDestroy()
         {
