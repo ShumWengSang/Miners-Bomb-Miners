@@ -31,5 +31,14 @@ namespace Roland
                 DarkRiftAPI.Disconnect();
             }
         }
+
+        void OnDestroy()
+        {
+            if (DarkRiftAPI.isConnected)
+            {
+                Debug.Log("Disconnectin");
+                DarkRiftAPI.Disconnect();
+            }
+        }
     }
 }

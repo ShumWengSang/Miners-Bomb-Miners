@@ -9,11 +9,14 @@ namespace Roland
         public const int PlayerUpdate = 1;		//For player changeing things like change of animation/position/rotation etc
         public const int Server = 2;
         public const int Room = 3;
+        public const int Events = 4;
 
         public class EventSubjects
         {
             public const int KeyboardEvent = 0;		//Move the player to (Vector3)Data
-            public const int MouseEvent = 1;		//Send place item events.
+            public const int leftMouseButton = 1;
+            public const int rightMouseButton = 2;
+            
         }
 
         public class ControllerSubjects

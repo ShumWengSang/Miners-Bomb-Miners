@@ -29,6 +29,7 @@ namespace Roland
 
         Vector2 MoveDirection = new Vector2(0, 0);
         Animator theAnimator;
+        Transform ourTransform;
         void Awake()
         {
             theAnimator = GetComponent<Animator>();
@@ -37,7 +38,7 @@ namespace Roland
 
             EventManager.OnKeyboardButtonDown += OnButtonPressed;
             EventManager.OnMouseButtonDown += OnMouseButtonDown;
-
+            ourTransform = this.transform;
             
         }
 
@@ -48,7 +49,6 @@ namespace Roland
             {
                 Debug.LogWarning("Tile Map not found! Error!");
             }
-            player_id = DarkRiftAPI.id;
         }
         void OnDestroy()
         {
@@ -66,14 +66,17 @@ namespace Roland
         }
 
         void Update()
-        {
+        {        
+           // ourTransform.position = theTileMap.ConvertWorldToTile(ourTransform.position);
             Vector2 CheckNextPosition = MoveDirection + theTileMap.ConvertWorldToTile(transform.position);
+            
            // Debug.Log("Our tile pos is " + theTileMap.ConvertWorldToTile(transform.position));
             Block theNextBlock = theTileMap.theMap.GetTileAt(CheckNextPosition);
+
             if (theNextBlock is Noblock)
             {
                 //Debug.Log("Changing transform and move direction is" + MoveDirection);
-                transform.localPosition += new Vector3(MoveDirection.x, MoveDirection.y, 0) * Time.deltaTime * speed;
+                ourTransform.localPosition += new Vector3(MoveDirection.x, MoveDirection.y, 0) * Time.deltaTime * speed;
             }
             else
             {
@@ -97,6 +100,8 @@ namespace Roland
                 }
             }
         }
+
+        
 
         public void OnButtonPressed(Direction theDirection, int id)
         {

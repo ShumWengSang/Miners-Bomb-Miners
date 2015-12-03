@@ -2,11 +2,12 @@
 using System.Collections;
 using UnityEngine.UI;
 using DarkRift;
+using System.Collections.Generic;
 namespace Roland
 {
     public enum Direction
     {
-        Up,
+        Up = 0,
         Down,
         Left,
         Right,
@@ -32,7 +33,7 @@ namespace Roland
         public Text TimerCountDownText;
         public GameObject PlayerPrefab;
 
-        Vector3 currentTileCoord;
+        bool SpawnedAllPlayers = false;
 
         //temp
         TileMap theTileMap;
@@ -41,6 +42,8 @@ namespace Roland
         public GameObject ReadyText;
         public GameObject Game;
         public GameObject Shop;
+
+        Dictionary<int, int> theListOfSpawns;
 
         int Spawn_id;
         void Awake()
@@ -77,8 +80,7 @@ namespace Roland
                     CustomNetworkManager.Instance.Connect("127.0.0.1");
                 }
                 DarkRiftAPI.SendMessageToAll(NetworkingTags.Controller, NetworkingTags.ControllerSubjects.JoinMessage, "hi");
-                DarkRiftAPI.SendMessageToOthers(NetworkingTags.Controller, NetworkingTags.ControllerSubjects.SpawnPlayer, "");
-                DarkRiftAPI.SendMessageToServer(NetworkingTags.Server, NetworkingTags.ServerSubjects.GetRandomSpawn, "");
+               // DarkRiftAPI.SendMessageToOthers(NetworkingTags.Controller, NetworkingTags.ControllerSubjects.SpawnPlayer, "");
                 DarkRiftAPI.SendMessageToServer(NetworkingTags.Server, NetworkingTags.ServerSubjects.ChangeStateToGame, "");
                 DarkRiftAPI.onDataDetailed += ReceiveData;
             }
@@ -101,10 +103,11 @@ namespace Roland
         {
             //send we are ready.
             DarkRiftAPI.SendMessageToAll(NetworkingTags.Controller, NetworkingTags.ControllerSubjects.ReadyToStartGame, "");
+            DarkRiftAPI.SendMessageToServer(NetworkingTags.Server, NetworkingTags.ServerSubjects.GetRandomSpawn, "");
             if(DarkRiftAPI.isConnected)
             {
                 Debug.Log("Amount of ready is " + PlayerReady + " Amount of players is" + CurrentPlayer.Instance.AmountOfPlayers);
-                while(PlayerReady < CurrentPlayer.Instance.AmountOfPlayers)
+                while (PlayerReady < CurrentPlayer.Instance.AmountOfPlayers || !SpawnedAllPlayers)
                 {
                     yield return null;
                 }
@@ -141,38 +144,47 @@ namespace Roland
                 //Also internally increase the amount of players.
                 if (subject == NetworkingTags.ControllerSubjects.JoinMessage)
                 {
-                    CurrentPlayer.Instance.AmountOfPlayers++;
-                    DarkRiftAPI.SendMessageToID(senderID, NetworkingTags.Controller, NetworkingTags.ControllerSubjects.SpawnPlayer, "");
+                    CurrentPlayer.Instance.AmountOfPlayers++;              
                     if(senderID != DarkRiftAPI.id)
                         DarkRiftAPI.SendMessageToID(senderID, NetworkingTags.Controller, NetworkingTags.ControllerSubjects.ReplyToJoin, "");
+
                 }
 
                 else if (subject == NetworkingTags.ControllerSubjects.SpawnPlayer)
                 {
-                    Vector2 SpawnTile = new Vector2(0, 0);
-                    switch (Spawn_id)
+                    //THIS IS ONLY FROM THE SERVER. CHANGE IS BECAUSE OF NEED TO CHANGE FROM 
+                    //FAILED THOUGHT IDEA. WE SHOULD ONLY GET THIS ONCE
+                    foreach (KeyValuePair<int, int> entry in theListOfSpawns)
                     {
-                        case 1:
-                            SpawnTile = new Vector2(1, 1);
-                            break;
-                        case 2:
-                            SpawnTile = new Vector2(theTileMap.size_x - 2, theTileMap.size_z - 2);
-                            break;
-                        case 3:
-                            SpawnTile = new Vector2(theTileMap.size_x - 2, 1);
-                            break;
-                        case 4:
-                            SpawnTile = new Vector2(1, theTileMap.size_z - 2);
-                            break;
-                        default:
-                            Debug.LogError("Not associated spawn_id. " + Spawn_id);
-                            break;
+                        int spawnPoint = entry.Value;
+                        Vector2 SpawnTile = new Vector2(0, 0);
+                        switch (spawnPoint)
+                        {
+                            case 1:
+                                SpawnTile = new Vector2(1, 1);
+                                break;
+                            case 2:
+                                SpawnTile = new Vector2(theTileMap.size_x - 2, theTileMap.size_z - 2);
+                                break;
+                            case 3:
+                                SpawnTile = new Vector2(theTileMap.size_x - 2, 1);
+                                break;
+                            case 4:
+                                SpawnTile = new Vector2(1, theTileMap.size_z - 2);
+                                break;
+                            default:
+                                Debug.LogError("Not associated spawn_id. " + Spawn_id);
+                                break;
+                        }
+                        Debug.Log("I'm spawning player at tile " + entry.Value);
+                        //Instantiate the player
+                        GameObject clone = (GameObject)Instantiate(PlayerPrefab, theTileMap.ConvertTileToWorld(SpawnTile), Quaternion.identity);
+                        Player thePlayer = clone.GetComponent<Player>();
+                        Debug.Log("Data is " + data);
+                        thePlayer.player_id = (ushort)entry.Key;
+                        CurrentPlayer.Instance.AddActivePlayer(entry.Key, thePlayer);
                     }
-                    Debug.Log("I'm spawning player at tile " + SpawnTile);
-                    //Instantiate the player
-                    GameObject clone = (GameObject)Instantiate(PlayerPrefab, theTileMap.ConvertTileToWorld(SpawnTile), Quaternion.identity);
-
-                    CurrentPlayer.Instance.AddActivePlayer(senderID, clone.GetComponent<Player>());
+                    SpawnedAllPlayers = true;
                 }
                 else if (subject == NetworkingTags.ControllerSubjects.ReadyToStartGame)
                 {
@@ -188,7 +200,7 @@ namespace Roland
             {
                 if(subject == NetworkingTags.ServerSubjects.GetRandomSpawn)
                 {
-                    Spawn_id = (int)data;
+                    theListOfSpawns = (Dictionary<int, int>)data;
                 }
             }
         }
