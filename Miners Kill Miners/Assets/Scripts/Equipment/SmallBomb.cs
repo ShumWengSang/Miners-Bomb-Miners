@@ -6,6 +6,7 @@ namespace Roland
     public class SmallBomb : MonoBehaviour
     {
         public int TimeToExplode = 2;
+        public Player ParentPlayer = null;
         int currentTime;
         WaitForSeconds WaitTillExplode;
         TileMap theTileMap;
@@ -20,6 +21,9 @@ namespace Roland
             SetTilePos((int)tilePos.x, (int)tilePos.y);
             transform.position = theTileMap.ConvertTileToWorld(tilePos);
             StartCoroutine(CountDown());
+
+          //  InvisibleWallBlock
+            theTileMap.theMap.SetTileAt(new Vector2(x, y), new InvisibleWallBlock());
         }
 
         IEnumerator CountDown()
@@ -36,10 +40,12 @@ namespace Roland
         void Explode()
         {
             Debug.Log("Explode");
-            theTileMap.DigTile(x + 1, y, 100);
-            theTileMap.DigTile(x - 1, y, 100);
-            theTileMap.DigTile(x, y + 1, 100);
-            theTileMap.DigTile(x, y - 1, 100);
+            theTileMap.DigTile(x + 1, y, 100, "Explosion");
+            theTileMap.DigTile(x - 1, y, 100, "Explosion");
+            theTileMap.DigTile(x, y + 1, 100, "Explosion");
+            theTileMap.DigTile(x, y - 1, 100, "Explosion");
+            ObjectSpawner.SpawnObject("Explosion", new Vector2(x, y));
+            theTileMap.theMap.SetTileAt(new Vector2(x, y), new Noblock());
             DestroyObject(this.gameObject);
         }
     }

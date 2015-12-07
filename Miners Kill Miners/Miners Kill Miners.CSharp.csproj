@@ -90,6 +90,8 @@
     <Compile Include="Assets\DarkRift\PlayerDemo\Player.cs" />
     <Compile Include="Assets\DarkRift\PlayerDemo\TagIndex.cs" />
     <Compile Include="Assets\Scripts\ChangeScenes.cs" />
+    <Compile Include="Assets\Scripts\Equipment\DamagePlayer.cs" />
+    <Compile Include="Assets\Scripts\Equipment\Explosion.cs" />
     <Compile Include="Assets\Scripts\Equipment\SmallBomb.cs" />
     <Compile Include="Assets\Scripts\ItemClickBuy.cs" />
     <Compile Include="Assets\Scripts\Network\CustomNetworkManager.cs" />
@@ -106,12 +108,14 @@
     <Compile Include="Assets\Scripts\Utility\EventManager.cs" />
     <Compile Include="Assets\Scripts\Utility\GetGlobalObject.cs" />
     <Compile Include="Assets\Scripts\Utility\MonoBehaviourExtended.cs" />
+    <Compile Include="Assets\Scripts\Utility\ObjectSpawner.cs" />
     <Compile Include="Assets\Scripts\Utility\Singleton.cs" />
     <Compile Include="Assets\Scripts\Utility\Toolbox.cs" />
     <Compile Include="Assets\Scripts\Utility\UnityInputFieldExtended.cs" />
     <Compile Include="Assets\Scripts\World\Blocks.cs" />
     <Compile Include="Assets\Scripts\World\GenerateMap.cs" />
     <Compile Include="Assets\Scripts\World\IndivBlocks\DirtBlock.cs" />
+    <Compile Include="Assets\Scripts\World\IndivBlocks\InvisibleWallBlock.cs" />
     <Compile Include="Assets\Scripts\World\IndivBlocks\Noblock.cs" />
     <Compile Include="Assets\Scripts\World\IndivBlocks\WallBlock.cs" />
     <Compile Include="Assets\Scripts\World\Map.cs" />

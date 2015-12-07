@@ -32,6 +32,7 @@ namespace Roland
         WaitForSeconds waitForTimer;
         public Text TimerCountDownText;
         public GameObject PlayerPrefab;
+        public Text WinLose;
 
         bool SpawnedAllPlayers = false;
 
@@ -80,9 +81,9 @@ namespace Roland
                     CustomNetworkManager.Instance.Connect("127.0.0.1");
                 }
                 DarkRiftAPI.SendMessageToAll(NetworkingTags.Controller, NetworkingTags.ControllerSubjects.JoinMessage, "hi");
-               // DarkRiftAPI.SendMessageToOthers(NetworkingTags.Controller, NetworkingTags.ControllerSubjects.SpawnPlayer, "");
                 DarkRiftAPI.SendMessageToServer(NetworkingTags.Server, NetworkingTags.ServerSubjects.ChangeStateToGame, "");
                 DarkRiftAPI.onDataDetailed += ReceiveData;
+
             }
         }
 
@@ -102,22 +103,29 @@ namespace Roland
         IEnumerator WaitForOtherPlayers()
         {
             //send we are ready.
-            DarkRiftAPI.SendMessageToAll(NetworkingTags.Controller, NetworkingTags.ControllerSubjects.ReadyToStartGame, "");
-            DarkRiftAPI.SendMessageToServer(NetworkingTags.Server, NetworkingTags.ServerSubjects.GetRandomSpawn, "");
-            if(DarkRiftAPI.isConnected)
+            if (DarkRiftAPI.isConnected)
             {
-                Debug.Log("Amount of ready is " + PlayerReady + " Amount of players is" + CurrentPlayer.Instance.AmountOfPlayers);
+                DarkRiftAPI.SendMessageToAll(NetworkingTags.Controller, NetworkingTags.ControllerSubjects.ReadyToStartGame, "");
+                DarkRiftAPI.SendMessageToServer(NetworkingTags.Server, NetworkingTags.ServerSubjects.GetRandomSpawn, "");
                 while (PlayerReady < CurrentPlayer.Instance.AmountOfPlayers || !SpawnedAllPlayers)
                 {
                     yield return null;
                 }
-                Debug.Log("I'm through");
             }
+        }
+
+        void updatePlayerItems()
+        {
+            CurrentPlayer.Instance.ThePlayer.UpdateItems();
         }
 
         IEnumerator StartCountdown()
         {
+
             yield return StartCoroutine(WaitForOtherPlayers());
+            Game.SetActive(true);
+            Shop.SetActive(false);
+            updatePlayerItems();
             for (int i = 0; i < timeToWaitToStart; i++)
             {
                 TimerCountDownText.text = (timeToWaitToStart - i).ToString();
@@ -125,8 +133,7 @@ namespace Roland
             }
             GameHasStarted = true;
             TimerCountDownText.gameObject.SetActive(false);
-            Shop.SetActive(false);
-            Game.SetActive(true);
+
         }
 
         void ReceiveData(ushort senderID, byte tag, ushort subject, object data)
@@ -176,14 +183,14 @@ namespace Roland
                                 Debug.LogError("Not associated spawn_id. " + Spawn_id);
                                 break;
                         }
-                        Debug.Log("I'm spawning player at tile " + entry.Value);
                         //Instantiate the player
                         GameObject clone = (GameObject)Instantiate(PlayerPrefab, theTileMap.ConvertTileToWorld(SpawnTile), Quaternion.identity);
                         Player thePlayer = clone.GetComponent<Player>();
-                        Debug.Log("Data is " + data);
                         thePlayer.player_id = (ushort)entry.Key;
+                        thePlayer.theController = this;
                         CurrentPlayer.Instance.AddActivePlayer(entry.Key, thePlayer);
                     }
+                    CurrentPlayer.Instance.ThePlayer.AmountOfItems = CurrentPlayer.Instance.AmountOfItems;
                     SpawnedAllPlayers = true;
                 }
                 else if (subject == NetworkingTags.ControllerSubjects.ReadyToStartGame)
@@ -193,7 +200,11 @@ namespace Roland
                 else if(subject == NetworkingTags.ControllerSubjects.ReplyToJoin)
                 {
                     CurrentPlayer.Instance.AmountOfPlayers++;
-
+                }
+                else if (subject == NetworkingTags.ControllerSubjects.YouWin)
+                {
+                    Debug.Log("here");
+                    CheckWinLose(true);
                 }
             }
             else if(tag == NetworkingTags.Server)
@@ -204,6 +215,20 @@ namespace Roland
                 }
             }
         }
-    }
 
+        public void CheckWinLose(bool win)
+        {
+            if(win)
+            {
+                WinLose.text = "YOU WIN";
+            }
+            else
+            {
+                DarkRiftAPI.SendMessageToServer(NetworkingTags.Server, NetworkingTags.ServerSubjects.ILose, "");
+                WinLose.text = "YOU LOSE";
+            }
+           
+            WinLose.gameObject.SetActive(true);
+        }
+    }
 }

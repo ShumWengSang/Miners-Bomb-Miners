@@ -27,6 +27,13 @@ namespace Roland
             DarkRiftAPI.onDataDetailed += ReceiveData;
         }
 
+        void SendEventKeyboardDown(Direction theDir)
+        {
+            OnKeyboardButtonDown(theDir, client_id);
+            if(DarkRiftAPI.isConnected)
+                DarkRiftAPI.SendMessageToOthers(NetworkingTags.Events, NetworkingTags.EventSubjects.KeyboardEvent, theDir);
+        }
+
         void Update()
         {
             if (theSceneController.GameHasStarted)
@@ -34,37 +41,39 @@ namespace Roland
                 if (Input.GetKeyDown(KeyCode.W))
                 {
                     //up
-                    OnKeyboardButtonDown(Direction.Up, client_id);
-                    DarkRiftAPI.SendMessageToOthers(NetworkingTags.Events, NetworkingTags.EventSubjects.KeyboardEvent, Direction.Up);
+                    SendEventKeyboardDown(Direction.Up);
                 }
                 else if (Input.GetKeyDown(KeyCode.A))
                 {
                     //left
-                    OnKeyboardButtonDown(Direction.Left, client_id);
-                    DarkRiftAPI.SendMessageToOthers(NetworkingTags.Events, NetworkingTags.EventSubjects.KeyboardEvent, Direction.Left);
+                    SendEventKeyboardDown(Direction.Left);
+                   
                 }
                 else if (Input.GetKeyDown(KeyCode.S))
                 {
                     //down
-                    OnKeyboardButtonDown(Direction.Down, client_id);
-                    DarkRiftAPI.SendMessageToOthers(NetworkingTags.Events, NetworkingTags.EventSubjects.KeyboardEvent, Direction.Down);
+                    SendEventKeyboardDown(Direction.Down);
                 }
                 else if (Input.GetKeyDown(KeyCode.D))
                 {
                     //right
-                    OnKeyboardButtonDown(Direction.Right, client_id);
-                    DarkRiftAPI.SendMessageToOthers(NetworkingTags.Events, NetworkingTags.EventSubjects.KeyboardEvent, Direction.Right);
+                    SendEventKeyboardDown(Direction.Right);
                 }
 
                 if (Input.GetMouseButtonDown(0))
                 {
                     OnMouseButtonDown(0, client_id, Items_e.SmallBomb);
-                    DarkRiftAPI.SendMessageToOthers(NetworkingTags.Events, NetworkingTags.EventSubjects.leftMouseButton, Items_e.SmallBomb);
+                    if (DarkRiftAPI.isConnected)
+                    {
+                        Debug.Log("sending");
+                        DarkRiftAPI.SendMessageToOthers(NetworkingTags.Events, NetworkingTags.EventSubjects.leftMouseButton, Items_e.SmallBomb);
+                    }
                 }
                 else if(Input.GetMouseButtonDown(1))
                 {
                     OnMouseButtonDown(1, client_id, Items_e.SmallBomb);
-                    DarkRiftAPI.SendMessageToOthers(NetworkingTags.Events, NetworkingTags.EventSubjects.rightMouseButton, Items_e.SmallBomb);
+                    if (DarkRiftAPI.isConnected)
+                        DarkRiftAPI.SendMessageToOthers(NetworkingTags.Events, NetworkingTags.EventSubjects.rightMouseButton, Items_e.SmallBomb);
                 }
 
 

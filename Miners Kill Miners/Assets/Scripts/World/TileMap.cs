@@ -27,7 +27,10 @@ namespace Roland
         float RatioY = 0;
         float HalfTileX = 0;
         float HalfTileY = 0;
+
         Map map;
+
+        bool b_UpdateTexture = false;
 
         public Map theMap
         {
@@ -52,8 +55,6 @@ namespace Roland
             theMeshRenderer = GetComponent<MeshRenderer>();
             theMeshCollider = GetComponent<MeshCollider>();
             BuildMesh();
-
-
         }
 
         public void UpdateTexture(int x, int y, Block newBlock)
@@ -183,22 +184,29 @@ namespace Roland
 
         }
 
-        public void DigTile(Vector2 tile, int power)
+        public void DigTile(Vector2 tile, int power, string ResourceName = null)
         {
             if(!map.GetTileAt(tile).Dig(power))
             {
                 //Dug through the tile
+                if(ResourceName != null && ResourceName != string.Empty)
+                {
+                    ObjectSpawner.SpawnObject(ResourceName, tile);
+                }
                 map.SetTileAt(tile, new Noblock());
-                BuildTexture();
+                b_UpdateTexture = true;
             } 
         }
 
-        public void DigTile(int x, int y, int power)
+        public void DigTile(int x, int y, int power, string ResourceName = null)
         {
-            if (!map.GetTileAt(x, y).Dig(power))
+            DigTile(new Vector2(x, y), power, ResourceName);
+        }
+
+        void LateUpdate()
+        {
+            if(b_UpdateTexture)
             {
-                //Dug through the tile
-                map.SetTileAt(x, y, new Noblock());
                 BuildTexture();
             }
         }

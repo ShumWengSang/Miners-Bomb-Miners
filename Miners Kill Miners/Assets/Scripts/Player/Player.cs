@@ -25,11 +25,31 @@ namespace Roland
         public int DigPower = 1;
         public int speed = 5;
         public int player_id;
-
+        public float WaitTimeForDig = 0.5f;
+        public int HealthPoints = 100;
+        public int Money = 100;
+        public int Score = 0;
+        public GameSceneController theController;
 
         Vector2 MoveDirection = new Vector2(0, 0);
         Animator theAnimator;
         Transform ourTransform;
+
+        Vector2 LastDirection = new Vector2(0, 0);
+
+        WaitForSeconds WaitHalfSecond;
+        bool DigCooldown = false;
+
+        public float invulTime = 1;
+        bool invul = false;
+        WaitForSeconds invulCD;
+
+        IEnumerator InvulCoolDown()
+        {
+            invul = true;
+            yield return invulCD;
+            invul = false;
+        }
         void Awake()
         {
             theAnimator = GetComponent<Animator>();
@@ -38,6 +58,7 @@ namespace Roland
 
             EventManager.OnKeyboardButtonDown += OnButtonPressed;
             EventManager.OnMouseButtonDown += OnMouseButtonDown;
+            DarkRiftAPI.onDataDetailed += ReceiveData;
             ourTransform = this.transform;
             
         }
@@ -49,11 +70,22 @@ namespace Roland
             {
                 Debug.LogWarning("Tile Map not found! Error!");
             }
+            WaitHalfSecond = new WaitForSeconds(WaitTimeForDig);
+            invulCD = new WaitForSeconds(invulTime);
         }
+
+        public void UpdateItems()
+        {
+            DarkRiftAPI.SendMessageToOthers(NetworkingTags.Player, NetworkingTags.PlayerSubjects.GiveItemDic, AmountOfItems);
+        }
+
+
+
         void OnDestroy()
         {
             EventManager.OnKeyboardButtonDown -= OnButtonPressed;
             EventManager.OnMouseButtonDown -= OnMouseButtonDown;
+            DarkRiftAPI.onDataDetailed -= ReceiveData;
         }
 
         public void InitializePlayer()
@@ -65,10 +97,35 @@ namespace Roland
             }
         }
 
+        public void MinusHealthPoints(int damage)
+        {
+            if (!invul)
+            {
+                StartCoroutine(InvulCoolDown());
+                HealthPoints -= damage;
+                if (HealthPoints <= 0)
+                {
+                    //we lose.
+                    gameObject.SetActive(false);
+                    //tell controller to check who wins, if any.
+                    if(player_id == DarkRiftAPI.id)
+                        theController.CheckWinLose(false);
+                    
+                }
+            }
+        }
+
+        IEnumerator DigCooldownUpdate()
+        {
+            DigCooldown = true;
+            yield return WaitHalfSecond;
+            DigCooldown = false;
+        }
+
         void Update()
         {        
            // ourTransform.position = theTileMap.ConvertWorldToTile(ourTransform.position);
-            Vector2 CheckNextPosition = MoveDirection + theTileMap.ConvertWorldToTile(transform.position);
+            Vector2 CheckNextPosition = MoveDirection + theTileMap.ConvertWorldToTile(ourTransform.position);
             
            // Debug.Log("Our tile pos is " + theTileMap.ConvertWorldToTile(transform.position));
             Block theNextBlock = theTileMap.theMap.GetTileAt(CheckNextPosition);
@@ -78,30 +135,37 @@ namespace Roland
                 //Debug.Log("Changing transform and move direction is" + MoveDirection);
                 ourTransform.localPosition += new Vector3(MoveDirection.x, MoveDirection.y, 0) * Time.deltaTime * speed;
             }
-            else
+            else if(!DigCooldown)
             {
-                //dig
-               // Debug.Log("Digging Through");
+                //Dig. We start coroutine to do the cooldown as well.
+                StartCoroutine(DigCooldownUpdate());
                 theTileMap.DigTile(CheckNextPosition, DigPower);
             }
         }
         public void OnMouseButtonDown(int button, int id, Items_e theItem)
         {
-            Debug.Log("Mouse pressed");
             if(id == player_id)
             {
-                switch(theItem)
+                if (AmountOfItems[theItem] > 0)
                 {
-                    case Items_e.SmallBomb:
-                        GameObject.Instantiate(Resources.Load("SmallBomb"), transform.position, Quaternion.identity);
-                        break;
-                    default:
-                        break;
+                    AmountOfItems[theItem]--;
+                    MouseButtonSpawn(theItem);
                 }
             }
         }
 
-        
+        void MouseButtonSpawn(Items_e theItem)
+        {
+            switch (theItem)
+            {
+                case Items_e.SmallBomb:
+                    GameObject bomb = ObjectSpawner.SpawnObject("SmallBomb", transform.position);
+                    bomb.GetComponent<SmallBomb>().ParentPlayer = this;
+                    break;
+                default:
+                    break;
+            }
+        }
 
         public void OnButtonPressed(Direction theDirection, int id)
         {
@@ -131,8 +195,27 @@ namespace Roland
                         theAnimator.SetTrigger("Stop");
                         break;
                 }
+                if (LastDirection != MoveDirection)
+                {
+                    LastDirection = MoveDirection;
+                    ourTransform.localPosition = theTileMap.ConvertTileToWorld(theTileMap.ConvertWorldToTile(ourTransform.position));
+                }
             }
         }
 
+        void ReceiveData(ushort senderID, byte tag, ushort subject, object data)
+        {
+            if (senderID == player_id)
+            {
+                if (tag == NetworkingTags.Player)
+                {
+                    if (subject == NetworkingTags.PlayerSubjects.GiveItemDic)
+                    {
+                        Debug.Log("Updated items");
+                        AmountOfItems = (Dictionary<Items_e, int>)data;
+                    }
+                }
+            }
+        }
     }
 }

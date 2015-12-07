@@ -34,7 +34,7 @@ namespace Roland
         void UpdateItemNumber()
         {
             numberOfItemText.text = numberOfItem_i.ToString();
-            CurrentPlayer.Instance.ThePlayer.AmountOfItems[thisItem] = numberOfItem_i;
+            CurrentPlayer.Instance.AddItem(thisItem);
         }
     }
 }
