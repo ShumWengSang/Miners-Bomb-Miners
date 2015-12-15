@@ -57,6 +57,12 @@ namespace Roland
             BuildMesh();
         }
 
+        public void TileMapReset()
+        {
+            theMap.GenerateMap(size_x, size_z);
+            BuildMesh();
+        }
+
         public void UpdateTexture(int x, int y, Block newBlock)
         {
 
@@ -208,6 +214,7 @@ namespace Roland
             if(b_UpdateTexture)
             {
                 BuildTexture();
+                b_UpdateTexture = false;
             }
         }
     }

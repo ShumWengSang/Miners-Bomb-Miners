@@ -47,6 +47,20 @@ namespace Roland
         Dictionary<int, int> theListOfSpawns;
 
         int Spawn_id;
+
+        void RestartLevel()
+        {
+            //first we send our $$$ + score to the server.
+            //Send a message to restart the server status/ reset spawns and players joined.
+
+            //destroy all players we have created
+            CurrentPlayer.Instance.theActivePlayers.Clear();
+            //reset the tile map.
+            theTileMap.TileMapReset();
+            Start();
+
+        }
+
         void Awake()
         {
             PlayerReady = 0;
@@ -78,7 +92,8 @@ namespace Roland
             {
                 if(!DarkRiftAPI.isConnected)
                 {
-                    CustomNetworkManager.Instance.Connect("127.0.0.1");
+                    string IPAddress = System.IO.File.ReadAllText("ipaddress.txt");
+                    CustomNetworkManager.Instance.Connect(IPAddress);
                 }
                 DarkRiftAPI.SendMessageToAll(NetworkingTags.Controller, NetworkingTags.ControllerSubjects.JoinMessage, "hi");
                 DarkRiftAPI.SendMessageToServer(NetworkingTags.Server, NetworkingTags.ServerSubjects.ChangeStateToGame, "");

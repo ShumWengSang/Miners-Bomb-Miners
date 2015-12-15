@@ -11,6 +11,11 @@ namespace Roland
 
         public Map(int x, int z)
         {
+            GenerateMap(x, z);
+        }
+
+        public void GenerateMap(int x , int z)
+        {
             blocks = new Block[x, z];
             sizex = x;
             sizez = z;
@@ -18,9 +23,9 @@ namespace Roland
             //Generate map here;
             for (int i = 0; i < sizex; i++)
             {
-                for(int j = 0; j < sizez; j++)
+                for (int j = 0; j < sizez; j++)
                 {
-                    blocks[i,j] = new DirtBlock();
+                    blocks[i, j] = new DirtBlock();
                 }
             }
 
