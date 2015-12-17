@@ -8,7 +8,7 @@ namespace Roland
     public class DarkRiftReceiverCustom : MonoBehaviour
     {
 
-        void Update()
+        void LateUpdate()
         {
             if (DarkRiftAPI.isConnected)
                 DarkRiftAPI.Receive();

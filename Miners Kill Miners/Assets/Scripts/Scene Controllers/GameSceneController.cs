@@ -218,7 +218,6 @@ namespace Roland
                 }
                 else if (subject == NetworkingTags.ControllerSubjects.YouWin)
                 {
-                    Debug.Log("here");
                     CheckWinLose(true);
                 }
             }

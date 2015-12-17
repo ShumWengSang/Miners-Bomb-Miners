@@ -53,6 +53,7 @@ namespace Roland
         public class PlayerSubjects
         {
             public const int GiveItemDic = 0;
+            public const int UpdatePostion = 1;
         }
     }
 }

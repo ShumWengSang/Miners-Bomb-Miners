@@ -3,13 +3,19 @@ using System.Collections;
 using DarkRift;
 namespace Roland
 {
-
+    public enum MouseButtons
+    {
+        left = 0,
+        right = 1,
+        ScrollUp = 2,
+        ScrollDown = 3
+    }
     public class EventManager : MonoBehaviour
     {
         public delegate void KeyboardMovement(Direction theDirection, int player_id);
         public static event KeyboardMovement OnKeyboardButtonDown;
 
-        public delegate void MouseKeyDown(int MouseButton, int player_id, Items_e theItem);
+        public delegate void MouseKeyDown(MouseButtons MouseButton, int player_id, Items_e theItem);
         public static event MouseKeyDown OnMouseButtonDown;
 
         GameSceneController theSceneController;
@@ -29,9 +35,9 @@ namespace Roland
 
         void SendEventKeyboardDown(Direction theDir)
         {
-            OnKeyboardButtonDown(theDir, client_id);
+            //OnKeyboardButtonDown(theDir, client_id);
             if(DarkRiftAPI.isConnected)
-                DarkRiftAPI.SendMessageToOthers(NetworkingTags.Events, NetworkingTags.EventSubjects.KeyboardEvent, theDir);
+                DarkRiftAPI.SendMessageToAll(NetworkingTags.Events, NetworkingTags.EventSubjects.KeyboardEvent, theDir);
         }
 
         void Update()
@@ -62,18 +68,29 @@ namespace Roland
 
                 if (Input.GetMouseButtonDown(0))
                 {
-                    OnMouseButtonDown(0, client_id, Items_e.SmallBomb);
+                    OnMouseButtonDown(MouseButtons.left, client_id, CurrentPlayer.Instance.ThePlayer.TheCurrentItem);
                     if (DarkRiftAPI.isConnected)
                     {
                         Debug.Log("sending");
-                        DarkRiftAPI.SendMessageToOthers(NetworkingTags.Events, NetworkingTags.EventSubjects.leftMouseButton, Items_e.SmallBomb);
+                        DarkRiftAPI.SendMessageToOthers(NetworkingTags.Events, NetworkingTags.EventSubjects.leftMouseButton, CurrentPlayer.Instance.ThePlayer.TheCurrentItem);
                     }
                 }
                 else if(Input.GetMouseButtonDown(1))
                 {
-                    OnMouseButtonDown(1, client_id, Items_e.SmallBomb);
+                    OnMouseButtonDown(MouseButtons.right, client_id, Items_e.SmallBomb);
                     if (DarkRiftAPI.isConnected)
-                        DarkRiftAPI.SendMessageToOthers(NetworkingTags.Events, NetworkingTags.EventSubjects.rightMouseButton, Items_e.SmallBomb);
+                        DarkRiftAPI.SendMessageToOthers(NetworkingTags.Events, NetworkingTags.EventSubjects.rightMouseButton, CurrentPlayer.Instance.ThePlayer.TheCurrentItem);
+                }
+                float d = Input.GetAxis("Mouse ScrollWheel");
+                if(d < 0)
+                {
+                    //less then 0, scroll down
+                    OnMouseButtonDown(MouseButtons.ScrollDown, client_id, Items_e.BigBomb);
+                }
+                else if(d > 0)
+                {
+                    OnMouseButtonDown(MouseButtons.ScrollUp, client_id, Items_e.BigBomb);
+                    //greater than 0, scroll up
                 }
 
 
@@ -92,10 +109,10 @@ namespace Roland
                         OnKeyboardButtonDown(theDirectionToGo, senderID);
                         break;
                     case NetworkingTags.EventSubjects.leftMouseButton:
-                        OnMouseButtonDown(0, senderID, (Items_e)data);
+                        OnMouseButtonDown(MouseButtons.left, senderID, (Items_e)data);
                         break;
                     case NetworkingTags.EventSubjects.rightMouseButton:
-                        OnMouseButtonDown(1, senderID, (Items_e)data);
+                        OnMouseButtonDown(MouseButtons.right, senderID, (Items_e)data);
                         break;
                     default:
                         Debug.LogWarning("No such subject found: " + subject);
