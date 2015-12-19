@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Linq;
 using DarkRift;
+using UnityEngine.UI;
 
 namespace Roland
 {
@@ -51,6 +52,11 @@ namespace Roland
         Vector3 Offset;
         SpriteRenderer sp;
 
+        public Text HP;
+        public Text NumberOfBombs;
+        public Image BombType;
+        public Sprite[] theSprites;
+
         IEnumerator InvulCoolDown()
         {
             invul = true;
@@ -68,7 +74,7 @@ namespace Roland
             EventManager.OnMouseButtonDown += OnMouseButtonDown;
             DarkRiftAPI.onDataDetailed += ReceiveData;
             ourTransform = this.transform;
-            WaitForUpdate = new WaitForSeconds(0.1f);
+            WaitForUpdate = new WaitForSeconds(0.001f);
         }
 
         void Start()
@@ -82,8 +88,16 @@ namespace Roland
             invulCD = new WaitForSeconds(invulTime);
             sp = GetComponent<SpriteRenderer>();
             TheCurrentItem = Items_e.SmallBomb;
-           // if(this.player_id == DarkRiftAPI.id)
-               // StartCoroutine(UpdatePosition());
+
+            UiHolder theHolder = GameObject.Find("GameSceneController").GetComponent<UiHolder>();
+
+            HP = theHolder.HP;
+            NumberOfBombs = theHolder.AmountOfBombs;
+            BombType = theHolder.TypeOfBomb;
+            UpdateUI(TheCurrentItem, AmountOfItems[TheCurrentItem]);
+            UpdateHealth(HealthPoints);
+            if(this.player_id == DarkRiftAPI.id)
+                StartCoroutine(UpdatePosition());
         }
 
         WaitForSeconds WaitForUpdate;
@@ -91,7 +105,7 @@ namespace Roland
         {
             while (true)
             {
-                DarkRiftAPI.SendMessageToOthers(NetworkingTags.Player, NetworkingTags.PlayerSubjects.UpdatePostion, nextTilePos);
+                DarkRiftAPI.SendMessageToOthers(NetworkingTags.Player, NetworkingTags.PlayerSubjects.UpdatePostion, ourTransform.position);
                 yield return WaitForUpdate;
             }
         }
@@ -107,7 +121,18 @@ namespace Roland
             DarkRiftAPI.SendMessageToOthers(NetworkingTags.Player, NetworkingTags.PlayerSubjects.GiveItemDic, AmountOfItems);
         }
 
+        public void UpdateUI(Items_e theBomb, int amount)
+        {
+            int rep = (int)theBomb;
+            string itemsprite = "item spritesheet_" + rep.ToString();
+            BombType.sprite = theSprites[rep];
+            NumberOfBombs.text = amount.ToString();
 
+        }
+        public void UpdateHealth(int health)
+        {
+            HP.text = health.ToString();
+        }
 
         void OnDestroy()
         {
@@ -131,6 +156,7 @@ namespace Roland
             {
                 StartCoroutine(InvulCoolDown());
                 HealthPoints -= damage;
+                UpdateHealth(HealthPoints);
                 if (HealthPoints <= 0)
                 {
                     //we lose.
@@ -174,6 +200,7 @@ namespace Roland
             {
                 //Debug.Log("Changing transform and move direction is" + MoveDirection);
                 ourTransform.localPosition += new Vector3(MoveDirection.x, MoveDirection.y, 0) * Time.deltaTime * speed;
+                
                // tilePosBlocker = theTileMap.theMap.SetTileAt(theTileMap.ConvertWorldToTile(ourTransform.position - Offset), new InvisibleWallBlock());
                 //rb.velocity = MoveDirection * Time.deltaTime * speed;
             }
@@ -182,6 +209,7 @@ namespace Roland
                 //Dig. We start coroutine to do the cooldown as well.
                 StartCoroutine(DigCooldownUpdate());
                 theTileMap.DigTile(nextTilePos, DigPower);
+                DarkRiftAPI.SendMessageToOthers(NetworkingTags.Player, NetworkingTags.PlayerSubjects.DestroyMapTile, nextTilePos);
                 //rb.velocity = Vector3.zero * Time.deltaTime * speed;
             }
 
@@ -234,7 +262,6 @@ namespace Roland
                             }
                         }
                     }
-
                 }
                 else if (button == MouseButtons.ScrollUp)
                 {
@@ -271,10 +298,10 @@ namespace Roland
                             }
                         }
                     }
-                }
-
-                
+                }             
             }
+
+            UpdateUI(TheCurrentItem, AmountOfItems[TheCurrentItem]);
         }
 
         void MouseButtonSpawn(Items_e theItem)
@@ -349,6 +376,7 @@ namespace Roland
                         theAnimator.SetTrigger("Stop");
                         break;
                 }
+                DarkRiftAPI.SendMessageToOthers(NetworkingTags.Player, NetworkingTags.PlayerSubjects.ChangeDir, theDirection);
                 if (LastDirection != MoveDirection)
                 {
                     LastDirection = MoveDirection;
@@ -375,6 +403,11 @@ namespace Roland
                             Debug.Log("Receive data");
                             transform.position = theTileMap.ConvertTileToWorld(newTilePos);
                         }
+                    }
+                    if(subject == NetworkingTags.PlayerSubjects.DestroyMapTile)
+                    {
+                        //Vector2 Vdata = (Vector2)data;
+                        //theTileMap.DigTile(Vdata, 999);
                     }
                 }
             }

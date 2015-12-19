@@ -32,6 +32,7 @@ namespace Roland
         WaitForSeconds waitForTimer;
         public Text TimerCountDownText;
         public GameObject PlayerPrefab;
+        public GameObject PlayerDummy;
         public Text WinLose;
 
         bool SpawnedAllPlayers = false;
@@ -53,8 +54,6 @@ namespace Roland
             //first we send our $$$ + score to the server.
             //Send a message to restart the server status/ reset spawns and players joined.
 
-            //destroy all players we have created
-            CurrentPlayer.Instance.theActivePlayers.Clear();
             //reset the tile map.
             theTileMap.TileMapReset();
             Start();
@@ -198,12 +197,23 @@ namespace Roland
                                 Debug.LogError("Not associated spawn_id. " + Spawn_id);
                                 break;
                         }
+
                         //Instantiate the player
-                        GameObject clone = (GameObject)Instantiate(PlayerPrefab, theTileMap.ConvertTileToWorld(SpawnTile), Quaternion.identity);
-                        Player thePlayer = clone.GetComponent<Player>();
-                        thePlayer.player_id = (ushort)entry.Key;
-                        thePlayer.theController = this;
-                        CurrentPlayer.Instance.AddActivePlayer(entry.Key, thePlayer);
+                         GameObject clone;
+                         if (entry.Key == DarkRiftAPI.id)
+                         {
+                             clone = (GameObject)Instantiate(PlayerPrefab, theTileMap.ConvertTileToWorld(SpawnTile), Quaternion.identity);
+                             Player thePlayer = clone.GetComponent<Player>();
+                             thePlayer.player_id = (ushort)entry.Key;
+                             thePlayer.theController = this;
+                             CurrentPlayer.Instance.ThePlayer = thePlayer;
+                         }
+                         else
+                         {
+                             clone = (GameObject)Instantiate(PlayerDummy, theTileMap.ConvertTileToWorld(SpawnTile), Quaternion.identity);
+                             DummyPlayer thePlayer = clone.GetComponent<DummyPlayer>();
+                             thePlayer.id = (ushort)entry.Key;
+                         }
                     }
                     CurrentPlayer.Instance.ThePlayer.AmountOfItems = CurrentPlayer.Instance.AmountOfItems;
                     SpawnedAllPlayers = true;

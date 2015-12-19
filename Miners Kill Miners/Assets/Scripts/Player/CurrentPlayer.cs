@@ -11,7 +11,8 @@ namespace Roland
     {
         PlayerDataContainer playerDataColleciton = null;
         bool loaded = false;
-        public Dictionary<int, Player> theActivePlayers = new Dictionary<int, Player>();
+        //public Dictionary<int, Player> theActivePlayers = new Dictionary<int, Player>();
+        Player thePlayer;
         public int OurID;
         public int AmountOfPlayers = 0;
 
@@ -35,16 +36,14 @@ namespace Roland
         {
             //playerDataColleciton.Save(Path.Combine(Application.dataPath, "PlayerData.xml"));
         }
-        public void AddActivePlayer(int id, Player thePlayer)
-        {
-            theActivePlayers.Add(id, thePlayer);
-        }
+
 
         public Player ThePlayer
         {
-            get { return theActivePlayers[DarkRiftAPI.id]; }
+            get { return thePlayer; }
+            set { thePlayer = value; }
         }
-
+        
         public void AddItem(Items_e theItem)
         {
             if (!AmountOfItems.ContainsKey(theItem))

@@ -54,6 +54,8 @@ namespace Roland
         {
             public const int GiveItemDic = 0;
             public const int UpdatePostion = 1;
+            public const int DestroyMapTile = 2;
+            public const int ChangeDir = 3;
         }
     }
 }
