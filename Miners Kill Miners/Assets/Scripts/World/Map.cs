@@ -62,12 +62,12 @@ namespace Roland
         }
         public Block GetTileAt(Vector2 tile)
         {
-            if (tile.x > sizex)
-                tile.x = sizex;
+            if (tile.x > sizex - 1)
+                tile.x = sizex - 1;
             if (tile.x < 0)
                 tile.x = 0;
-            if (tile.y > sizez)
-                tile.y = sizez;
+            if (tile.y > sizez - 1)
+                tile.y = sizez - 1;
             if (tile.y < 0)
                 tile.y = 0;
             return blocks[(int)tile.x, (int)tile.y];

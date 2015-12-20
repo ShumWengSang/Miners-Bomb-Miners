@@ -44,12 +44,13 @@ namespace Roland
         public GameObject ReadyText;
         public GameObject Game;
         public GameObject Shop;
+        public GameObject RestartButton;
 
         Dictionary<int, int> theListOfSpawns;
 
         int Spawn_id;
 
-        void RestartLevel()
+        public void RestartLevel()
         {
             //first we send our $$$ + score to the server.
             //Send a message to restart the server status/ reset spawns and players joined.
@@ -62,10 +63,9 @@ namespace Roland
 
         void Awake()
         {
-            PlayerReady = 0;
-            theTileMap = TileMapInterfacer.Instance.TileMap;
+            
             changeScene = GetGlobalObject.FindAndGetComponent<ChangeScenes>(this.gameObject, "Global");
-            waitForTimer = new WaitForSeconds(1);
+
             //Check whether its sandbox or multiplayer.
             //If it is single player, generate the default map.
             //else, generate data and send over and generate again after taking.
@@ -82,12 +82,15 @@ namespace Roland
 
         void Start()
         {
+            waitForTimer = new WaitForSeconds(1);
+            PlayerReady = 0;
+            theTileMap = TileMapInterfacer.Instance.TileMap;
             CurrentPlayer.Instance.AmountOfPlayers = 0;
             if (Sandbox == true)
             {
                 theObj.transform.position = theTileMap.ConvertTileToWorld(new Vector2(1, 1));
             }
-            else
+            else if(!Sandbox && !DarkRiftAPI.isConnected)
             {
                 if(!DarkRiftAPI.isConnected)
                 {
@@ -139,7 +142,6 @@ namespace Roland
             yield return StartCoroutine(WaitForOtherPlayers());
             Game.SetActive(true);
             Shop.SetActive(false);
-            updatePlayerItems();
             for (int i = 0; i < timeToWaitToStart; i++)
             {
                 TimerCountDownText.text = (timeToWaitToStart - i).ToString();
@@ -230,6 +232,10 @@ namespace Roland
                 {
                     CheckWinLose(true);
                 }
+                else if(subject == NetworkingTags.ControllerSubjects.GameOver)
+                {
+                    RestartButton.SetActive(true);
+                }
             }
             else if(tag == NetworkingTags.Server)
             {
@@ -245,6 +251,7 @@ namespace Roland
             if(win)
             {
                 WinLose.text = "YOU WIN";
+                DarkRiftAPI.SendMessageToAll(NetworkingTags.Controller, NetworkingTags.ControllerSubjects.GameOver, "");
             }
             else
             {

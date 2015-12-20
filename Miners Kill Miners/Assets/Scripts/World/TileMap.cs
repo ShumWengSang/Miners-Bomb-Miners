@@ -46,10 +46,13 @@ namespace Roland
         {
             return new Vector2((tile.x * theMeshRenderer.bounds.size.x / size_x) + HalfTileX, (tile.y * theMeshRenderer.bounds.size.y / size_z) + HalfTileY);
         }
-
         void Awake()
         {
             TileMapInterfacer.Instance.TileMap = this;
+        }
+
+        void Start()
+        {
             map = new Map(size_x, size_z);
             theMeshFilter = GetComponent<MeshFilter>();
             theMeshRenderer = GetComponent<MeshRenderer>();

@@ -38,6 +38,10 @@ namespace Roland
                         Direction theDir = (Direction)data;
                         ChangeDirection(theDir);
                     }
+                    else if(subject == NetworkingTags.PlayerSubjects.PlayerDied)
+                    {
+                        Destroy(this.gameObject);
+                    }
                 }
 
             }

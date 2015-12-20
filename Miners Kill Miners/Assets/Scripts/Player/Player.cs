@@ -162,6 +162,7 @@ namespace Roland
                     //we lose.
                     gameObject.SetActive(false);
                     //tell controller to check who wins, if any.
+                    DarkRiftAPI.SendMessageToOthers(NetworkingTags.Player, NetworkingTags.PlayerSubjects.PlayerDied, "");
                     if(player_id == DarkRiftAPI.id)
                         theController.CheckWinLose(false);
                     

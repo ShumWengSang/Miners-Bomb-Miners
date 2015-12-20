@@ -1,0 +1,10 @@
+c:\users\roland\documents\visual studio 2013\Projects\MinersBombMinersServerPlugin\MinersBombMinersServerPlugin\obj\Debug\MinersBombMinersServerPlugin.csprojResolveAssemblyReference.cache
+c:\users\roland\documents\visual studio 2013\Projects\MinersBombMinersServerPlugin\MinersBombMinersServerPlugin\bin\Debug\MinersBombMinersServerPlugin.dll
+c:\users\roland\documents\visual studio 2013\Projects\MinersBombMinersServerPlugin\MinersBombMinersServerPlugin\bin\Debug\MinersBombMinersServerPlugin.pdb
+c:\users\roland\documents\visual studio 2013\Projects\MinersBombMinersServerPlugin\MinersBombMinersServerPlugin\bin\Debug\DarkRift.dll
+c:\users\roland\documents\visual studio 2013\Projects\MinersBombMinersServerPlugin\MinersBombMinersServerPlugin\bin\Debug\Transmission.dll
+c:\users\roland\documents\visual studio 2013\Projects\MinersBombMinersServerPlugin\MinersBombMinersServerPlugin\bin\Debug\DarkRift.xml
+c:\users\roland\documents\visual studio 2013\Projects\MinersBombMinersServerPlugin\MinersBombMinersServerPlugin\obj\Debug\MinersBombMinersServerPlugin.dll
+c:\users\roland\documents\visual studio 2013\Projects\MinersBombMinersServerPlugin\MinersBombMinersServerPlugin\obj\Debug\MinersBombMinersServerPlugin.pdb
+C:\Users\Roland\documents\Git\miners-bomb-miners\Server\Plugins\MinersBombMinersServerPlugin.dll
+C:\Users\Roland\documents\Git\miners-bomb-miners\Server\Plugins\MinersBombMinersServerPlugin.pdb
