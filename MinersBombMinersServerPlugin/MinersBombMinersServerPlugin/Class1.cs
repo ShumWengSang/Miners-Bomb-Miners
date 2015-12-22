@@ -141,6 +141,7 @@ namespace MinersBombMinersServerPlugin
 
                             }
                         }
+                        ListOfLosers.Clear();
                     }
                 }
             }

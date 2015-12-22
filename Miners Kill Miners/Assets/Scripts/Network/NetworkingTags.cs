@@ -49,6 +49,7 @@ namespace Roland
             public const int ChangeStateToRoom = 1;
             public const int ChangeStateToGame = 2;
             public const int ILose = 3;
+            public const int QueryPlayerSize = 4;
         }
 
         public class PlayerSubjects

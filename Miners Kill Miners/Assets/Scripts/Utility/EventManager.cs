@@ -32,6 +32,10 @@ namespace Roland
             client_id = DarkRiftAPI.id;
             DarkRiftAPI.onDataDetailed += ReceiveData;
         }
+        void OnDesotry()
+        {
+            DarkRiftAPI.onDataDetailed -= ReceiveData;
+        }
 
         void SendEventKeyboardDown(Direction theDir)
         {

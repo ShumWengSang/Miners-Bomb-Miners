@@ -16,6 +16,12 @@ namespace Roland
             DarkRift.DarkRiftAPI.onDataDetailed += ReceiveData;
             EventManager.OnMouseButtonDown += OnMouseButtonDown;
         }
+
+        void OnDestroy()
+        {
+            DarkRift.DarkRiftAPI.onDataDetailed -= ReceiveData;
+            EventManager.OnMouseButtonDown -= OnMouseButtonDown;
+        }
         // Update is called once per frame
         void ReceiveData(ushort senderID, byte tag, ushort subject, object data)
         {
@@ -49,17 +55,17 @@ namespace Roland
 
         void MouseButtonSpawn(Items_e theItem)
         {
-            GameObject Object;
+            
             switch (theItem)
             {
                 case Items_e.SmallBomb:
-                    Object = ObjectSpawner.SpawnObject("SmallBomb", ourTransform.position);
+                   ObjectSpawner.SpawnObject("SmallBomb", ourTransform.position);
                     break;
                 case Items_e.BigBomb:
-                    Object = ObjectSpawner.SpawnObject("BigBomb", ourTransform.position);
+                    ObjectSpawner.SpawnObject("BigBomb", ourTransform.position);
                     break;
                 case Items_e.TNTBomb:
-                    Object = ObjectSpawner.SpawnObject("TNTBomb", ourTransform.position);
+                   ObjectSpawner.SpawnObject("TNTBomb", ourTransform.position);
                     break;
                 case Items_e.NuclearBomb:
 

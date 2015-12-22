@@ -48,7 +48,6 @@ namespace Roland
         bool invul = false;
         WaitForSeconds invulCD;
 
-        Rigidbody2D rb;
         Vector3 Offset;
         SpriteRenderer sp;
 
@@ -65,7 +64,6 @@ namespace Roland
         }
         void Awake()
         {
-            rb = GetComponent<Rigidbody2D>();
             theAnimator = GetComponent<Animator>();
             InitializePlayer();
             thePlayerData = new PlayerData();
@@ -124,7 +122,6 @@ namespace Roland
         public void UpdateUI(Items_e theBomb, int amount)
         {
             int rep = (int)theBomb;
-            string itemsprite = "item spritesheet_" + rep.ToString();
             BombType.sprite = theSprites[rep];
             NumberOfBombs.text = amount.ToString();
 

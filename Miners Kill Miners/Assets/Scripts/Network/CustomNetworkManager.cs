@@ -32,7 +32,7 @@ namespace Roland
             }
         }
 
-        void OnDestroy()
+        new void OnDestroy()
         {
             if (DarkRiftAPI.isConnected)
             {

@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 namespace Roland
 {
@@ -29,23 +30,24 @@ namespace Roland
             {
                 Application.Quit();
             }
-            if(System.String.Equals(LoadThisLevel,Application.loadedLevelName))
+            if(System.String.Equals(LoadThisLevel,SceneManager.GetActiveScene()))
             {
                 //This means we are reloading the scene. Hopefully it means we are in loading a different level, but the same scene.
                 ++gameLevel;
-                Application.LoadLevelAsync(LoadThisLevel);
+                SceneManager.LoadSceneAsync(LoadThisLevel);
+                //Application.LoadLevelAsync(LoadThisLevel);
             }
             else if (System.String.Equals(LoadThisLevel, GameScene))
             {
                 //If the last check statement failed, this means we are loading game scene from somewhere else
                 //Meaning we load it the first time. so we set gamelevel to 0.
                 gameLevel = 0;
-                Application.LoadLevelAsync(LoadThisLevel);
+                SceneManager.LoadSceneAsync(LoadThisLevel);
             }
             else
             {
                 //We are not loading the game scene at all, but some misc scene
-                Application.LoadLevelAsync(LoadThisLevel);
+                SceneManager.LoadSceneAsync(LoadThisLevel);
             }
         }
     }

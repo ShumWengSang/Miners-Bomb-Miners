@@ -16,18 +16,19 @@ namespace Roland
             public const int KeyboardEvent = 0;		//Move the player to (Vector3)Data
             public const int leftMouseButton = 1;
             public const int rightMouseButton = 2;
-
+            
         }
 
         public class ControllerSubjects
         {
             public const int JoinMessage = 0;			//Tells everyone we've joined and need to know who's there.
-            public const int SpawnPlayer = 1;
+            public const int SpawnPlayer = 1;			
             public const int PlacePlayer = 2;
             public const int CleanNumber = 3;
             public const int ReadyToStartGame = 4;
             public const int ReplyToJoin = 5;
             public const int YouWin = 6;
+            public const int GameOver = 7;
         }
 
         public class RoomSubjects
@@ -47,12 +48,16 @@ namespace Roland
             public const int ChangeStateToRoom = 1;
             public const int ChangeStateToGame = 2;
             public const int ILose = 3;
+            public const int QueryPlayerSize = 4;
         }
 
         public class PlayerSubjects
         {
             public const int GiveItemDic = 0;
             public const int UpdatePostion = 1;
+            public const int DestroyMapTile = 2;
+            public const int ChangeDir = 3;
+            public const int PlayerDied = 4;
         }
     }
 }

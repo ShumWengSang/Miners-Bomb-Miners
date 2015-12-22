@@ -8,3 +8,12 @@ c:\users\roland\documents\visual studio 2013\Projects\MinersBombMinersServerPlug
 c:\users\roland\documents\visual studio 2013\Projects\MinersBombMinersServerPlugin\MinersBombMinersServerPlugin\obj\Debug\MinersBombMinersServerPlugin.pdb
 C:\Users\Roland\documents\Git\miners-bomb-miners\Server\Plugins\MinersBombMinersServerPlugin.dll
 C:\Users\Roland\documents\Git\miners-bomb-miners\Server\Plugins\MinersBombMinersServerPlugin.pdb
+C:\Users\Roland\Desktop\Git\miners-bomb-miners\Server\Plugins\MinersBombMinersServerPlugin.dll
+C:\Users\Roland\Desktop\Git\miners-bomb-miners\Server\Plugins\MinersBombMinersServerPlugin.pdb
+C:\Users\Roland\Desktop\Git Folder\miners-bomb-miners\MinersBombMinersServerPlugin\MinersBombMinersServerPlugin\obj\Debug\MinersBombMinersServerPlugin.csprojResolveAssemblyReference.cache
+C:\Users\Roland\Desktop\Git Folder\miners-bomb-miners\MinersBombMinersServerPlugin\MinersBombMinersServerPlugin\obj\Debug\MinersBombMinersServerPlugin.dll
+C:\Users\Roland\Desktop\Git Folder\miners-bomb-miners\MinersBombMinersServerPlugin\MinersBombMinersServerPlugin\obj\Debug\MinersBombMinersServerPlugin.pdb
+C:\Users\Roland\Desktop\Git Folder\miners-bomb-miners\MinersBombMinersServerPlugin\MinersBombMinersServerPlugin\$(SolutionDir)\Debug\MinersBombMinersServerPlugin.dll
+C:\Users\Roland\Desktop\Git Folder\miners-bomb-miners\MinersBombMinersServerPlugin\MinersBombMinersServerPlugin\$(SolutionDir)\Debug\MinersBombMinersServerPlugin.pdb
+C:\Users\Roland\Desktop\Git Folder\miners-bomb-miners\MinersBombMinersServerPlugin\MinersBombMinersServerPlugin\$(SolutionDir)\Debug\DarkRift.dll
+C:\Users\Roland\Desktop\Git Folder\miners-bomb-miners\MinersBombMinersServerPlugin\MinersBombMinersServerPlugin\$(SolutionDir)\Debug\Transmission.dll

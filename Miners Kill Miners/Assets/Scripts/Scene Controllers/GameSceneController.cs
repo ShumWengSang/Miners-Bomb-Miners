@@ -48,7 +48,7 @@ namespace Roland
 
         Dictionary<int, int> theListOfSpawns;
 
-        int Spawn_id;
+
 
         public void RestartLevel()
         {
@@ -85,7 +85,6 @@ namespace Roland
             waitForTimer = new WaitForSeconds(1);
             PlayerReady = 0;
             theTileMap = TileMapInterfacer.Instance.TileMap;
-            CurrentPlayer.Instance.AmountOfPlayers = 0;
             if (Sandbox == true)
             {
                 theObj.transform.position = theTileMap.ConvertTileToWorld(new Vector2(1, 1));
@@ -99,9 +98,8 @@ namespace Roland
                 }
                 DarkRiftAPI.SendMessageToAll(NetworkingTags.Controller, NetworkingTags.ControllerSubjects.JoinMessage, "hi");
                 DarkRiftAPI.SendMessageToServer(NetworkingTags.Server, NetworkingTags.ServerSubjects.ChangeStateToGame, "");
-                DarkRiftAPI.onDataDetailed += ReceiveData;
-
             }
+            DarkRiftAPI.onDataDetailed += ReceiveData;
         }
 
         public void ChangeScene(string newScene)
@@ -109,7 +107,10 @@ namespace Roland
             changeScene.LoadScene(newScene);
         }
 
-        
+        void OnDestroy()
+        {
+            DarkRiftAPI.onDataDetailed -= ReceiveData;
+        }
 
         public void StartTimer()
         {
@@ -196,7 +197,7 @@ namespace Roland
                                 SpawnTile = new Vector2(1, theTileMap.size_z - 2);
                                 break;
                             default:
-                                Debug.LogError("Not associated spawn_id. " + Spawn_id);
+                                Debug.LogError("Not associated spawn_id. " + spawnPoint);
                                 break;
                         }
 
