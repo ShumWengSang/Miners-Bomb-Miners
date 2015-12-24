@@ -50,6 +50,24 @@ namespace Roland
 
         public RuntimeAnimatorController[] PlayerAnimators;
 
+        public class PacketUseTypeID
+        {
+            public PlayerType thePlayerType;
+            public ushort client_id;
+        }
+        public class PacketPlayerData
+        {
+            public PacketUseTypeID[] theListOfPlayers;
+        }
+
+        public enum PlayerType
+        {
+            Red = 0,
+            Green,
+            Blue,
+            Yellow
+        }
+
 
         public void RestartLevel()
         {
@@ -113,24 +131,15 @@ namespace Roland
             DarkRiftAPI.onDataDetailed -= ReceiveData;
         }
 
+        bool ClientReady = false;
         public void StartTimer()
         {
             ReadyText.SetActive(true);
-            StartCoroutine(StartCountdown());
-        }
-
-        IEnumerator WaitForOtherPlayers()
-        {
-            //send we are ready.
-            if (DarkRiftAPI.isConnected)
-            {
-                DarkRiftAPI.SendMessageToAll(NetworkingTags.Controller, NetworkingTags.ControllerSubjects.ReadyToStartGame, "");
-                DarkRiftAPI.SendMessageToServer(NetworkingTags.Server, NetworkingTags.ServerSubjects.GetRandomSpawn, "");
-                while (PlayerReady < CurrentPlayer.Instance.AmountOfPlayers || !SpawnedAllPlayers)
-                {
-                    yield return null;
-                }
-            }
+            ClientReady = !ClientReady;
+            if(ClientReady)
+                DarkRiftAPI.SendMessageToServer(NetworkingTags.Server, NetworkingTags.ServerSubjects.ClientReadyToPlay,"");
+            else
+                DarkRiftAPI.SendMessageToServer(NetworkingTags.Server, NetworkingTags.ServerSubjects.ClientNotReady, "");
         }
 
         void updatePlayerItems()
@@ -140,8 +149,6 @@ namespace Roland
 
         IEnumerator StartCountdown()
         {
-
-            yield return StartCoroutine(WaitForOtherPlayers());
             Game.SetActive(true);
             Shop.SetActive(false);
             for (int i = 0; i < timeToWaitToStart; i++)
@@ -177,48 +184,48 @@ namespace Roland
 
                 else if (subject == NetworkingTags.ControllerSubjects.SpawnPlayer)
                 {
-                    //THIS IS ONLY FROM THE SERVER. CHANGE IS BECAUSE OF NEED TO CHANGE FROM 
-                    //FAILED THOUGHT IDEA. WE SHOULD ONLY GET THIS ONCE
-                    foreach (KeyValuePair<int, int> entry in theListOfSpawns)
-                    {
-                        int spawnPoint = entry.Value;
-                        Vector2 SpawnTile = new Vector2(0, 0);
-                        switch (spawnPoint)
-                        {
-                            case 1:
-                                SpawnTile = new Vector2(1, 1);
-                                break;
-                            case 2:
-                                SpawnTile = new Vector2(theTileMap.size_x - 2, theTileMap.size_z - 2);
-                                break;
-                            case 3:
-                                SpawnTile = new Vector2(theTileMap.size_x - 2, 1);
-                                break;
-                            case 4:
-                                SpawnTile = new Vector2(1, theTileMap.size_z - 2);
-                                break;
-                            default:
-                                Debug.LogError("Not associated spawn_id. " + spawnPoint);
-                                break;
-                        }                        //Instantiate the player
-                        GameObject clone;
-                        if (entry.Key == DarkRiftAPI.id)
-                        {
-                            clone = (GameObject)Instantiate(PlayerPrefab, theTileMap.ConvertTileToWorld(SpawnTile), Quaternion.identity);
-                            Player thePlayer = clone.GetComponent<Player>();
-                            thePlayer.player_id = (ushort)entry.Key;
-                            thePlayer.theController = this;
-                            CurrentPlayer.Instance.ThePlayer = thePlayer;
-                        }
-                        else
-                        {
-                            clone = (GameObject)Instantiate(PlayerDummy, theTileMap.ConvertTileToWorld(SpawnTile), Quaternion.identity);
-                            DummyPlayer thePlayer = clone.GetComponent<DummyPlayer>();
-                            thePlayer.id = (ushort)entry.Key;
-                        }
-                    }
-                    CurrentPlayer.Instance.ThePlayer.AmountOfItems = CurrentPlayer.Instance.AmountOfItems;
-                    SpawnedAllPlayers = true;
+                    ////THIS IS ONLY FROM THE SERVER. CHANGE IS BECAUSE OF NEED TO CHANGE FROM 
+                    ////FAILED THOUGHT IDEA. WE SHOULD ONLY GET THIS ONCE
+                    //foreach (KeyValuePair<int, int> entry in theListOfSpawns)
+                    //{
+                    //    int spawnPoint = entry.Value;
+                    //    Vector2 SpawnTile = new Vector2(0, 0);
+                    //    switch (spawnPoint)
+                    //    {
+                    //        case 1:
+                    //            SpawnTile = new Vector2(1, 1);
+                    //            break;
+                    //        case 2:
+                    //            SpawnTile = new Vector2(theTileMap.size_x - 2, theTileMap.size_z - 2);
+                    //            break;
+                    //        case 3:
+                    //            SpawnTile = new Vector2(theTileMap.size_x - 2, 1);
+                    //            break;
+                    //        case 4:
+                    //            SpawnTile = new Vector2(1, theTileMap.size_z - 2);
+                    //            break;
+                    //        default:
+                    //            Debug.LogError("Not associated spawn_id. " + spawnPoint);
+                    //            break;
+                    //    }                        //Instantiate the player
+                    //    GameObject clone;
+                    //    if (entry.Key == DarkRiftAPI.id)
+                    //    {
+                    //        clone = (GameObject)Instantiate(PlayerPrefab, theTileMap.ConvertTileToWorld(SpawnTile), Quaternion.identity);
+                    //        Player thePlayer = clone.GetComponent<Player>();
+                    //        thePlayer.player_id = (ushort)entry.Key;
+                    //        thePlayer.theController = this;
+                    //        CurrentPlayer.Instance.ThePlayer = thePlayer;
+                    //    }
+                    //    else
+                    //    {
+                    //        clone = (GameObject)Instantiate(PlayerDummy, theTileMap.ConvertTileToWorld(SpawnTile), Quaternion.identity);
+                    //        DummyPlayer thePlayer = clone.GetComponent<DummyPlayer>();
+                    //        thePlayer.id = (ushort)entry.Key;
+                    //    }
+                    //}
+                    //CurrentPlayer.Instance.ThePlayer.AmountOfItems = CurrentPlayer.Instance.AmountOfItems;
+                    //SpawnedAllPlayers = true;
                 }
                 else if (subject == NetworkingTags.ControllerSubjects.ReadyToStartGame)
                 {
@@ -236,12 +243,48 @@ namespace Roland
                 {
                     RestartButton.SetActive(true);
                 }
-            }
-            else if(tag == NetworkingTags.Server)
-            {
-                if(subject == NetworkingTags.ServerSubjects.GetRandomSpawn)
+                else if(subject == NetworkingTags.ControllerSubjects.StartGame)
                 {
-                    theListOfSpawns = (Dictionary<int, int>)data;
+                    PacketPlayerData TotalPlayerData = (PacketPlayerData)data;
+                    for (int i = 0; i < TotalPlayerData.theListOfPlayers.Length; i++ )
+                    {
+                        Vector2 SpawnPoint = Vector2.zero;
+                        switch (TotalPlayerData.theListOfPlayers[i].thePlayerType)
+                        {
+                            case PlayerType.Red:
+                                SpawnPoint = new Vector2(1, 1);
+                                break;
+                            case PlayerType.Green:
+                                SpawnPoint = new Vector2(theTileMap.size_x - 2, theTileMap.size_z - 2);
+                                break;
+                            case PlayerType.Blue:
+                                SpawnPoint = new Vector2(theTileMap.size_x - 2, 1);
+                                break;
+                            case PlayerType.Yellow:
+                                SpawnPoint = new Vector2(1, theTileMap.size_z - 2);
+                                break;
+                            default:
+                                Debug.LogWarning("No such player type found! Logged " + TotalPlayerData.theListOfPlayers[i].thePlayerType);
+                                break;
+                        }
+                        GameObject clone;
+                        if (TotalPlayerData.theListOfPlayers[i].client_id == DarkRiftAPI.id)
+                        {
+                            clone = (GameObject)Instantiate(PlayerPrefab, theTileMap.ConvertTileToWorld(SpawnPoint), Quaternion.identity);
+                            Player thePlayer = clone.GetComponent<Player>();
+                            thePlayer.player_id = TotalPlayerData.theListOfPlayers[i].client_id;
+                            thePlayer.theController = this;
+                            CurrentPlayer.Instance.ThePlayer = thePlayer;
+                        }
+                        else
+                        {
+                            clone = (GameObject)Instantiate(PlayerDummy, theTileMap.ConvertTileToWorld(SpawnPoint), Quaternion.identity);
+                            DummyPlayer thePlayer = clone.GetComponent<DummyPlayer>();
+                            thePlayer.id = TotalPlayerData.theListOfPlayers[i].client_id;
+                        }
+                    }
+                    StartCoroutine(StartCountdown());
+
                 }
             }
         }

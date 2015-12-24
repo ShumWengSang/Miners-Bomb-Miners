@@ -30,6 +30,7 @@ namespace Roland
             public const int ReplyToJoin = 5;
             public const int YouWin = 6;
             public const int GameOver = 7;
+            public const int StartGame = 8;
         }
 
         public class RoomSubjects
@@ -40,7 +41,6 @@ namespace Roland
             public const int ReplayToJoin = 3;
             public const int ReadyToMoveToGameScene = 4;
             public const int GiveItemDic = 5;
-
         }
 
         public class ServerSubjects
@@ -50,6 +50,8 @@ namespace Roland
             public const int ChangeStateToGame = 2;
             public const int ILose = 3;
             public const int QueryPlayerSize = 4;
+            public const int ClientReadyToPlay = 5;
+            public const int ClientNotReady = 6;
         }
 
         public class PlayerSubjects

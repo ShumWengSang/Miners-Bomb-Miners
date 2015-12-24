@@ -11,6 +11,8 @@ namespace MinersBombMinersServerPlugin
     {
         Dictionary<int, int> theSpawnPoints = new Dictionary<int, int>();
         List<int> ListOfLosers = new List<int>();
+
+        Dictionary<int, PlayerInfo> theClients = new Dictionary<int, PlayerInfo>();
         enum GameState
         {
             Room = 0,
@@ -19,12 +21,26 @@ namespace MinersBombMinersServerPlugin
 
         GameState CurrentGameState;
 
+        PlayerType LatestPlayer = (PlayerType)0;
+
         public class PlayerInfo
         {
             public int SpawnPoint;
             public PlayerType thePlayerType;
-            public bool HaveIWon = false;
+            public bool Lost = false;
+            public bool ReadyToPlay = false;
         }
+
+        public class PacketUseTypeID
+        {
+            public PlayerType thePlayerType;
+            public ushort client_id;
+        }
+        public class PacketPlayerData
+        {
+            public PacketUseTypeID[] theListOfPlayers;
+        }
+
         public enum PlayerType
         {
             Red = 0,
@@ -98,24 +114,51 @@ namespace MinersBombMinersServerPlugin
         {
             if (msg.tag == NetworkingTags.Server)
             {
-                if (msg.subject == NetworkingTags.ServerSubjects.GetRandomSpawn)
+                if (msg.subject == NetworkingTags.ServerSubjects.ClientReadyToPlay)
                 {
+                    theClients[msg.senderID].ReadyToPlay = true;
+                    bool allReadyToPlay = true;
+                    foreach (KeyValuePair<int, PlayerInfo> theKey in theClients)
+                    {
+                        if(!theKey.Value.ReadyToPlay)
+                        {
+                            allReadyToPlay = false;
+                            break;
+                        }
+                    }
+                    if(allReadyToPlay)
+                    {
+                        ConnectionService [] AllServices = DarkRiftServer.GetAllConnections();
 
-                    NetworkMessage newMessage = new NetworkMessage();
-                    newMessage.data = (object)theSpawnPoints;
-                    newMessage.senderID = msg.senderID;
-                    newMessage.subject = NetworkingTags.ServerSubjects.GetRandomSpawn;
-                    newMessage.tag = NetworkingTags.Server;
-                    newMessage.distributionType = DistributionType.ID;
-                    con.SendNetworkMessage(newMessage);
+                        PacketPlayerData TotalPlayerData = new PacketPlayerData();
+                        TotalPlayerData.theListOfPlayers = new PacketUseTypeID[theClients.Count];
+                        int count = 0;
+                        foreach (KeyValuePair<int, PlayerInfo> theKey in theClients)
+                        {
+                            PacketUseTypeID PlayerData = new PacketUseTypeID();
+                            PlayerData.client_id = (ushort)theKey.Key;
+                            PlayerData.thePlayerType = theKey.Value.thePlayerType;
+                            TotalPlayerData.theListOfPlayers[count] = PlayerData;
+                            count++;
+                        }
 
-                    newMessage = new NetworkMessage();
-                    newMessage.data = (object)msg.senderID;
-                    newMessage.senderID = msg.senderID;
-                    newMessage.subject = NetworkingTags.ControllerSubjects.SpawnPlayer;
-                    newMessage.tag = NetworkingTags.Controller;
-                    newMessage.distributionType = DistributionType.ID;
-                    con.SendNetworkMessage(newMessage);
+                        for(int i = 0; i < AllServices.Length; i++)
+                        {
+                            if(theClients.ContainsKey(AllServices[i].id))
+                            {
+                                NetworkMessage newMessage = new NetworkMessage();
+                                newMessage.subject = NetworkingTags.ControllerSubjects.StartGame;
+                                newMessage.tag = NetworkingTags.Controller;
+                                newMessage.data = TotalPlayerData;
+                                AllServices[i].SendNetworkMessage(newMessage);
+                            }
+                        }
+                    }
+
+                }
+                else if(msg.subject == NetworkingTags.ServerSubjects.ClientNotReady)
+                {
+                    theClients[msg.senderID].ReadyToPlay = false;
                 }
                 else if (msg.subject == NetworkingTags.ServerSubjects.ChangeStateToRoom)
                 {
@@ -127,29 +170,25 @@ namespace MinersBombMinersServerPlugin
                 }
                 else if(msg.subject == NetworkingTags.ServerSubjects.ILose)
                 {
-                    ListOfLosers.Add(msg.senderID);
-                    if(ListOfLosers.Count == (theSpawnPoints.Count - 1))
-                    {
-                        //so we only got one player who hasn't lost, meaning he won.
-                        foreach (int id in theSpawnPoints.Keys)
-                        {
-                            if(!ListOfLosers.Contains(id))
-                            {
-                                //so we don't have this id in losers, meaning he is the winner.
-                                //send him a winner message.
-                                Interface.Log("ID: " + id + " has won");
-                                NetworkMessage newMessage = new NetworkMessage();
-                                newMessage = new NetworkMessage();
-                                newMessage.data = "";
-                                newMessage.senderID = (ushort)id;
-                                newMessage.subject = NetworkingTags.ControllerSubjects.YouWin;
-                                newMessage.tag = NetworkingTags.Controller;
-                                newMessage.distributionType = DistributionType.ID;
-                                DarkRiftServer.GetConnectionServiceByID((ushort)id).SendNetworkMessage(newMessage);
+                    theClients[msg.senderID].Lost = false;
 
-                            }
+                    int AmountOfLost = 0;
+                    int IDofWinner = -1;
+                    foreach(KeyValuePair<int, PlayerInfo> theKey in theClients)
+                    {
+                        if(theKey.Value.Lost)
+                        {
+                            AmountOfLost++;
                         }
-                        ListOfLosers.Clear();
+                        else
+                        {
+                            IDofWinner = theKey.Key;
+                        }
+                    }
+                    if(AmountOfLost == (PlayerNum - 1))
+                    {
+                        NetworkMessage newMessage = new NetworkMessage(msg.destinationID, (byte)DistributionType.ID, (ushort)IDofWinner, NetworkingTags.Controller, NetworkingTags.ControllerSubjects.YouWin,"");
+                        DarkRiftServer.GetConnectionServiceByID((ushort)IDofWinner).SendNetworkMessage(newMessage);
                     }
                 }
             }
@@ -163,7 +202,16 @@ namespace MinersBombMinersServerPlugin
                 {  
                     PlayerNum++;
                     Interface.Log("Player number has increased to " + PlayerNum);
-                    theSpawnPoints.Add(msg.senderID, PlayerNum);
+
+                    PlayerInfo newPlayer = new PlayerInfo();
+                    newPlayer.Lost = false;
+                    newPlayer.ReadyToPlay = false;
+                    newPlayer.SpawnPoint = PlayerNum;
+                    newPlayer.thePlayerType = LatestPlayer;
+
+                    LatestPlayer = (PlayerType)((int)(LatestPlayer)++);
+                    //we haven't add a condition to make sure its less than 4.
+                    theClients.Add(msg.senderID, newPlayer);
                 }
             }
 
@@ -190,7 +238,11 @@ namespace MinersBombMinersServerPlugin
         {
             PlayerNum--;
             Interface.Log("Player number has decreased to " + PlayerNum);
-            theSpawnPoints.Remove(con.id);
+            
+            if(theClients.ContainsKey(con.id))
+            {
+                theClients.Remove(con.id);
+            }
         }
 
         public void set_logCommand(string [] parts)
