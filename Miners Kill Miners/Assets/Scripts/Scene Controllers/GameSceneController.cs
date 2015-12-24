@@ -48,6 +48,7 @@ namespace Roland
 
         Dictionary<int, int> theListOfSpawns;
 
+        public RuntimeAnimatorController[] PlayerAnimators;
 
 
         public void RestartLevel()
@@ -199,24 +200,22 @@ namespace Roland
                             default:
                                 Debug.LogError("Not associated spawn_id. " + spawnPoint);
                                 break;
+                        }                        //Instantiate the player
+                        GameObject clone;
+                        if (entry.Key == DarkRiftAPI.id)
+                        {
+                            clone = (GameObject)Instantiate(PlayerPrefab, theTileMap.ConvertTileToWorld(SpawnTile), Quaternion.identity);
+                            Player thePlayer = clone.GetComponent<Player>();
+                            thePlayer.player_id = (ushort)entry.Key;
+                            thePlayer.theController = this;
+                            CurrentPlayer.Instance.ThePlayer = thePlayer;
                         }
-
-                        //Instantiate the player
-                         GameObject clone;
-                         if (entry.Key == DarkRiftAPI.id)
-                         {
-                             clone = (GameObject)Instantiate(PlayerPrefab, theTileMap.ConvertTileToWorld(SpawnTile), Quaternion.identity);
-                             Player thePlayer = clone.GetComponent<Player>();
-                             thePlayer.player_id = (ushort)entry.Key;
-                             thePlayer.theController = this;
-                             CurrentPlayer.Instance.ThePlayer = thePlayer;
-                         }
-                         else
-                         {
-                             clone = (GameObject)Instantiate(PlayerDummy, theTileMap.ConvertTileToWorld(SpawnTile), Quaternion.identity);
-                             DummyPlayer thePlayer = clone.GetComponent<DummyPlayer>();
-                             thePlayer.id = (ushort)entry.Key;
-                         }
+                        else
+                        {
+                            clone = (GameObject)Instantiate(PlayerDummy, theTileMap.ConvertTileToWorld(SpawnTile), Quaternion.identity);
+                            DummyPlayer thePlayer = clone.GetComponent<DummyPlayer>();
+                            thePlayer.id = (ushort)entry.Key;
+                        }
                     }
                     CurrentPlayer.Instance.ThePlayer.AmountOfItems = CurrentPlayer.Instance.AmountOfItems;
                     SpawnedAllPlayers = true;

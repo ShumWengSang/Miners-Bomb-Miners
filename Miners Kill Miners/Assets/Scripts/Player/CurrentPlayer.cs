@@ -27,7 +27,7 @@ namespace Roland
         {
             if (!loaded)
             {
-                playerDataColleciton = PlayerDataContainer.Load(Path.Combine(Application.dataPath, "PlayerData.xml"));
+               // playerDataColleciton = PlayerDataContainer.Load(Path.Combine(Application.dataPath, "PlayerData.xml"));
                 loaded = true;
             }
             InitializeList();
@@ -95,7 +95,7 @@ namespace Roland
 
         void OnApplicationQuit()
         {
-            playerDataColleciton.Save(Path.Combine(Application.dataPath, "PlayerData.xml"));
+            //playerDataColleciton.Save(Path.Combine(Application.dataPath, "PlayerData.xml"));
         }
 
         void Awake()

@@ -50,38 +50,46 @@ namespace Roland
 
         public Block GetTileAt(int x, int y)
         {
-            if (x > sizex)
-                x = sizex;
-            if (x < 0)
-                x = 0;
-            if (y > sizez)
-                y = sizez;
-            if (y < 0)
-                y = 0;
+            CheckBoundaries(ref x, ref y);
             return blocks[x, y];
         }
         public Block GetTileAt(Vector2 tile)
         {
-            if (tile.x > sizex - 1)
-                tile.x = sizex - 1;
-            if (tile.x < 0)
-                tile.x = 0;
-            if (tile.y > sizez - 1)
-                tile.y = sizez - 1;
-            if (tile.y < 0)
-                tile.y = 0;
-            return blocks[(int)tile.x, (int)tile.y];
+            int x = (int)tile.x;
+            int y = (int)tile.y;
+            CheckBoundaries(ref x, ref y);
+            return blocks[x, y];
+        }
+
+        void CheckBoundaries(ref int x, ref int y)
+        {
+            if (x >= sizex)
+                x = sizex - 1;
+            if (x < 0)
+                x = 0;
+            if (y >= sizez)
+                y = sizez - 1;
+            if (y < 0)
+                y = 0;
         }
 
         public Vector2 SetTileAt(int x , int y, Block newBlock)
         {
+            if (x == -1 && y == -1)
+                return Vector2.zero;
+            CheckBoundaries(ref x, ref y);
             blocks[x, y] = newBlock;
             return new Vector2(x, y);
         }
         public Vector2 SetTileAt(Vector2 tile, Block newBlock)
         {
-            blocks[(int)tile.x, (int)tile.y] = newBlock;
-            return new Vector2((int)tile.x, (int)tile.y);
+            int x = (int)tile.x;
+            int y = (int)tile.y;
+            if (x == -1 && y == -1)
+                return Vector2.zero;
+            CheckBoundaries(ref x, ref y);
+            blocks[x, y] = newBlock;
+            return new Vector2(x, y);
         }
 
 

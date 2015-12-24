@@ -73,11 +73,6 @@ namespace Roland
                 if (Input.GetMouseButtonDown(0))
                 {
                     OnMouseButtonDown(MouseButtons.left, client_id, CurrentPlayer.Instance.ThePlayer.TheCurrentItem);
-                    if (DarkRiftAPI.isConnected)
-                    {
-                        Debug.Log("sending");
-                        DarkRiftAPI.SendMessageToOthers(NetworkingTags.Events, NetworkingTags.EventSubjects.leftMouseButton, CurrentPlayer.Instance.ThePlayer.TheCurrentItem);
-                    }
                 }
                 else if(Input.GetMouseButtonDown(1))
                 {

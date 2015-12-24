@@ -59,6 +59,7 @@ namespace Roland
             public const int DestroyMapTile = 2;
             public const int ChangeDir = 3;
             public const int PlayerDied = 4;
+            public const int ChangeBlockToNonMovable = 5;
         }
     }
 }

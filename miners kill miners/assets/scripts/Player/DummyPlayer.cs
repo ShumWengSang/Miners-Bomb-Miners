@@ -8,15 +8,23 @@ namespace Roland
         Transform ourTransform;
         public int id;
         Animator theAnimator;
+        TileMap theTileMap;
 
+        Vector3 Offset;
+        SpriteRenderer sp;
         void Start()
         {
+            sp = GetComponent<SpriteRenderer>();
             theAnimator = GetComponent<Animator>();
             ourTransform = GetComponent<Transform>();
             DarkRift.DarkRiftAPI.onDataDetailed += ReceiveData;
             EventManager.OnMouseButtonDown += OnMouseButtonDown;
+            theTileMap = TileMapInterfacer.Instance.TileMap;
+            tilePosBlocker = new Vector2(-1, -1);
         }
 
+        Vector2 tilePosBlocker;
+        Vector2 currentTilePos;
         void OnDestroy()
         {
             DarkRift.DarkRiftAPI.onDataDetailed -= ReceiveData;
@@ -33,6 +41,11 @@ namespace Roland
                     {
                         Vector3 dataV = (Vector3)data;
                         ourTransform.position = dataV;
+
+                        currentTilePos = theTileMap.ConvertWorldToTile(dataV - Offset);
+                        theTileMap.UpdateTexture(tilePosBlocker, new Noblock());
+                        theTileMap.UpdateTexture(currentTilePos, new InvisibleWallBlock());
+                        tilePosBlocker = currentTilePos;
                     }
                     else if (subject == NetworkingTags.PlayerSubjects.DestroyMapTile)
                     {
@@ -48,8 +61,13 @@ namespace Roland
                     {
                         Destroy(this.gameObject);
                     }
+                    else if(subject == NetworkingTags.PlayerSubjects.ChangeBlockToNonMovable)
+                    {
+                        Vector2 dataV = (Vector2)data;
+                        theTileMap.theMap.SetTileAt(dataV, new InvisibleWallBlock());
+                       // .theMap.SetTileAt(currentTilePos, new InvisibleWallBlock());
+                    }
                 }
-
             }
         }
 
@@ -94,17 +112,34 @@ namespace Roland
             switch (theDirection)
             {
                 case Direction.Up:
+                    if (sp.sprite != null)
+                    {
+                        Offset = sp.sprite.bounds.extents;
+                    }
                     theAnimator.SetTrigger("Move Up");
                     break;
                 case Direction.Down:
+                    if (sp.sprite != null)
+                    {
+                        Offset = -sp.sprite.bounds.extents;
+                        Offset -= Offset * 0.01f;
+
+                    }
                     theAnimator.SetTrigger("Move Down");
                     break;
                 case Direction.Left:
-
+                    if (sp.sprite != null)
+                    {
+                        Offset = -sp.sprite.bounds.extents;
+                        Offset -= Offset * 0.01f;
+                    }
                     theAnimator.SetTrigger("MoveLeft");
                     break;
                 case Direction.Right:
-
+                    if (sp.sprite != null)
+                    {
+                        Offset = sp.sprite.bounds.extents;
+                    }
                     theAnimator.SetTrigger("MoveRight");
                     break;
                 case Direction.Stop:

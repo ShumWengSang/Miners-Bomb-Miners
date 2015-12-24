@@ -16,6 +16,22 @@ namespace Roland
         TNTBomb,
         NuclearBomb
     }
+
+    public class PacketChangeTile
+    {
+        public Vector2 tile;
+        public Block theBlock;
+
+        public PacketChangeTile()
+        {
+
+        }
+        public PacketChangeTile(Vector2 vec, Block theBlock)
+        {
+            this.tile = vec;
+            this.theBlock = theBlock;
+        }
+    }
     [System.Serializable]
     public class Player : MonoBehaviour
     {
@@ -96,6 +112,8 @@ namespace Roland
             UpdateHealth(HealthPoints);
             if(this.player_id == DarkRiftAPI.id)
                 StartCoroutine(UpdatePosition());
+
+            tilePosBlocker = new Vector2(-1, -1);
         }
 
         WaitForSeconds WaitForUpdate;
@@ -103,6 +121,7 @@ namespace Roland
         {
             while (true)
             {
+               // DarkRiftAPI.SendMessageToOthers(NetworkingTags.Player, NetworkingTags.PlayerSubjects.ChangeBlockToNonMovable, currentTilePos);
                 DarkRiftAPI.SendMessageToOthers(NetworkingTags.Player, NetworkingTags.PlayerSubjects.UpdatePostion, ourTransform.position);
                 yield return WaitForUpdate;
             }
@@ -175,31 +194,28 @@ namespace Roland
         }
 
         Vector2 nextTilePos;
-        Vector2 prevTilePos;
         Vector2 currentTilePos;
         Vector2 tilePosBlocker;
 
         void Update()
         {
            // ourTransform.position = theTileMap.ConvertWorldToTile(ourTransform.position);
+            currentTilePos = theTileMap.ConvertWorldToTile(ourTransform.position - Offset);
             nextTilePos = MoveDirection + theTileMap.ConvertWorldToTile(ourTransform.position - Offset);
-            
+
            // Debug.Log("Our tile pos is " + theTileMap.ConvertWorldToTile(transform.position));
             Block theNextBlock = theTileMap.theMap.GetTileAt(nextTilePos);
-            if (prevTilePos != currentTilePos)
-            {
-                prevTilePos = nextTilePos;
-               // theTileMap.theMap.SetTileAt(tilePosBlocker, new Noblock());
 
-               // if(this.player_id == DarkRiftAPI.id)
-                   // DarkRiftAPI.SendMessageToOthers(NetworkingTags.Player, NetworkingTags.PlayerSubjects.UpdatePostion, nowTilePos);
-            }
+            theTileMap.UpdateTexture(tilePosBlocker, new Noblock());
+            theTileMap.UpdateTexture(currentTilePos, new InvisibleWallBlock());
+            tilePosBlocker = currentTilePos;
             if (theNextBlock is Noblock)
             {
                 //Debug.Log("Changing transform and move direction is" + MoveDirection);
                 ourTransform.localPosition += new Vector3(MoveDirection.x, MoveDirection.y, 0) * Time.deltaTime * speed;
+                //DarkRiftAPI.SendMessageToOthers(NetworkingTags.Player, NetworkingTags.PlayerSubjects.ChangeBlockToNonMovable, currentTilePos);
+               
                 
-               // tilePosBlocker = theTileMap.theMap.SetTileAt(theTileMap.ConvertWorldToTile(ourTransform.position - Offset), new InvisibleWallBlock());
                 //rb.velocity = MoveDirection * Time.deltaTime * speed;
             }
             else if(!DigCooldown)
@@ -210,8 +226,6 @@ namespace Roland
                 DarkRiftAPI.SendMessageToOthers(NetworkingTags.Player, NetworkingTags.PlayerSubjects.DestroyMapTile, nextTilePos);
                 //rb.velocity = Vector3.zero * Time.deltaTime * speed;
             }
-
-
         }
         public void OnMouseButtonDown(MouseButtons button, int id, Items_e theItem)
         {
@@ -223,6 +237,11 @@ namespace Roland
                     {
                         AmountOfItems[theItem]--;
                         MouseButtonSpawn(theItem);
+                        if (DarkRiftAPI.isConnected)
+                        {
+                            Debug.Log("sending");
+                            DarkRiftAPI.SendMessageToOthers(NetworkingTags.Events, NetworkingTags.EventSubjects.leftMouseButton, CurrentPlayer.Instance.ThePlayer.TheCurrentItem);
+                        }
                     }
                 }
                 else if(button == MouseButtons.ScrollDown)

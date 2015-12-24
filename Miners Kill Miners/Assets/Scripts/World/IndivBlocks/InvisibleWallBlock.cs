@@ -7,7 +7,8 @@ namespace Roland
     {
         public InvisibleWallBlock()
         {
-            texture_number = 16;
+            //20
+            texture_number = 20;
             DigsToGoThrough = 9999;
         }
     }

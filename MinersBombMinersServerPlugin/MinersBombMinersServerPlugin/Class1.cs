@@ -19,11 +19,19 @@ namespace MinersBombMinersServerPlugin
 
         GameState CurrentGameState;
 
-        struct intHolder
+        public class PlayerInfo
         {
-            public int data;
+            public int SpawnPoint;
+            public PlayerType thePlayerType;
+            public bool HaveIWon = false;
         }
-
+        public enum PlayerType
+        {
+            Red = 0,
+            Green,
+            Blue,
+            Yellow
+        }
         public class Vector2
         {
             int x = 0;
@@ -43,7 +51,7 @@ namespace MinersBombMinersServerPlugin
 
         bool log;
         static int PlayerNum;
-
+        int TotalNumberOfPlayers = 0;
         public override string name
         {
             get { return "Miners Bomb Miners Plugin"; }
@@ -164,6 +172,8 @@ namespace MinersBombMinersServerPlugin
 
         public void OnPlayerFirstConnect(ConnectionService con)
         {
+            TotalNumberOfPlayers++;
+            Interface.Log("Total amount of players is " + TotalNumberOfPlayers);
             if(!(CurrentGameState == GameState.Room) || PlayerNum > 4)
             {
                 //NetworkMessage newMessage = new NetworkMessage();

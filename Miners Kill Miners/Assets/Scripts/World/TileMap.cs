@@ -66,9 +66,14 @@ namespace Roland
 
         public void UpdateTexture(int x, int y, Block newBlock)
         {
-
             map.SetTileAt(x, y, newBlock);
-            BuildTexture();
+            if (!(map.GetTileAt(x, y).texture_number == newBlock.texture_number))
+                b_UpdateTexture = true;
+        }
+
+        public void UpdateTexture(Vector2 tile, Block newBlock)
+        {
+            UpdateTexture((int)tile.x, (int)tile.y, newBlock);
         }
 
         Color[][] ChopUpTiles()
