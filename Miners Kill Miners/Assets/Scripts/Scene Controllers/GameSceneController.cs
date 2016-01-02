@@ -50,16 +50,14 @@ namespace Roland
 
         public RuntimeAnimatorController[] PlayerAnimators;
 
+        [System.Serializable]
         public class PacketUseTypeID
         {
-            public PlayerType thePlayerType;
+            public int thePlayerType;
             public ushort client_id;
         }
-        public class PacketPlayerData
-        {
-            public PacketUseTypeID[] theListOfPlayers;
-        }
 
+        [System.Serializable]
         public enum PlayerType
         {
             Red = 0,
@@ -82,7 +80,7 @@ namespace Roland
 
         void Awake()
         {
-            
+            DarkRiftAPI.workInBackground = false;   
             changeScene = GetGlobalObject.FindAndGetComponent<ChangeScenes>(this.gameObject, "Global");
 
             //Check whether its sandbox or multiplayer.
@@ -169,7 +167,7 @@ namespace Roland
             //stuff like that.
 
             //Ok, if data has a Controller tag then it's for us
-            
+            Debug.Log("Receiving data");
             if (tag == NetworkingTags.Controller)
             {
                 //If a player has joined tell them to give us a player
@@ -245,46 +243,68 @@ namespace Roland
                 }
                 else if(subject == NetworkingTags.ControllerSubjects.StartGame)
                 {
-                    PacketPlayerData TotalPlayerData = (PacketPlayerData)data;
-                    for (int i = 0; i < TotalPlayerData.theListOfPlayers.Length; i++ )
+                    Debug.Log("Starting game");
+                    List<PacketUseTypeID> PacketPlayerData = (List<PacketUseTypeID>) data;
+                    for (int i = 0; i < PacketPlayerData.Count; i++)
                     {
                         Vector2 SpawnPoint = Vector2.zero;
-                        switch (TotalPlayerData.theListOfPlayers[i].thePlayerType)
+                        RuntimeAnimatorController theColoredPlayer = PlayerAnimators[0];
+                        Color thePlayerColor = Color.white;
+                        switch (PacketPlayerData[i].thePlayerType)
                         {
-                            case PlayerType.Red:
+                            case 0:
+                                theColoredPlayer = PlayerAnimators[0];
                                 SpawnPoint = new Vector2(1, 1);
+                                thePlayerColor = Color.red;
                                 break;
-                            case PlayerType.Green:
+                            case 1:
                                 SpawnPoint = new Vector2(theTileMap.size_x - 2, theTileMap.size_z - 2);
+                                theColoredPlayer = PlayerAnimators[1];
+                                thePlayerColor = Color.green;
                                 break;
-                            case PlayerType.Blue:
+                            case 2:
                                 SpawnPoint = new Vector2(theTileMap.size_x - 2, 1);
+                                theColoredPlayer = PlayerAnimators[2];
+                                thePlayerColor = Color.blue;
                                 break;
-                            case PlayerType.Yellow:
+                            case 3:
                                 SpawnPoint = new Vector2(1, theTileMap.size_z - 2);
+                                theColoredPlayer = PlayerAnimators[3];
+                                thePlayerColor = Color.yellow;
                                 break;
                             default:
-                                Debug.LogWarning("No such player type found! Logged " + TotalPlayerData.theListOfPlayers[i].thePlayerType);
+                                Debug.LogWarning("No such player type found! Logged " + PacketPlayerData[i].thePlayerType);
                                 break;
                         }
                         GameObject clone;
-                        if (TotalPlayerData.theListOfPlayers[i].client_id == DarkRiftAPI.id)
+                        if (PacketPlayerData[i].client_id == DarkRiftAPI.id)
                         {
+
                             clone = (GameObject)Instantiate(PlayerPrefab, theTileMap.ConvertTileToWorld(SpawnPoint), Quaternion.identity);
                             Player thePlayer = clone.GetComponent<Player>();
-                            thePlayer.player_id = TotalPlayerData.theListOfPlayers[i].client_id;
+                            thePlayer.player_id = PacketPlayerData[i].client_id;
                             thePlayer.theController = this;
                             CurrentPlayer.Instance.ThePlayer = thePlayer;
+                            UiHolder theHolder = GetComponent<UiHolder>();
+                            HealthBar healthBar = clone.GetComponent<HealthBar>();
+                            healthBar.healthSlider = theHolder.HealthSlider;
+                            healthBar.damageImage = theHolder.DamageHealth;
+                            theHolder.HealthFill.color = thePlayerColor;
                         }
                         else
                         {
                             clone = (GameObject)Instantiate(PlayerDummy, theTileMap.ConvertTileToWorld(SpawnPoint), Quaternion.identity);
                             DummyPlayer thePlayer = clone.GetComponent<DummyPlayer>();
-                            thePlayer.id = TotalPlayerData.theListOfPlayers[i].client_id;
+                            thePlayer.id = PacketPlayerData[i].client_id;
                         }
+                        clone.GetComponent<Animator>().runtimeAnimatorController = theColoredPlayer;
                     }
                     StartCoroutine(StartCountdown());
 
+                }
+                else if(subject == NetworkingTags.ControllerSubjects.SendTest)
+                {
+                    Debug.Log("Test completed successfully");
                 }
             }
         }

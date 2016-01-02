@@ -5,6 +5,7 @@ namespace Roland
 {
     public class BombsParent : MonoBehaviour
     {
+        public float damage = 50f;
         public int BombPower;
         public int TimeToExplode = 2;
         public Player ParentPlayer = null;

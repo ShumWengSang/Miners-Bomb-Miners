@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using DarkRift;
+using System.Net;
+using System.Net.Sockets;
+
 namespace MinersBombMinersServerPlugin
 {
     using Roland;
@@ -11,8 +11,9 @@ namespace MinersBombMinersServerPlugin
     {
         Dictionary<int, int> theSpawnPoints = new Dictionary<int, int>();
         List<int> ListOfLosers = new List<int>();
-
+        PlayerAvailability PlayerColorsAvailableClass = new PlayerAvailability();
         Dictionary<int, PlayerInfo> theClients = new Dictionary<int, PlayerInfo>();
+        
         enum GameState
         {
             Room = 0,
@@ -21,7 +22,6 @@ namespace MinersBombMinersServerPlugin
 
         GameState CurrentGameState;
 
-        PlayerType LatestPlayer = (PlayerType)0;
 
         public class PlayerInfo
         {
@@ -30,17 +30,47 @@ namespace MinersBombMinersServerPlugin
             public bool Lost = false;
             public bool ReadyToPlay = false;
         }
-
+        [System.Serializable]
         public class PacketUseTypeID
         {
-            public PlayerType thePlayerType;
+            public int thePlayerType;
             public ushort client_id;
         }
-        public class PacketPlayerData
+
+        public class PlayerAvailability
         {
-            public PacketUseTypeID[] theListOfPlayers;
+            public bool[] PlayerColors = new bool[4];
+
+            public PlayerAvailability()
+            {
+                for(int i = 0; i < PlayerColors.Length; i++)
+                {
+                    PlayerColors[i] = false;
+                }
+            }
+
+            public void MakeColorAvailable(int color)
+            {
+                PlayerColors[color] = false;
+            }
+
+            public int GetNextAvailableColor()
+            {
+                for (int i = 0; i < PlayerColors.Length; i++)
+                {
+                   if(!PlayerColors[i])
+                   {
+                       PlayerColors[i] = true;
+                       return i;
+                   }
+                }
+                return -1;
+            }
         }
 
+        public List<PacketUseTypeID> theListOfPlayers = new List<PacketUseTypeID>();
+        
+        [System.Serializable]
         public enum PlayerType
         {
             Red = 0,
@@ -101,6 +131,10 @@ namespace MinersBombMinersServerPlugin
             ConnectionService.onData += OnDataReceived;
             ConnectionService.onPlayerConnect += OnPlayerFirstConnect;
             ConnectionService.onPlayerDisconnect += OnPlayerDisconnect;
+            Interface.Log("------------------------------------------");
+            Interface.Log("IPADDRESS FOR THIS SERVER IS: " + getIP());
+            Interface.Log("Please connect to the IP Address");
+            Interface.Log("------------------------------------------");
         }
 
         ~MinersBombMinersServerPlugin()
@@ -123,38 +157,36 @@ namespace MinersBombMinersServerPlugin
                         if(!theKey.Value.ReadyToPlay)
                         {
                             allReadyToPlay = false;
+                            Interface.Log("Not all ready to play. Total amount of players is: " + theClients.Count );
+                            Interface.Log("Detected that " + theKey.Key + " is not ready to play.");
                             break;
                         }
                     }
                     if(allReadyToPlay)
                     {
-                        ConnectionService [] AllServices = DarkRiftServer.GetAllConnections();
+                        Interface.Log("All are ready to play.");
+                        //ConnectionService [] AllServices = DarkRiftServer.GetAllConnections();
 
-                        PacketPlayerData TotalPlayerData = new PacketPlayerData();
-                        TotalPlayerData.theListOfPlayers = new PacketUseTypeID[theClients.Count];
-                        int count = 0;
                         foreach (KeyValuePair<int, PlayerInfo> theKey in theClients)
                         {
                             PacketUseTypeID PlayerData = new PacketUseTypeID();
                             PlayerData.client_id = (ushort)theKey.Key;
-                            PlayerData.thePlayerType = theKey.Value.thePlayerType;
-                            TotalPlayerData.theListOfPlayers[count] = PlayerData;
-                            count++;
+                            PlayerData.thePlayerType = (int)theKey.Value.thePlayerType;
+                            theListOfPlayers.Add(PlayerData); ;
+                            Interface.Log("------------------");
+                            Interface.Log("The List of players just added id " + PlayerData.client_id + " player type of " + PlayerData.thePlayerType);
+                            Interface.Log("------------------");
                         }
 
-                        for(int i = 0; i < AllServices.Length; i++)
+                        Interface.Log("Sending message to all");
+                        foreach (KeyValuePair<int, PlayerInfo> theKey in theClients)
                         {
-                            if(theClients.ContainsKey(AllServices[i].id))
-                            {
-                                NetworkMessage newMessage = new NetworkMessage();
-                                newMessage.subject = NetworkingTags.ControllerSubjects.StartGame;
-                                newMessage.tag = NetworkingTags.Controller;
-                                newMessage.data = TotalPlayerData;
-                                AllServices[i].SendNetworkMessage(newMessage);
-                            }
+                            Interface.Log("The message 2 is " + DarkRiftServer.GetConnectionServiceByID((ushort)theKey.Key).SendReply(NetworkingTags.Controller, NetworkingTags.ControllerSubjects.StartGame, theListOfPlayers));
                         }
-                    }
 
+                        theListOfPlayers.Clear();
+
+                    }
                 }
                 else if(msg.subject == NetworkingTags.ServerSubjects.ClientNotReady)
                 {
@@ -191,6 +223,10 @@ namespace MinersBombMinersServerPlugin
                         DarkRiftServer.GetConnectionServiceByID((ushort)IDofWinner).SendNetworkMessage(newMessage);
                     }
                 }
+                else if(msg.subject == NetworkingTags.ServerSubjects.SendMeSomething)
+                {
+
+                }
             }
             else if (msg.tag == NetworkingTags.Events)
             {
@@ -201,21 +237,20 @@ namespace MinersBombMinersServerPlugin
                 if(msg.subject == NetworkingTags.ControllerSubjects.JoinMessage)
                 {  
                     PlayerNum++;
+                    int color = PlayerColorsAvailableClass.GetNextAvailableColor();
                     Interface.Log("Player number has increased to " + PlayerNum);
+                    Interface.Log("assining playertype to " + (PlayerType)color);
 
                     PlayerInfo newPlayer = new PlayerInfo();
                     newPlayer.Lost = false;
                     newPlayer.ReadyToPlay = false;
                     newPlayer.SpawnPoint = PlayerNum;
-                    newPlayer.thePlayerType = LatestPlayer;
+                    newPlayer.thePlayerType = (PlayerType)color;
 
-                    LatestPlayer = (PlayerType)((int)(LatestPlayer)++);
                     //we haven't add a condition to make sure its less than 4.
                     theClients.Add(msg.senderID, newPlayer);
                 }
             }
-
-
         }
 
         public void OnPlayerFirstConnect(ConnectionService con)
@@ -241,7 +276,10 @@ namespace MinersBombMinersServerPlugin
             
             if(theClients.ContainsKey(con.id))
             {
+                Interface.Log("Removing player from client list");
+                PlayerColorsAvailableClass.MakeColorAvailable((int)theClients[con.id].thePlayerType);
                 theClients.Remove(con.id);
+
             }
         }
 
@@ -256,6 +294,21 @@ namespace MinersBombMinersServerPlugin
                 Interface.LogError("Setlog should be on or off, nothnig else");
             }
             log = (parts[0] == "on") ? true : false; 
+        }
+
+        static string getIP()
+        {
+            IPHostEntry host;
+            string localIP = "?";
+            host = Dns.GetHostEntry(Dns.GetHostName());
+            foreach (IPAddress ip in host.AddressList)
+            {
+                if (ip.AddressFamily == AddressFamily.InterNetwork)
+                {
+                    localIP = ip.ToString();
+                }
+            }
+            return localIP;
         }
     }
 }

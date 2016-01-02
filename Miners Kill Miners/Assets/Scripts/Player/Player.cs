@@ -45,6 +45,7 @@ namespace Roland
         public int player_id;
         public float WaitTimeForDig = 0.5f;
         public int HealthPoints = 100;
+        public int CurrentHealthPoints;
         public int Money = 100;
         public int Score = 0;
         public GameSceneController theController;
@@ -72,6 +73,8 @@ namespace Roland
         public Image BombType;
         public Sprite[] theSprites;
 
+        public HealthBar ourPlayerHealthBar;
+
         IEnumerator InvulCoolDown()
         {
             invul = true;
@@ -93,6 +96,7 @@ namespace Roland
 
         void Start()
         {
+            CurrentHealthPoints = HealthPoints;
             theTileMap = GameObject.Find("TileMap").GetComponent<TileMap>();
             if(theTileMap == null)
             {
@@ -104,12 +108,13 @@ namespace Roland
             TheCurrentItem = Items_e.SmallBomb;
 
             UiHolder theHolder = GameObject.Find("GameSceneController").GetComponent<UiHolder>();
+            ourPlayerHealthBar = GetComponent<HealthBar>();
 
             HP = theHolder.HP;
             NumberOfBombs = theHolder.AmountOfBombs;
             BombType = theHolder.TypeOfBomb;
             UpdateUI(TheCurrentItem, AmountOfItems[TheCurrentItem]);
-            UpdateHealth(HealthPoints);
+            UpdateHealth(CurrentHealthPoints);
             if(this.player_id == DarkRiftAPI.id)
                 StartCoroutine(UpdatePosition());
 
@@ -147,6 +152,7 @@ namespace Roland
         }
         public void UpdateHealth(int health)
         {
+            ourPlayerHealthBar.UpdateHealthBar(health, HealthPoints);
             HP.text = health.ToString();
         }
 
@@ -171,9 +177,9 @@ namespace Roland
             if (!invul)
             {
                 StartCoroutine(InvulCoolDown());
-                HealthPoints -= damage;
-                UpdateHealth(HealthPoints);
-                if (HealthPoints <= 0)
+                CurrentHealthPoints -= damage;
+                UpdateHealth(CurrentHealthPoints);
+                if (CurrentHealthPoints <= 0)
                 {
                     //we lose.
                     gameObject.SetActive(false);
@@ -239,7 +245,6 @@ namespace Roland
                         MouseButtonSpawn(theItem);
                         if (DarkRiftAPI.isConnected)
                         {
-                            Debug.Log("sending");
                             DarkRiftAPI.SendMessageToOthers(NetworkingTags.Events, NetworkingTags.EventSubjects.leftMouseButton, CurrentPlayer.Instance.ThePlayer.TheCurrentItem);
                         }
                     }

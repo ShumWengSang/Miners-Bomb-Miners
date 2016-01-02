@@ -30,6 +30,7 @@ namespace Roland
             public const int YouWin = 6;
             public const int GameOver = 7;
             public const int StartGame = 8;
+            public const int SendTest = 9;
         }
 
         public class RoomSubjects
@@ -51,6 +52,7 @@ namespace Roland
             public const int QueryPlayerSize = 4;
             public const int ClientReadyToPlay = 5;
             public const int ClientNotReady = 6;
+            public const int SendMeSomething = 7;
         }
 
         public class PlayerSubjects
