@@ -7,7 +7,13 @@ using System.Net.Sockets;
 namespace MinersBombMinersServerPlugin
 {
     using Roland;
-    public class MinersBombMinersServerPlugin  : Plugin
+    [System.Serializable]
+    public class PacketUseTypeID
+    {
+        public int thePlayerType;
+        public ushort client_id;
+    }
+    public class MinersBombMinersServerPlugin : Plugin
     {
         Dictionary<int, int> theSpawnPoints = new Dictionary<int, int>();
         List<int> ListOfLosers = new List<int>();
@@ -29,12 +35,6 @@ namespace MinersBombMinersServerPlugin
             public PlayerType thePlayerType;
             public bool Lost = false;
             public bool ReadyToPlay = false;
-        }
-        [System.Serializable]
-        public class PacketUseTypeID
-        {
-            public int thePlayerType;
-            public ushort client_id;
         }
 
         public class PlayerAvailability

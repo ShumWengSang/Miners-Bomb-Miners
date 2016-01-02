@@ -49,13 +49,7 @@ namespace Roland
         Dictionary<int, int> theListOfSpawns;
 
         public RuntimeAnimatorController[] PlayerAnimators;
-
-        [System.Serializable]
-        public class PacketUseTypeID
-        {
-            public int thePlayerType;
-            public ushort client_id;
-        }
+        public Sprite[] StartingSprite;
 
         [System.Serializable]
         public enum PlayerType
@@ -244,7 +238,8 @@ namespace Roland
                 else if(subject == NetworkingTags.ControllerSubjects.StartGame)
                 {
                     Debug.Log("Starting game");
-                    List<PacketUseTypeID> PacketPlayerData = (List<PacketUseTypeID>) data;
+
+                    List<MinersBombMinersServerPlugin.PacketUseTypeID> PacketPlayerData = (List<MinersBombMinersServerPlugin.PacketUseTypeID>)data;
                     for (int i = 0; i < PacketPlayerData.Count; i++)
                     {
                         Vector2 SpawnPoint = Vector2.zero;

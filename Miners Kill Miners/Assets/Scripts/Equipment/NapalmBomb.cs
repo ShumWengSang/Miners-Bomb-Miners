@@ -17,8 +17,8 @@ namespace Roland
             while (q.Count > 0)
             {
                 Vector2 current = q.Dequeue();
-                if (current == null)
-                    continue;
+              //  if (current == null)
+                   // continue;
                 if (theTileMap.theMap.GetTileAt(new Vector2(x + 1, y)) is Noblock || theTileMap.theMap.GetTileAt(new Vector2(x + 1, y)) is InvisibleWallBlock)
                 {
                     q.Enqueue(new Vector2(x + 1, y));
