@@ -35,8 +35,6 @@ namespace Roland
         public GameObject PlayerDummy;
         public Text WinLose;
 
-        bool SpawnedAllPlayers = false;
-
         //temp
         TileMap theTileMap;
         GameObject theObj;
@@ -45,6 +43,7 @@ namespace Roland
         public GameObject Game;
         public GameObject Shop;
         public GameObject RestartButton;
+        public GameObject NotConnected;
 
         Dictionary<int, int> theListOfSpawns;
 
@@ -74,7 +73,7 @@ namespace Roland
 
         void Awake()
         {
-            DarkRiftAPI.workInBackground = false;   
+            DarkRiftAPI.workInBackground = true;   
             changeScene = GetGlobalObject.FindAndGetComponent<ChangeScenes>(this.gameObject, "Global");
 
             //Check whether its sandbox or multiplayer.
@@ -93,6 +92,7 @@ namespace Roland
 
         void Start()
         {
+            Map.Offset += 2.0f;
             waitForTimer = new WaitForSeconds(1);
             PlayerReady = 0;
             theTileMap = TileMapInterfacer.Instance.TileMap;
@@ -111,6 +111,16 @@ namespace Roland
                 DarkRiftAPI.SendMessageToServer(NetworkingTags.Server, NetworkingTags.ServerSubjects.ChangeStateToGame, "");
             }
             DarkRiftAPI.onDataDetailed += ReceiveData;
+        }
+
+
+        void Update()
+        {
+            if(!DarkRiftAPI.isConnected)
+            {
+                Shop.SetActive(false);
+                NotConnected.SetActive(true);
+            }
         }
 
         public void ChangeScene(string newScene)
@@ -161,7 +171,6 @@ namespace Roland
             //stuff like that.
 
             //Ok, if data has a Controller tag then it's for us
-            Debug.Log("Receiving data");
             if (tag == NetworkingTags.Controller)
             {
                 //If a player has joined tell them to give us a player
@@ -176,48 +185,6 @@ namespace Roland
 
                 else if (subject == NetworkingTags.ControllerSubjects.SpawnPlayer)
                 {
-                    ////THIS IS ONLY FROM THE SERVER. CHANGE IS BECAUSE OF NEED TO CHANGE FROM 
-                    ////FAILED THOUGHT IDEA. WE SHOULD ONLY GET THIS ONCE
-                    //foreach (KeyValuePair<int, int> entry in theListOfSpawns)
-                    //{
-                    //    int spawnPoint = entry.Value;
-                    //    Vector2 SpawnTile = new Vector2(0, 0);
-                    //    switch (spawnPoint)
-                    //    {
-                    //        case 1:
-                    //            SpawnTile = new Vector2(1, 1);
-                    //            break;
-                    //        case 2:
-                    //            SpawnTile = new Vector2(theTileMap.size_x - 2, theTileMap.size_z - 2);
-                    //            break;
-                    //        case 3:
-                    //            SpawnTile = new Vector2(theTileMap.size_x - 2, 1);
-                    //            break;
-                    //        case 4:
-                    //            SpawnTile = new Vector2(1, theTileMap.size_z - 2);
-                    //            break;
-                    //        default:
-                    //            Debug.LogError("Not associated spawn_id. " + spawnPoint);
-                    //            break;
-                    //    }                        //Instantiate the player
-                    //    GameObject clone;
-                    //    if (entry.Key == DarkRiftAPI.id)
-                    //    {
-                    //        clone = (GameObject)Instantiate(PlayerPrefab, theTileMap.ConvertTileToWorld(SpawnTile), Quaternion.identity);
-                    //        Player thePlayer = clone.GetComponent<Player>();
-                    //        thePlayer.player_id = (ushort)entry.Key;
-                    //        thePlayer.theController = this;
-                    //        CurrentPlayer.Instance.ThePlayer = thePlayer;
-                    //    }
-                    //    else
-                    //    {
-                    //        clone = (GameObject)Instantiate(PlayerDummy, theTileMap.ConvertTileToWorld(SpawnTile), Quaternion.identity);
-                    //        DummyPlayer thePlayer = clone.GetComponent<DummyPlayer>();
-                    //        thePlayer.id = (ushort)entry.Key;
-                    //    }
-                    //}
-                    //CurrentPlayer.Instance.ThePlayer.AmountOfItems = CurrentPlayer.Instance.AmountOfItems;
-                    //SpawnedAllPlayers = true;
                 }
                 else if (subject == NetworkingTags.ControllerSubjects.ReadyToStartGame)
                 {
@@ -277,6 +244,7 @@ namespace Roland
 
                             clone = (GameObject)Instantiate(PlayerPrefab, theTileMap.ConvertTileToWorld(SpawnPoint), Quaternion.identity);
                             Player thePlayer = clone.GetComponent<Player>();
+                            thePlayer.AmountOfItems = CurrentPlayer.Instance.AmountOfItems;
                             thePlayer.player_id = PacketPlayerData[i].client_id;
                             thePlayer.theController = this;
                             CurrentPlayer.Instance.ThePlayer = thePlayer;
@@ -316,7 +284,6 @@ namespace Roland
                 DarkRiftAPI.SendMessageToServer(NetworkingTags.Server, NetworkingTags.ServerSubjects.ILose, "");
                 WinLose.text = "YOU LOSE";
             }
-           
             WinLose.gameObject.SetActive(true);
         }
     }

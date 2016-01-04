@@ -17,26 +17,30 @@ public class HealthBar : MonoBehaviour
 
     bool isDead;                                                // Whether the player is dead.
     bool damaged;                                               // True when the player gets damaged.
+    //public Roland.GameSceneController controller;
 
-
+   
 
     void Update()
     {
-        // If the player has just been damaged...
-        if (damaged)
+       // if (controller.GameHasStarted)
         {
-            // ... set the colour of the damageImage to the flash colour.
-            damageImage.color = flashColour;
-        }
-        // Otherwise...
-        else
-        {
-            // ... transition the colour back to clear.
-            damageImage.color = Color.Lerp(damageImage.color, Color.clear, flashSpeed * Time.deltaTime);
-        }
+            // If the player has just been damaged...
+            if (damaged)
+            {
+                // ... set the colour of the damageImage to the flash colour.
+                damageImage.color = flashColour;
+            }
+            // Otherwise...
+            else
+            {
+                // ... transition the colour back to clear.
+                damageImage.color = Color.Lerp(damageImage.color, Color.clear, flashSpeed * Time.deltaTime);
+            }
 
-        // Reset the damaged flag.
-        damaged = false;
+            // Reset the damaged flag.
+            damaged = false;
+        }
     }
 
     public void UpdateHealthBar(int HPNow, int TotalHP)

@@ -53,6 +53,7 @@ namespace Roland
             public const int ClientReadyToPlay = 5;
             public const int ClientNotReady = 6;
             public const int SendMeSomething = 7;
+            public const int RestartGame = 8;
         }
 
         public class PlayerSubjects

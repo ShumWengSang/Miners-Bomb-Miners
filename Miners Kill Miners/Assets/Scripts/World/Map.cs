@@ -5,6 +5,7 @@ namespace Roland
 {
     public class Map 
     {
+        public static float Offset = 0f;
         Block[,] blocks;
         int sizex;
         int sizez;
@@ -21,11 +22,30 @@ namespace Roland
             sizez = z;
 
             //Generate map here;
+            //anything below 0.5 is dirt.
+            //
             for (int i = 0; i < sizex; i++)
             {
                 for (int j = 0; j < sizez; j++)
                 {
-                    blocks[i, j] = new DirtBlock();
+                    float number1 = (float)i / 10f + Offset;
+                    float number2 = (float)j / 10f + Offset;
+                    float number = Mathf.PerlinNoise(number1, number2);
+                    if (number <= 0.5f)
+                    {
+                        //dirt blocks
+                        blocks[i, j] = new DirtBlock();
+                    }
+                    else
+                    {
+                        //This is a stone
+                        number -= 0.5f;
+                        number *= 2;
+                        StoneBlocks stone = new StoneBlocks();
+
+                        stone.ChangeDigsToGoThrough((int)(number * 10));
+                        blocks[i, j] = stone;
+                    }
                 }
             }
 

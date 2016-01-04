@@ -7,7 +7,7 @@ namespace Roland
     {
         public int texture_number;
         public int DigsToGoThrough;
-        public bool Dig(int power)
+        public virtual bool Dig(int power)
         {
             if (DigsToGoThrough == 9999)
             {

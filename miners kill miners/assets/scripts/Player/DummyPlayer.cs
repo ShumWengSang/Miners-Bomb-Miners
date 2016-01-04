@@ -18,6 +18,7 @@ namespace Roland
             theAnimator = GetComponent<Animator>();
             ourTransform = GetComponent<Transform>();
             DarkRift.DarkRiftAPI.onDataDetailed += ReceiveData;
+            DarkRift.DarkRiftAPI.onPlayerDisconnected += OnThePlayerDisconnected;
             EventManager.OnMouseButtonDown += OnMouseButtonDown;
             theTileMap = TileMapInterfacer.Instance.TileMap;
             tilePosBlocker = new Vector2(-1, -1);
@@ -50,7 +51,7 @@ namespace Roland
                     else if (subject == NetworkingTags.PlayerSubjects.DestroyMapTile)
                     {
                         Vector2 dataV = (Vector2)data;
-                        TileMapInterfacer.Instance.TileMap.DigTile(dataV, 99999);
+                        TileMapInterfacer.Instance.TileMap.DigTile(dataV, 99999, null, false);
                     }
                     else if (subject == NetworkingTags.PlayerSubjects.ChangeDir)
                     {
@@ -68,6 +69,13 @@ namespace Roland
                        // .theMap.SetTileAt(currentTilePos, new InvisibleWallBlock());
                     }
                 }
+            }
+        }
+        void OnThePlayerDisconnected(ushort id )
+        {
+            if(id == this.id)
+            {
+                Destroy(this.gameObject);
             }
         }
 

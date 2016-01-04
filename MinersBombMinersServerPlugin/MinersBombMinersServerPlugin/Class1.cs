@@ -97,7 +97,6 @@ namespace MinersBombMinersServerPlugin
 
         bool log;
         static int PlayerNum;
-        int TotalNumberOfPlayers = 0;
         public override string name
         {
             get { return "Miners Bomb Miners Plugin"; }
@@ -129,7 +128,6 @@ namespace MinersBombMinersServerPlugin
             CurrentGameState = GameState.Room;
             PlayerNum = 0;
             ConnectionService.onData += OnDataReceived;
-            ConnectionService.onPlayerConnect += OnPlayerFirstConnect;
             ConnectionService.onPlayerDisconnect += OnPlayerDisconnect;
             Interface.Log("------------------------------------------");
             Interface.Log("IPADDRESS FOR THIS SERVER IS: " + getIP());
@@ -140,7 +138,6 @@ namespace MinersBombMinersServerPlugin
         ~MinersBombMinersServerPlugin()
         {
             ConnectionService.onData -= OnDataReceived;
-            ConnectionService.onPlayerConnect -= OnPlayerFirstConnect;
             ConnectionService.onPlayerDisconnect -= OnPlayerDisconnect;
         }
 
@@ -157,8 +154,6 @@ namespace MinersBombMinersServerPlugin
                         if(!theKey.Value.ReadyToPlay)
                         {
                             allReadyToPlay = false;
-                            Interface.Log("Not all ready to play. Total amount of players is: " + theClients.Count );
-                            Interface.Log("Detected that " + theKey.Key + " is not ready to play.");
                             break;
                         }
                     }
@@ -173,19 +168,16 @@ namespace MinersBombMinersServerPlugin
                             PlayerData.client_id = (ushort)theKey.Key;
                             PlayerData.thePlayerType = (int)theKey.Value.thePlayerType;
                             theListOfPlayers.Add(PlayerData); ;
-                            Interface.Log("------------------");
-                            Interface.Log("The List of players just added id " + PlayerData.client_id + " player type of " + PlayerData.thePlayerType);
-                            Interface.Log("------------------");
                         }
 
-                        Interface.Log("Sending message to all");
                         foreach (KeyValuePair<int, PlayerInfo> theKey in theClients)
                         {
                             Interface.Log("The message 2 is " + DarkRiftServer.GetConnectionServiceByID((ushort)theKey.Key).SendReply(NetworkingTags.Controller, NetworkingTags.ControllerSubjects.StartGame, theListOfPlayers));
+                            theKey.Value.ReadyToPlay = false;
                         }
 
                         theListOfPlayers.Clear();
-
+                        CurrentGameState = GameState.Game;
                     }
                 }
                 else if(msg.subject == NetworkingTags.ServerSubjects.ClientNotReady)
@@ -202,7 +194,7 @@ namespace MinersBombMinersServerPlugin
                 }
                 else if(msg.subject == NetworkingTags.ServerSubjects.ILose)
                 {
-                    theClients[msg.senderID].Lost = false;
+                    theClients[msg.senderID].Lost = true;
 
                     int AmountOfLost = 0;
                     int IDofWinner = -1;
@@ -227,6 +219,10 @@ namespace MinersBombMinersServerPlugin
                 {
 
                 }
+                else if(msg.subject == NetworkingTags.ServerSubjects.RestartGame)
+                {
+
+                }
             }
             else if (msg.tag == NetworkingTags.Events)
             {
@@ -235,37 +231,28 @@ namespace MinersBombMinersServerPlugin
             else if(msg.tag == NetworkingTags.Controller)
             {
                 if(msg.subject == NetworkingTags.ControllerSubjects.JoinMessage)
-                {  
-                    PlayerNum++;
-                    int color = PlayerColorsAvailableClass.GetNextAvailableColor();
-                    Interface.Log("Player number has increased to " + PlayerNum);
-                    Interface.Log("assining playertype to " + (PlayerType)color);
+                {
+                    if (CurrentGameState == GameState.Room)
+                    {
+                        PlayerNum++;
+                        int color = PlayerColorsAvailableClass.GetNextAvailableColor();
+                        Interface.Log("Player number has increased to " + PlayerNum);
+                        Interface.Log("assining playertype to " + (PlayerType)color);
 
-                    PlayerInfo newPlayer = new PlayerInfo();
-                    newPlayer.Lost = false;
-                    newPlayer.ReadyToPlay = false;
-                    newPlayer.SpawnPoint = PlayerNum;
-                    newPlayer.thePlayerType = (PlayerType)color;
+                        PlayerInfo newPlayer = new PlayerInfo();
+                        newPlayer.Lost = false;
+                        newPlayer.ReadyToPlay = false;
+                        newPlayer.SpawnPoint = PlayerNum;
+                        newPlayer.thePlayerType = (PlayerType)color;
 
-                    //we haven't add a condition to make sure its less than 4.
-                    theClients.Add(msg.senderID, newPlayer);
+                        //we haven't add a condition to make sure its less than 4.
+                        theClients.Add(msg.senderID, newPlayer);
+                    }
+                    else
+                    {
+                        con.Close();
+                    }
                 }
-            }
-        }
-
-        public void OnPlayerFirstConnect(ConnectionService con)
-        {
-            TotalNumberOfPlayers++;
-            Interface.Log("Total amount of players is " + TotalNumberOfPlayers);
-            if(!(CurrentGameState == GameState.Room) || PlayerNum > 4)
-            {
-                //NetworkMessage newMessage = new NetworkMessage();
-                //newMessage.data = (object)PlayerNum;
-                //newMessage.subject = NetworkingTags.ServerSubjects.GetRandomSpawn;
-                //newMessage.tag = NetworkingTags.Server;
-                //newMessage.distributionType = DistributionType.Reply;
-                //con.SendNetworkMessage(newMessage);
-                con.Close();
             }
         }
 
@@ -279,7 +266,10 @@ namespace MinersBombMinersServerPlugin
                 Interface.Log("Removing player from client list");
                 PlayerColorsAvailableClass.MakeColorAvailable((int)theClients[con.id].thePlayerType);
                 theClients.Remove(con.id);
-
+            }
+            if(theClients.Count <= 0)
+            {
+                CurrentGameState = GameState.Room;
             }
         }
 

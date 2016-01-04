@@ -12,6 +12,7 @@ namespace Roland
         WaitForSeconds WaitTillExplode;
         protected TileMap theTileMap;
         protected int x, y;
+        public AudioClip theClipToPlayWhenExplode = null;
         // Use this for initialization
         void Start()
         {
@@ -22,7 +23,11 @@ namespace Roland
             transform.position = theTileMap.ConvertTileToWorld(tilePos);
             StartCoroutine(CountDown());
 
+            AudioSource theSrc = gameObject.AddComponent<AudioSource>();
+            theSrc.clip = theClipToPlayWhenExplode;
+            theSrc.playOnAwake = false;
             //  InvisibleWallBlock
+            Debug.Log("Setting tile at x: " + x + " y: " + y);
             theTileMap.theMap.SetTileAt(new Vector2(x, y), new InvisibleWallBlock());
         }
 
@@ -39,5 +44,20 @@ namespace Roland
         }
 
         protected virtual void Explode() { }
+
+        public void SpawnExplosion(int x, int y)
+        {
+            ObjectSpawner.SpawnObject("Explosion", new Vector2(x, y));
+        }
+        public void SpawnExplosion(Vector2 tile)
+        {
+            ObjectSpawner.SpawnObject("Explosion", tile);
+        }
+        
+        public void Update()
+        {
+            if (!(theTileMap.theMap.GetTileAt(new Vector2(x,y)) is InvisibleWallBlock))
+                theTileMap.theMap.SetTileAt(new Vector2(x, y), new InvisibleWallBlock());
+        }
     }
 }

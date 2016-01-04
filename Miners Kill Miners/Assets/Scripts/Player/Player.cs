@@ -14,7 +14,8 @@ namespace Roland
         SmallBomb = 0,
         BigBomb,
         TNTBomb,
-        NuclearBomb
+        NuclearBomb,
+        NapalmBomb
     }
 
     public class PacketChangeTile
@@ -147,7 +148,15 @@ namespace Roland
         {
             int rep = (int)theBomb;
             BombType.sprite = theSprites[rep];
-            NumberOfBombs.text = amount.ToString();
+            if(theBomb == Items_e.SmallBomb)
+            {
+                char unicode = (char)236;
+                NumberOfBombs.text = unicode.ToString();
+            }
+            else
+            {
+                NumberOfBombs.text = amount.ToString();
+            }
 
         }
         public void UpdateHealth(int health)
@@ -229,7 +238,6 @@ namespace Roland
                 //Dig. We start coroutine to do the cooldown as well.
                 StartCoroutine(DigCooldownUpdate());
                 theTileMap.DigTile(nextTilePos, DigPower);
-                DarkRiftAPI.SendMessageToOthers(NetworkingTags.Player, NetworkingTags.PlayerSubjects.DestroyMapTile, nextTilePos);
                 //rb.velocity = Vector3.zero * Time.deltaTime * speed;
             }
         }
@@ -239,7 +247,15 @@ namespace Roland
             {
                 if (button == MouseButtons.left)
                 {
-                    if (AmountOfItems[theItem] > 0)
+                    if(theItem == Items_e.SmallBomb)
+                    {
+                        MouseButtonSpawn(theItem);
+                        if (DarkRiftAPI.isConnected)
+                        {
+                            DarkRiftAPI.SendMessageToOthers(NetworkingTags.Events, NetworkingTags.EventSubjects.leftMouseButton, CurrentPlayer.Instance.ThePlayer.TheCurrentItem);
+                        }
+                    }
+                    else if (AmountOfItems[theItem] > 0)
                     {
                         AmountOfItems[theItem]--;
                         MouseButtonSpawn(theItem);
@@ -333,20 +349,25 @@ namespace Roland
             {
                 case Items_e.SmallBomb:
                     Object = ObjectSpawner.SpawnObject("SmallBomb", transform.position);
-                    Object.GetComponent<SmallBomb>().ParentPlayer = this;
+                    Object.GetComponent<BombsParent>().ParentPlayer = this;
                     break;
                 case Items_e.BigBomb:
                     Object = ObjectSpawner.SpawnObject("BigBomb", transform.position);
-                    Object.GetComponent<BigBomb>().ParentPlayer = this;
+                    Object.GetComponent<BombsParent>().ParentPlayer = this;
                     break;
                 case Items_e.TNTBomb:
                     Object = ObjectSpawner.SpawnObject("TNTBomb", transform.position);
-                    Object.GetComponent<TNTBomb>().ParentPlayer = this;
+                    Object.GetComponent<BombsParent>().ParentPlayer = this;
                     break;
                 case Items_e.NuclearBomb:
 
                     break;
+                case Items_e.NapalmBomb:
+                    Object = ObjectSpawner.SpawnObject("NapalmBomb", transform.position);
+                    Object.GetComponent<BombsParent>().ParentPlayer = this;
+                    break;
                 default:
+                    Debug.LogWarning("Item not found or not implemented yet");
                     break;
             }
         }

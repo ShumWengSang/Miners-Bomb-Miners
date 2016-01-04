@@ -3,8 +3,7 @@ using System.Collections;
 
 namespace Roland
 {
-    public class GenerateMap
+    public class OffsetMapGeneration : MonoBehaviour
     {
-
     }
 }

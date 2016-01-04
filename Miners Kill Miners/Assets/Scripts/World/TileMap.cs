@@ -71,6 +71,11 @@ namespace Roland
                 b_UpdateTexture = true;
         }
 
+        public void UpdateTexture()
+        {
+            b_UpdateTexture = true;
+        }
+
         public void UpdateTexture(Vector2 tile, Block newBlock)
         {
             UpdateTexture((int)tile.x, (int)tile.y, newBlock);
@@ -193,23 +198,33 @@ namespace Roland
 
         }
 
-        public void DigTile(Vector2 tile, int power, string ResourceName = null)
+        public void DigTile(Vector2 tile, int power, string ResourceName = null, bool network = true)
         {
             if(!map.GetTileAt(tile).Dig(power))
             {
-                //Dug through the tile
-                if(ResourceName != null && ResourceName != string.Empty)
+                if (ResourceName != null && ResourceName != string.Empty)
                 {
                     ObjectSpawner.SpawnObject(ResourceName, tile);
                 }
+
+                //Dug through the tile
+                if(network)
+                    DarkRift.DarkRiftAPI.SendMessageToOthers(NetworkingTags.Player, NetworkingTags.PlayerSubjects.DestroyMapTile, tile);
                 map.SetTileAt(tile, new Noblock());
                 b_UpdateTexture = true;
-            } 
+            }
+            else if(map.GetTileAt(tile) is InvisibleWallBlock)
+            {
+                if (ResourceName != null && ResourceName != string.Empty)
+                {
+                    ObjectSpawner.SpawnObject(ResourceName, tile);
+                }
+            }
         }
 
-        public void DigTile(int x, int y, int power, string ResourceName = null)
+        public void DigTile(int x, int y, int power, string ResourceName = null, bool network = true)
         {
-            DigTile(new Vector2(x, y), power, ResourceName);
+            DigTile(new Vector2(x, y), power, ResourceName, network);
         }
 
         void LateUpdate()
