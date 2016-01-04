@@ -290,15 +290,7 @@ namespace Roland
                     }
                     if(!Changed )
                     {
-                        for (int i = theList.Count - 1; i >= 0; i--)
-                        {
-                            if (AmountOfItems[theList[i]] != 0)
-                            {
-                                TheCurrentItem = theList[i];
-                                Changed = true;
-                                break;
-                            }
-                        }
+                        TheCurrentItem = Items_e.SmallBomb;
                     }
                 }
                 else if (button == MouseButtons.ScrollUp)
@@ -326,15 +318,7 @@ namespace Roland
                     }
                     if (!Changed)
                     {
-                        for (int i = 0; i < theList.Count; i++)
-                        {
-                            if (AmountOfItems[theList[i]] != 0)
-                            {
-                                TheCurrentItem = theList[i];
-                                Changed = true;
-                                break;
-                            }
-                        }
+                        TheCurrentItem = Items_e.SmallBomb;
                     }
                 }             
             }

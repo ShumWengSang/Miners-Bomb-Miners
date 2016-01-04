@@ -59,5 +59,10 @@ namespace Roland
             if (!(theTileMap.theMap.GetTileAt(new Vector2(x,y)) is InvisibleWallBlock))
                 theTileMap.theMap.SetTileAt(new Vector2(x, y), new InvisibleWallBlock());
         }
+
+        public void OnDestroy()
+        {
+            theTileMap.theMap.SetTileAt(new Vector2(x, y), new Noblock());
+        }
     }
 }

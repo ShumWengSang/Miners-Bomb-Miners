@@ -73,7 +73,8 @@ namespace Roland
 
         void Awake()
         {
-            DarkRiftAPI.workInBackground = true;   
+            if(!DarkRiftAPI.isConnected)
+                DarkRiftAPI.workInBackground = true;   
             changeScene = GetGlobalObject.FindAndGetComponent<ChangeScenes>(this.gameObject, "Global");
 
             //Check whether its sandbox or multiplayer.

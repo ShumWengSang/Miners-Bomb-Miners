@@ -269,6 +269,7 @@ namespace MinersBombMinersServerPlugin
             }
             if(theClients.Count <= 0)
             {
+                Interface.Log("Clients amount is " + theClients.Count);
                 CurrentGameState = GameState.Room;
             }
         }
