@@ -11,11 +11,11 @@ namespace Roland
         // GameObject.Instantiate(Resources.Load("SmallBomb"), transform.position, Quaternion.identity);
         public static GameObject SpawnObject(string ResourceName, Vector3 position)
         {
-            return GameObject.Instantiate(Resources.Load(ResourceName), position, Quaternion.identity) as GameObject;
+            return Lean.LeanPool.Spawn(Resources.Load(ResourceName) as GameObject, position, Quaternion.identity) as GameObject;
         }
         public static GameObject SpawnObject(string ResourceName, Vector2 TilePos)
         {
-            return GameObject.Instantiate(Resources.Load(ResourceName), TileMapInterfacer.Instance.TileMap.ConvertTileToWorld(TilePos), Quaternion.identity) as GameObject;
+            return Lean.LeanPool.Spawn(Resources.Load(ResourceName) as GameObject, TileMapInterfacer.Instance.TileMap.ConvertTileToWorld(TilePos), Quaternion.identity) as GameObject;
         }
     }
 }

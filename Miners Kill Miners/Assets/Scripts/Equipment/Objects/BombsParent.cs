@@ -8,13 +8,13 @@ namespace Roland
         public float damage = 50f;
         public int BombPower;
         public int TimeToExplode = 2;
-        public Player ParentPlayer = null;
+        public PlayerBase ParentPlayer = null;
         WaitForSeconds WaitTillExplode;
         protected TileMap theTileMap;
         protected int x, y;
         public AudioClip theClipToPlayWhenExplode = null;
         // Use this for initialization
-        void Start()
+        protected void Init()
         {
             WaitTillExplode = new WaitForSeconds(TimeToExplode);
             theTileMap = TileMapInterfacer.Instance.TileMap;
@@ -29,6 +29,14 @@ namespace Roland
             //  InvisibleWallBlock
             Debug.Log("Setting tile at x: " + x + " y: " + y);
             theTileMap.theMap.SetTileAt(new Vector2(x, y), new InvisibleWallBlock());
+        }
+        protected virtual void OnSpawn()
+        {
+            Init();
+        }
+        protected virtual void OnDespawn()
+        {
+            theTileMap.theMap.SetTileAt(new Vector2(x, y), new Noblock());
         }
 
         IEnumerator CountDown()
@@ -45,13 +53,13 @@ namespace Roland
 
         protected virtual void Explode() { }
 
-        public void SpawnExplosion(int x, int y)
+        public GameObject SpawnExplosion(int x, int y)
         {
-            ObjectSpawner.SpawnObject("Explosion", new Vector2(x, y));
+            return ObjectSpawner.SpawnObject("Explosion", new Vector2(x, y));
         }
-        public void SpawnExplosion(Vector2 tile)
+        public GameObject SpawnExplosion(Vector2 tile)
         {
-            ObjectSpawner.SpawnObject("Explosion", tile);
+            return ObjectSpawner.SpawnObject("Explosion", tile);
         }
         
         public void Update()
@@ -60,9 +68,22 @@ namespace Roland
                 theTileMap.theMap.SetTileAt(new Vector2(x, y), new InvisibleWallBlock());
         }
 
-        public void OnDestroy()
+        protected GameObject DigSpawnTile(int x, int y, int BombPower)
         {
-            theTileMap.theMap.SetTileAt(new Vector2(x, y), new Noblock());
+            if(theTileMap.DigTile(x , y, BombPower))
+            {
+                return SpawnExplosion(x, y);
+            }
+            return null;
+        }
+
+        protected GameObject DigSpawnTile(Vector2 tile, int BombPower)
+        {
+            if (theTileMap.DigTile((int)tile.x, (int)tile.y, BombPower))
+            {
+                return SpawnExplosion(x, y);
+            }
+            return null;
         }
     }
 }

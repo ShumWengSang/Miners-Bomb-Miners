@@ -9,6 +9,18 @@ namespace Roland
     [RequireComponent(typeof(MeshRenderer))]
     [RequireComponent(typeof(MeshCollider))]
 
+    public class Vector2Class
+    {
+        public int x;
+        public int z;
+
+        public Vector2Class(int x, int z)
+        {
+            this.x = x;
+            this.z = z;
+        }
+    }
+
     public class TileMap : MonoBehaviour
     {
         MeshFilter theMeshFilter;
@@ -48,6 +60,8 @@ namespace Roland
         {
             TileMapInterfacer.Instance.TileMap = this;
         }
+
+        
 
         void Start()
         {
@@ -198,33 +212,27 @@ namespace Roland
 
         }
 
-        public void DigTile(Vector2 tile, int power, string ResourceName = null, bool network = true)
+        public bool DigTile(Vector2 tile, int power, bool network = true)
         {
             if(!map.GetTileAt(tile).Dig(power))
             {
-                if (ResourceName != null && ResourceName != string.Empty)
-                {
-                    ObjectSpawner.SpawnObject(ResourceName, tile);
-                }
-
                 //Dug through the tile
                 if(network)
                     DarkRift.DarkRiftAPI.SendMessageToOthers(NetworkingTags.Player, NetworkingTags.PlayerSubjects.DestroyMapTile, tile);
                 map.SetTileAt(tile, new Noblock());
                 b_UpdateTexture = true;
+                return true;
             }
             else if(map.GetTileAt(tile) is InvisibleWallBlock)
             {
-                if (ResourceName != null && ResourceName != string.Empty)
-                {
-                    ObjectSpawner.SpawnObject(ResourceName, tile);
-                }
+                return true;
             }
+            return false;
         }
 
-        public void DigTile(int x, int y, int power, string ResourceName = null, bool network = true)
+        public bool DigTile(int x, int y, int power, bool network = true)
         {
-            DigTile(new Vector2(x, y), power, ResourceName, network);
+            return DigTile(new Vector2(x, y), power, network);
         }
 
         void LateUpdate()
@@ -234,6 +242,30 @@ namespace Roland
                 BuildTexture();
                 b_UpdateTexture = false;
             }
+        }
+
+        public List<Vector2Class> GetCircleTiles(int cx, int cz, int cr)
+        {
+            List<Vector2Class> theList = new List<Vector2Class>();
+            for (int z = cz - cr; z <= cz + cr; z++)
+            {
+                for (int x = cx - cr; x <= cx + cr; x++)
+                {
+                    bool isInCircle = (x - cx) * (x - cx) + (z - cz) * (z - cz) < cr * cr;
+                    if (isInCircle)
+                    {
+                        if(map.CheckBoundaries( x,  z))
+                            theList.Add(new Vector2Class(x, z));
+                    }
+                }
+            }
+
+            return theList;
+        }
+
+        public List<Vector2Class> GetCircleTiles(Vector2 tile, int radius)
+        {
+            return GetCircleTiles((int)tile.x, (int)tile.y, radius);
         }
     }
 }

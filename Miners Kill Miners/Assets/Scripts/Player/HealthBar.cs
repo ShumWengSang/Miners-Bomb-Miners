@@ -48,5 +48,6 @@ public class HealthBar : MonoBehaviour
         // Set the damaged flag so the screen will flash.
         damaged = true;
         healthSlider.value = HPNow;
+        healthSlider.maxValue = TotalHP;
     }
 }

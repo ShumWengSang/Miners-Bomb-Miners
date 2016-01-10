@@ -15,67 +15,57 @@ namespace Roland
         BigBomb,
         TNTBomb,
         NuclearBomb,
-        NapalmBomb
+        NapalmBomb,
+        CrossBomb,
+        Mine,
+        RemoteBomb,
+        BigRemoteBomb
     }
 
-    public class PacketChangeTile
-    {
-        public Vector2 tile;
-        public Block theBlock;
-
-        public PacketChangeTile()
-        {
-
-        }
-        public PacketChangeTile(Vector2 vec, Block theBlock)
-        {
-            this.tile = vec;
-            this.theBlock = theBlock;
-        }
-    }
-    [System.Serializable]
-    public class Player : MonoBehaviour
+    public class Player : PlayerBase
     {
         public bool isControllable;
-        
-        TileMap theTileMap;
+        bool DigCooldown = false;
+        bool invul = false;
+
         public PlayerData thePlayerData;
-        public Dictionary<Items_e, int> AmountOfItems = new Dictionary<Items_e, int>();
+
+
         public int DigPower = 1;
         public int speed = 5;
         public int player_id;
-        public float WaitTimeForDig = 0.5f;
-        public int HealthPoints = 100;
+        public int HealthPoints = 3;
         public int CurrentHealthPoints;
         public int Money = 100;
         public int Score = 0;
+
         public GameSceneController theController;
 
-        public Items_e TheCurrentItem;
-
-        Vector2 MoveDirection = new Vector2(0, 0);
-        Animator theAnimator;
-        Transform ourTransform;
-
-        Vector2 LastDirection = new Vector2(0, 0);
+        public EquipmentBase TheCurrentItem;
 
         WaitForSeconds WaitHalfSecond;
-        bool DigCooldown = false;
 
+        public float WaitTimeForDig = 0.5f;
         public float invulTime = 1;
-        bool invul = false;
-        WaitForSeconds invulCD;
 
-        Vector3 Offset;
-        SpriteRenderer sp;
+        WaitForSeconds invulCD;
+        WaitForSeconds WaitForUpdate;
+
+
+        Vector2 MoveDirection = new Vector2(0, 0);
+        Vector2 LastDirection = new Vector2(0, 0);
+        Vector2 nextTilePos;
 
         public Text HP;
         public Text NumberOfBombs;
+        
         public Image BombType;
+
         public Sprite[] theSprites;
 
         public HealthBar ourPlayerHealthBar;
 
+        public List<EquipmentBase> theEquipments;
         IEnumerator InvulCoolDown()
         {
             invul = true;
@@ -85,28 +75,26 @@ namespace Roland
         void Awake()
         {
             theAnimator = GetComponent<Animator>();
-            InitializePlayer();
             thePlayerData = new PlayerData();
-
-            EventManager.OnKeyboardButtonDown += OnButtonPressed;
-            EventManager.OnMouseButtonDown += OnMouseButtonDown;
-            DarkRiftAPI.onDataDetailed += ReceiveData;
-            ourTransform = this.transform;
             WaitForUpdate = new WaitForSeconds(0.001f);
         }
 
         void Start()
         {
+            base.Init();
+        
+
             CurrentHealthPoints = HealthPoints;
-            theTileMap = GameObject.Find("TileMap").GetComponent<TileMap>();
-            if(theTileMap == null)
-            {
-                Debug.LogWarning("Tile Map not found! Error!");
-            }
             WaitHalfSecond = new WaitForSeconds(WaitTimeForDig);
             invulCD = new WaitForSeconds(invulTime);
-            sp = GetComponent<SpriteRenderer>();
-            TheCurrentItem = Items_e.SmallBomb;
+
+            for (int i = 0; i < theEquipments.Count; i++)
+            {
+                if (theEquipments[i] is SmallBombData)
+                {
+                    TheCurrentItem = theEquipments[i];
+                }
+            }
 
             UiHolder theHolder = GameObject.Find("GameSceneController").GetComponent<UiHolder>();
             ourPlayerHealthBar = GetComponent<HealthBar>();
@@ -114,7 +102,7 @@ namespace Roland
             HP = theHolder.HP;
             NumberOfBombs = theHolder.AmountOfBombs;
             BombType = theHolder.TypeOfBomb;
-            UpdateUI(TheCurrentItem, AmountOfItems[TheCurrentItem]);
+            UpdateUI(TheCurrentItem);
             UpdateHealth(CurrentHealthPoints);
             if(this.player_id == DarkRiftAPI.id)
                 StartCoroutine(UpdatePosition());
@@ -122,7 +110,6 @@ namespace Roland
             tilePosBlocker = new Vector2(-1, -1);
         }
 
-        WaitForSeconds WaitForUpdate;
         IEnumerator UpdatePosition()
         {
             while (true)
@@ -136,28 +123,11 @@ namespace Roland
         public void DestroyPlayer()
         {
             StopAllCoroutines();
-            InitializePlayer();
         }
 
-        public void UpdateItems()
+        public void UpdateUI(EquipmentBase theBomb)
         {
-            DarkRiftAPI.SendMessageToOthers(NetworkingTags.Player, NetworkingTags.PlayerSubjects.GiveItemDic, AmountOfItems);
-        }
-
-        public void UpdateUI(Items_e theBomb, int amount)
-        {
-            int rep = (int)theBomb;
-            BombType.sprite = theSprites[rep];
-            if(theBomb == Items_e.SmallBomb)
-            {
-                char unicode = (char)236;
-                NumberOfBombs.text = unicode.ToString();
-            }
-            else
-            {
-                NumberOfBombs.text = amount.ToString();
-            }
-
+            theBomb.UpdateInGameUI(NumberOfBombs , BombType);
         }
         public void UpdateHealth(int health)
         {
@@ -167,18 +137,7 @@ namespace Roland
 
         void OnDestroy()
         {
-            EventManager.OnKeyboardButtonDown -= OnButtonPressed;
-            EventManager.OnMouseButtonDown -= OnMouseButtonDown;
-            DarkRiftAPI.onDataDetailed -= ReceiveData;
-        }
-
-        public void InitializePlayer()
-        {
-            List<Items_e> AllItems = Items_e.GetValues(typeof(Items_e)).Cast<Items_e>().ToList();
-            for (int i = 0; i < AllItems.Count; ++i)
-            {
-                AmountOfItems.Add(AllItems[i], 0);
-            }
+            base.deInit();
         }
 
         public void MinusHealthPoints(int damage)
@@ -207,10 +166,6 @@ namespace Roland
             yield return WaitHalfSecond;
             DigCooldown = false;
         }
-
-        Vector2 nextTilePos;
-        Vector2 currentTilePos;
-        Vector2 tilePosBlocker;
 
         void Update()
         {
@@ -241,122 +196,73 @@ namespace Roland
                 //rb.velocity = Vector3.zero * Time.deltaTime * speed;
             }
         }
-        public void OnMouseButtonDown(MouseButtons button, int id, Items_e theItem)
+        protected override void OnMouseButtonDown(MouseButtons button, int id, int theItemID)
         {
-            if(id == player_id)
+            if (id == player_id)
             {
                 if (button == MouseButtons.left)
                 {
-                    if(theItem == Items_e.SmallBomb)
+                    TheCurrentItem.PlayerSpawnBomb(ourTransform.position);
+                    if (DarkRiftAPI.isConnected)
                     {
-                        MouseButtonSpawn(theItem);
-                        if (DarkRiftAPI.isConnected)
-                        {
-                            DarkRiftAPI.SendMessageToOthers(NetworkingTags.Events, NetworkingTags.EventSubjects.leftMouseButton, CurrentPlayer.Instance.ThePlayer.TheCurrentItem);
-                        }
-                    }
-                    else if (AmountOfItems[theItem] > 0)
-                    {
-                        AmountOfItems[theItem]--;
-                        MouseButtonSpawn(theItem);
-                        if (DarkRiftAPI.isConnected)
-                        {
-                            DarkRiftAPI.SendMessageToOthers(NetworkingTags.Events, NetworkingTags.EventSubjects.leftMouseButton, CurrentPlayer.Instance.ThePlayer.TheCurrentItem);
-                        }
+                        DarkRiftAPI.SendMessageToOthers(NetworkingTags.Events, NetworkingTags.EventSubjects.leftMouseButton, TheCurrentItem.OrderID);
                     }
                 }
-                else if(button == MouseButtons.ScrollDown)
+                else if (button == MouseButtons.ScrollDown)
                 {
                     bool Changed = false;
-                    List<Items_e> theList = AmountOfItems.Keys.ToList<Items_e>();
-                    int index = -1;
-                    for (int i = 0; i < theList.Count; i++)
+                    for (int i = TheCurrentItem.OrderID + 1; i < theEquipments.Count; i++)
                     {
-                        if(theList[i] == TheCurrentItem)
+                        if (theEquipments[i].Amount > 0)
                         {
-                            index = i;
-                            break;
-                        }
-                    }
-
-                    for (int i = index - 1; i >= 0; i--)
-                    {
-                        if (AmountOfItems[theList[i]] != 0)
-                        {
-                            TheCurrentItem = theList[i];
-                            Changed = true;
-                            break;
-                        }
-                    }
-                    if(!Changed )
-                    {
-                        TheCurrentItem = Items_e.SmallBomb;
-                    }
-                }
-                else if (button == MouseButtons.ScrollUp)
-                {
-                    List<Items_e> theList = AmountOfItems.Keys.ToList<Items_e>();
-                    int index = -1;
-                    bool Changed = false;
-                    for (int i = 0; i < theList.Count; i++)
-                    {
-                        if (theList[i] == TheCurrentItem)
-                        {
-                            index = i;
-                            break;
-                        }
-                    }
-
-                    for (int i = index + 1; i < theList.Count; i++)
-                    {
-                        if (AmountOfItems[theList[i]] != 0)
-                        {
-                            TheCurrentItem = theList[i];
+                            TheCurrentItem = theEquipments[i];
                             Changed = true;
                             break;
                         }
                     }
                     if (!Changed)
                     {
-                        TheCurrentItem = Items_e.SmallBomb;
+                        TheCurrentItem = theEquipments[0];
+                    }
+                }
+                else if (button == MouseButtons.ScrollUp)
+                {
+                    bool Changed = false;
+                    if (TheCurrentItem.OrderID == 0)
+                    {
+                        for (int i = theEquipments.Count - 1; i >= 0; i--)
+                        {
+                            if (theEquipments[i].Amount > 0)
+                            {
+                                TheCurrentItem = theEquipments[i];
+                                Changed = true;
+                                break;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        for (int i = TheCurrentItem.OrderID - 1; i >= 0; i--)
+                        {
+                            if (theEquipments[i].Amount > 0)
+                            {
+                                TheCurrentItem = theEquipments[i];
+                                Changed = true;
+                                break;
+                            }
+                        }
+                    }
+                    if (!Changed)
+                    {
+                        TheCurrentItem = theEquipments[0];
                     }
                 }             
             }
-
-            UpdateUI(TheCurrentItem, AmountOfItems[TheCurrentItem]);
+            UpdateUI(TheCurrentItem);
         }
 
-        void MouseButtonSpawn(Items_e theItem)
-        {
-            GameObject Object; 
-            switch (theItem)
-            {
-                case Items_e.SmallBomb:
-                    Object = ObjectSpawner.SpawnObject("SmallBomb", transform.position);
-                    Object.GetComponent<BombsParent>().ParentPlayer = this;
-                    break;
-                case Items_e.BigBomb:
-                    Object = ObjectSpawner.SpawnObject("BigBomb", transform.position);
-                    Object.GetComponent<BombsParent>().ParentPlayer = this;
-                    break;
-                case Items_e.TNTBomb:
-                    Object = ObjectSpawner.SpawnObject("TNTBomb", transform.position);
-                    Object.GetComponent<BombsParent>().ParentPlayer = this;
-                    break;
-                case Items_e.NuclearBomb:
 
-                    break;
-                case Items_e.NapalmBomb:
-                    Object = ObjectSpawner.SpawnObject("NapalmBomb", transform.position);
-                    Object.GetComponent<BombsParent>().ParentPlayer = this;
-                    break;
-                default:
-                    Debug.LogWarning("Item not found or not implemented yet");
-                    break;
-            }
-        }
-
-        public void OnButtonPressed(Direction theDirection, int id)
+        protected override void OnButtonPressed(Direction theDirection, int id)
         {
             //We make sure this is talking to us
             if(id == player_id)
@@ -406,35 +312,35 @@ namespace Roland
                 DarkRiftAPI.SendMessageToOthers(NetworkingTags.Player, NetworkingTags.PlayerSubjects.ChangeDir, theDirection);
                 if (LastDirection != MoveDirection)
                 {
+                    if(Mathf.Abs(LastDirection.x - MoveDirection.x) != 0)
+                    {
+                        ourTransform.localPosition = theTileMap.ConvertTileToWorld(theTileMap.ConvertWorldToTile(ourTransform.position));
+                        ourTransform.localPosition = new Vector3(ourTransform.localPosition.x, ourTransform.localPosition.y, -1);
+                    }
+                    else if(Mathf.Abs(LastDirection.y - MoveDirection.y) != 0)
+                    {
+                        ourTransform.localPosition = theTileMap.ConvertTileToWorld(theTileMap.ConvertWorldToTile(ourTransform.position));
+                        ourTransform.localPosition = new Vector3(ourTransform.localPosition.x, ourTransform.localPosition.y, -1);
+                    }
                     LastDirection = MoveDirection;
-                    ourTransform.localPosition = theTileMap.ConvertTileToWorld(theTileMap.ConvertWorldToTile(ourTransform.position));
+                   
                 }
             }
         }
 
-        void ReceiveData(ushort senderID, byte tag, ushort subject, object data)
+        protected override void ReceiveData(ushort senderID, byte tag, ushort subject, object data)
         {
             if (senderID == player_id)
             {
                 if (tag == NetworkingTags.Player)
                 {
-                    if (subject == NetworkingTags.PlayerSubjects.GiveItemDic)
-                    {
-                        AmountOfItems = (Dictionary<Items_e, int>)data;
-                    }
                     if(subject == NetworkingTags.PlayerSubjects.UpdatePostion)
                     {
                         Vector2 newTilePos = (Vector2)data;
                         if(newTilePos != nextTilePos)
                         {
-                            Debug.Log("Receive data");
                             transform.position = theTileMap.ConvertTileToWorld(newTilePos);
                         }
-                    }
-                    if(subject == NetworkingTags.PlayerSubjects.DestroyMapTile)
-                    {
-                        //Vector2 Vdata = (Vector2)data;
-                        //theTileMap.DigTile(Vdata, 999);
                     }
                 }
             }

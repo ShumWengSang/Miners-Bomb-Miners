@@ -16,17 +16,19 @@ namespace MinersBombMinersServerPlugin
     public class MinersBombMinersServerPlugin : Plugin
     {
         Dictionary<int, int> theSpawnPoints = new Dictionary<int, int>();
-        List<int> ListOfLosers = new List<int>();
-        PlayerAvailability PlayerColorsAvailableClass = new PlayerAvailability();
+
         Dictionary<int, PlayerInfo> theClients = new Dictionary<int, PlayerInfo>();
-        
+        List<int> ListOfLosers = new List<int>();
+        List<PacketUseTypeID> theListOfPlayers = new List<PacketUseTypeID>();
+        PlayerAvailability PlayerColorsAvailableClass = new PlayerAvailability();
+        List<ushort> IDsToIgnore = new List<ushort>();
+        GameState CurrentGameState;
         enum GameState
         {
             Room = 0,
             Game
         }
 
-        GameState CurrentGameState;
 
 
         public class PlayerInfo
@@ -35,6 +37,7 @@ namespace MinersBombMinersServerPlugin
             public PlayerType thePlayerType;
             public bool Lost = false;
             public bool ReadyToPlay = false;
+            public int Money = 500;
         }
 
         public class PlayerAvailability
@@ -61,19 +64,19 @@ namespace MinersBombMinersServerPlugin
                    if(!PlayerColors[i])
                    {
                        PlayerColors[i] = true;
-                       return i;
+                       return i + 1;
                    }
                 }
                 return -1;
             }
         }
 
-        public List<PacketUseTypeID> theListOfPlayers = new List<PacketUseTypeID>();
         
         [System.Serializable]
         public enum PlayerType
         {
-            Red = 0,
+            None = 0,
+            Red,
             Green,
             Blue,
             Yellow
@@ -96,7 +99,7 @@ namespace MinersBombMinersServerPlugin
         }
 
         bool log;
-        static int PlayerNum;
+        int PlayerNum;
         public override string name
         {
             get { return "Miners Bomb Miners Plugin"; }
@@ -107,11 +110,13 @@ namespace MinersBombMinersServerPlugin
         }
         public override Command[] commands
         {
-            get {
-                return new Command[]
+            get 
             {
-                new Command ("SetLog", "Turns Data on or off", set_logCommand)
-            };
+                return new Command[]
+                {
+                new Command ("Show_Connections", "Show current connections",FindConnections ),
+                new Command ("Clear_Connections", "Clears all current connections", ClearConnections)
+                };
             }
         }
         public override string author
@@ -129,6 +134,7 @@ namespace MinersBombMinersServerPlugin
             PlayerNum = 0;
             ConnectionService.onData += OnDataReceived;
             ConnectionService.onPlayerDisconnect += OnPlayerDisconnect;
+            ConnectionService.onPlayerConnect += OnPlayerFirstConnect;
             Interface.Log("------------------------------------------");
             Interface.Log("IPADDRESS FOR THIS SERVER IS: " + getIP());
             Interface.Log("Please connect to the IP Address");
@@ -141,8 +147,44 @@ namespace MinersBombMinersServerPlugin
             ConnectionService.onPlayerDisconnect -= OnPlayerDisconnect;
         }
 
+        public void ClearConnections(string [] parts)
+        {
+            ConnectionService[] allCons = DarkRiftServer.GetAllConnections();
+            Interface.Log("Amount of connected connections are " + allCons.Length);
+            for (int i = 0; i < allCons.Length; i++)
+            {
+                allCons[i].SendNetworkMessage(new NetworkMessage(0, DistributionType.Reply, 0, 255, 0, 0));
+                allCons[i].Close();
+            }
+        }
+
+        public void FindConnections(string [] parts)
+        {
+            ConnectionService[] allCons = DarkRiftServer.GetAllConnections();
+            Interface.Log("Amount of connected connections are " + allCons.Length);
+            for(int i = 0; i < allCons.Length; i++)
+            {
+                Interface.Log("The connection id is " + allCons[i].id);
+            }
+        }
+
+        public void OnPlayerFirstConnect(ConnectionService con)
+        {
+            if(CurrentGameState != GameState.Room)
+            {
+                Interface.Log("Closing conenction");
+                con.SendReply(NetworkingTags.Controller, NetworkingTags.ControllerSubjects.DisconnectYou, "");
+                IDsToIgnore.Add(con.id);
+            }
+        }
+
         public void OnDataReceived(ConnectionService con, ref NetworkMessage msg)
         {
+            if(IDsToIgnore.Contains(con.id))
+            {
+                Interface.Log("Ignoring id " + con.id);
+                return;
+            }
             if (msg.tag == NetworkingTags.Server)
             {
                 if (msg.subject == NetworkingTags.ServerSubjects.ClientReadyToPlay)
@@ -159,8 +201,6 @@ namespace MinersBombMinersServerPlugin
                     }
                     if(allReadyToPlay)
                     {
-                        Interface.Log("All are ready to play.");
-                        //ConnectionService [] AllServices = DarkRiftServer.GetAllConnections();
 
                         foreach (KeyValuePair<int, PlayerInfo> theKey in theClients)
                         {
@@ -172,7 +212,7 @@ namespace MinersBombMinersServerPlugin
 
                         foreach (KeyValuePair<int, PlayerInfo> theKey in theClients)
                         {
-                            Interface.Log("The message 2 is " + DarkRiftServer.GetConnectionServiceByID((ushort)theKey.Key).SendReply(NetworkingTags.Controller, NetworkingTags.ControllerSubjects.StartGame, theListOfPlayers));
+                            DarkRiftServer.GetConnectionServiceByID((ushort)theKey.Key).SendReply(NetworkingTags.Controller, NetworkingTags.ControllerSubjects.StartGame, theListOfPlayers);
                             theKey.Value.ReadyToPlay = false;
                         }
 
@@ -209,24 +249,44 @@ namespace MinersBombMinersServerPlugin
                             IDofWinner = theKey.Key;
                         }
                     }
-                    if(AmountOfLost == (PlayerNum - 1))
+                    Interface.Log("ID of winner is " + IDofWinner);
+                    Interface.Log("Amount of lost is " + AmountOfLost);
+                    if(AmountOfLost == (theClients.Count - 1))
                     {
-                        NetworkMessage newMessage = new NetworkMessage(msg.destinationID, (byte)DistributionType.ID, (ushort)IDofWinner, NetworkingTags.Controller, NetworkingTags.ControllerSubjects.YouWin,"");
-                        DarkRiftServer.GetConnectionServiceByID((ushort)IDofWinner).SendNetworkMessage(newMessage);
+                        DarkRiftServer.GetConnectionServiceByID((ushort)IDofWinner).SendReply(NetworkingTags.Controller, NetworkingTags.ControllerSubjects.YouWin, "");
                     }
                 }
-                else if(msg.subject == NetworkingTags.ServerSubjects.SendMeSomething)
+                else if (msg.subject == NetworkingTags.ServerSubjects.PlayerRestarting)
                 {
-
+                    theClients[msg.senderID].ReadyToPlay = false;
+                    msg.DecodeData();
+                    int money = (int)msg.data;
+                    theClients[msg.senderID].Money = (int)msg.data;
+                    //Interface.Log("setting money to " + (int)msg.data);
+                    bool allRestarted = true;
+                    foreach (KeyValuePair<int, PlayerInfo> theKey in theClients)
+                    {
+                        if (theKey.Value.ReadyToPlay)
+                        {
+                            allRestarted = false;
+                            break;
+                        }
+                    }
+                    if (allRestarted)
+                    {
+                        CurrentGameState = GameState.Room;
+                    }
                 }
-                else if(msg.subject == NetworkingTags.ServerSubjects.RestartGame)
+                else if(msg.subject == NetworkingTags.ServerSubjects.GetMoneyForPlayer)
                 {
-
+                    Interface.Log("sending money : " + theClients[con.id].Money);
+                    con.SendReply(NetworkingTags.Controller, NetworkingTags.ControllerSubjects.GetMoneyForPlayer, theClients[con.id].Money);
                 }
-            }
-            else if (msg.tag == NetworkingTags.Events)
-            {
-                
+                else if(msg.subject == NetworkingTags.ServerSubjects.SetMoneyForPlayer)
+                {
+                    Interface.Log("setting money to " + (int)msg.data);
+                    theClients[con.id].Money = (int)msg.data;
+                }
             }
             else if(msg.tag == NetworkingTags.Controller)
             {
@@ -234,22 +294,30 @@ namespace MinersBombMinersServerPlugin
                 {
                     if (CurrentGameState == GameState.Room)
                     {
-                        PlayerNum++;
-                        int color = PlayerColorsAvailableClass.GetNextAvailableColor();
-                        Interface.Log("Player number has increased to " + PlayerNum);
-                        Interface.Log("assining playertype to " + (PlayerType)color);
+                        if (!theClients.ContainsKey(msg.senderID))
+                        {
+                            PlayerNum++;
+                            int color = PlayerColorsAvailableClass.GetNextAvailableColor();
 
-                        PlayerInfo newPlayer = new PlayerInfo();
-                        newPlayer.Lost = false;
-                        newPlayer.ReadyToPlay = false;
-                        newPlayer.SpawnPoint = PlayerNum;
-                        newPlayer.thePlayerType = (PlayerType)color;
+                            PlayerInfo newPlayer = new PlayerInfo();
+                            newPlayer.Lost = false;
+                            newPlayer.ReadyToPlay = false;
+                            newPlayer.SpawnPoint = PlayerNum;
+                            newPlayer.thePlayerType = (PlayerType)color;
 
-                        //we haven't add a condition to make sure its less than 4.
-                        theClients.Add(msg.senderID, newPlayer);
+                            //we haven't add a condition to make sure its less than 4.
+                            theClients.Add(msg.senderID, newPlayer);
+
+                            msg.data = color;
+                        }
+                        else
+                        {
+                            msg.data = theClients[msg.senderID].thePlayerType;
+                        }
                     }
                     else
                     {
+                        Interface.Log("Disconnecting player: game room is " + CurrentGameState);
                         con.Close();
                     }
                 }
@@ -257,19 +325,22 @@ namespace MinersBombMinersServerPlugin
         }
 
         public void OnPlayerDisconnect(ConnectionService con)
-        {
-            PlayerNum--;
-            Interface.Log("Player number has decreased to " + PlayerNum);
-            
+        {            
+            if(IDsToIgnore.Contains(con.id))
+            {
+                Interface.Log("Removing player from ignore list " + con.id);
+                IDsToIgnore.Remove(con.id);
+            }
             if(theClients.ContainsKey(con.id))
             {
-                Interface.Log("Removing player from client list");
-                PlayerColorsAvailableClass.MakeColorAvailable((int)theClients[con.id].thePlayerType);
+                PlayerColorsAvailableClass.MakeColorAvailable((int)theClients[con.id].thePlayerType - 1);
                 theClients.Remove(con.id);
+
+                PlayerNum--;
+                Interface.Log("Player number has decreased to " + PlayerNum);
             }
             if(theClients.Count <= 0)
             {
-                Interface.Log("Clients amount is " + theClients.Count);
                 CurrentGameState = GameState.Room;
             }
         }

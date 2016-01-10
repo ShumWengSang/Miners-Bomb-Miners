@@ -12,20 +12,20 @@ namespace Roland
             {
                 for (int j = y - 2; j <= y + 2; j++)
                 {
-                    theTileMap.DigTile(i, j, BombPower, "Explosion");
+                    DigSpawnTile(i, j, BombPower);
                 }
             }
             for (int i = -1; i <= 1; i++)
             {
-                theTileMap.DigTile(x + 3, y + i, BombPower, "Explosion");
-                theTileMap.DigTile(x - 3, y + i, BombPower, "Explosion");
-                theTileMap.DigTile(x + i, y + 3, BombPower, "Explosion");
-                theTileMap.DigTile(x + i, y - 3, BombPower, "Explosion");
+                DigSpawnTile(x + 3, y + i, BombPower);
+                DigSpawnTile(x - 3, y + i, BombPower);
+                DigSpawnTile(x + i, y + 3, BombPower);
+                DigSpawnTile(x + i, y - 3, BombPower);
             }
 
-            ObjectSpawner.SpawnObject("Explosion", new Vector2(x, y));
+            SpawnExplosion(x, y);
             theTileMap.theMap.SetTileAt(new Vector2(x, y), new Noblock());
-            DestroyObject(this.gameObject);
+            Lean.LeanPool.Despawn(this.gameObject);
         }
     }
 }

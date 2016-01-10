@@ -31,6 +31,8 @@ namespace Roland
             public const int GameOver = 7;
             public const int StartGame = 8;
             public const int SendTest = 9;
+            public const int DisconnectYou = 10;
+            public const int GetMoneyForPlayer = 11;
         }
 
         public class RoomSubjects
@@ -53,7 +55,9 @@ namespace Roland
             public const int ClientReadyToPlay = 5;
             public const int ClientNotReady = 6;
             public const int SendMeSomething = 7;
-            public const int RestartGame = 8;
+            public const int PlayerRestarting = 8;
+            public const int GetMoneyForPlayer = 9;
+            public const int SetMoneyForPlayer = 9;
         }
 
         public class PlayerSubjects

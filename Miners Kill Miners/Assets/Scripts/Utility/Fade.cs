@@ -14,8 +14,14 @@ namespace Roland
 
         void Start()
         {
-            wait = new WaitForSeconds(1f);
-            StartCoroutine(FadeInAndOut(timesToFade));
+            wait = new WaitForSeconds(5f);
+            StartCoroutine(WaitForFade());
+        }
+
+        IEnumerator WaitForFade()
+        {
+            yield return new WaitForSeconds(2.0f);
+            yield return StartCoroutine(FadeInAndOut(timesToFade));
         }
         void FadeIn()
         {

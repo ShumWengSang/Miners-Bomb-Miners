@@ -93,6 +93,21 @@ namespace Roland
                 y = 0;
         }
 
+        public bool CheckBoundaries(int x, int y)
+        {
+            bool correct = true;
+            if (x >= sizex)
+                correct = false;
+            if (x < 0)
+                correct = false;
+            if (y >= sizez)
+                correct = false;
+            if (y < 0)
+                correct = false;
+
+            return correct;
+        }
+
         public Vector2 SetTileAt(int x , int y, Block newBlock)
         {
             if (x == -1 && y == -1)

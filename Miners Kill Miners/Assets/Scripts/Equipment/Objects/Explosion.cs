@@ -8,17 +8,26 @@ namespace Roland
         Animator ChildAnimator;
         public float time;
         public AudioClip explosion;
-   
-        void Start()
+        WaitForSeconds wait;
+        void Init()
         {
-           // ChildAnimator = GetComponentInChildren<Animator>();
-           // float time = ChildAnimator.GetCurrentAnimatorClipInfo(LayerMask.NameToLayer("Explosion")).Length;
-           // Debug.Log("Time is + " + time);
-            DestroyObject(this.gameObject, time);
+            wait = new WaitForSeconds(time);
+            StartCoroutine(destroyself());
             AudioSource src = gameObject.AddComponent<AudioSource>();
             src.clip = explosion;
             src.loop = false;
             src.Play();
+        }
+
+        protected virtual void OnSpawn()
+        {
+            Init();
+        }
+
+        IEnumerator destroyself()
+        {
+            yield return wait;
+            Lean.LeanPool.Despawn(this.gameObject);
         }
     }
 }

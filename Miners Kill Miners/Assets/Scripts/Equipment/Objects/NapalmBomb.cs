@@ -9,6 +9,17 @@ namespace Roland
         List<Vector2> BlocksToExplode = new List<Vector2>();
         List<Vector2> BlocksChecked = new List<Vector2>();
         public int TotalAmountOfBlocksToDestroy = 10;
+        WaitForSeconds wait;
+        void Start()
+        {
+            wait = new WaitForSeconds(0.1f);
+        }
+
+        protected override void OnSpawn()
+        {
+            Init();
+            GetComponent<Animator>().enabled = true;
+        } 
 
         protected override void Explode()
         {
@@ -48,7 +59,6 @@ namespace Roland
                 }
 
                 BlocksToExplode.Add(current);
-                Debug.Log("Added " + current + " to explosion list");
                 Count++;
                 if (Count >= TotalAmountOfBlocksToDestroy)
                 {
@@ -59,6 +69,7 @@ namespace Roland
             StartCoroutine(explodeNapalm());
 
             theTileMap.theMap.SetTileAt(new Vector2(x, y), new Noblock());
+            GetComponent<Animator>().enabled = false;
             GetComponent<SpriteRenderer>().sprite = null;
            // this.gameObject.SetActive(false);
             //DestroyObject(this.gameObject);
@@ -69,9 +80,9 @@ namespace Roland
             for(int i = 0; i < BlocksToExplode.Count; i++)
             {
                 SpawnExplosion(BlocksToExplode[i]);
-                yield return new WaitForSeconds(0.1f);
+                yield return wait;
             }
-            DestroyObject(this.gameObject);
+            Lean.LeanPool.Despawn(this.gameObject);
         }
     }
 }

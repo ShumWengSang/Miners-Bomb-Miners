@@ -14,51 +14,35 @@ namespace Roland
         Stop
     }
 
-    [System.Serializable]
-    struct intHolder
-    {
-        public int data;
-    }
-
     public class GameSceneController : MonoBehaviour
     {
         ChangeScenes changeScene = null;
         public bool Sandbox = false;
         public bool GameHasStarted = false;
         public float timeToWaitToStart = 5;
+        public int BaseIncomeGold = 200;
 
         int PlayerReady;
 
         WaitForSeconds waitForTimer;
         public Text TimerCountDownText;
-        public GameObject PlayerPrefab;
-        public GameObject PlayerDummy;
         public Text WinLose;
-
         //temp
         TileMap theTileMap;
-        GameObject theObj;
 
+        GameObject theObj;
+        public GameObject PlayerPrefab;
+        public GameObject PlayerDummy;
         public GameObject ReadyText;
         public GameObject Game;
         public GameObject Shop;
         public GameObject RestartButton;
         public GameObject NotConnected;
 
-        Dictionary<int, int> theListOfSpawns;
-
         public RuntimeAnimatorController[] PlayerAnimators;
         public Sprite[] StartingSprite;
 
-        [System.Serializable]
-        public enum PlayerType
-        {
-            Red = 0,
-            Green,
-            Blue,
-            Yellow
-        }
-
+        MinersBombMinersServerPlugin.MinersBombMinersServerPlugin.PlayerType ourColor;
 
         public void RestartLevel()
         {
@@ -68,13 +52,21 @@ namespace Roland
             //reset the tile map.
             theTileMap.TileMapReset();
             Start();
+            CurrentPlayer.Instance.AmountOfPlayers = 0;
+        }
+        public void SendRestart()
+        {
+            CurrentPlayer.Instance.Money += BaseIncomeGold;
+            //DarkRiftAPI.SendMessageToServer(NetworkingTags.Server, NetworkingTags.ServerSubjects.SetMoneyForPlayer, CurrentPlayer.Instance.Money);
+            Debug.Log("Sending money: " + CurrentPlayer.Instance.Money);
+            int money = CurrentPlayer.Instance.Money;
+            DarkRiftAPI.SendMessageToServer(NetworkingTags.Server, NetworkingTags.ServerSubjects.PlayerRestarting, money);
 
+            ChangeScene("MultiplayerGame");
         }
 
         void Awake()
-        {
-            if(!DarkRiftAPI.isConnected)
-                DarkRiftAPI.workInBackground = true;   
+        { 
             changeScene = GetGlobalObject.FindAndGetComponent<ChangeScenes>(this.gameObject, "Global");
 
             //Check whether its sandbox or multiplayer.
@@ -101,7 +93,7 @@ namespace Roland
             {
                 theObj.transform.position = theTileMap.ConvertTileToWorld(new Vector2(1, 1));
             }
-            else if(!Sandbox && !DarkRiftAPI.isConnected)
+            else if(!Sandbox)
             {
                 if(!DarkRiftAPI.isConnected)
                 {
@@ -109,10 +101,13 @@ namespace Roland
                     CustomNetworkManager.Instance.Connect(IPAddress);
                 }
                 DarkRiftAPI.SendMessageToAll(NetworkingTags.Controller, NetworkingTags.ControllerSubjects.JoinMessage, "hi");
-                DarkRiftAPI.SendMessageToServer(NetworkingTags.Server, NetworkingTags.ServerSubjects.ChangeStateToGame, "");
+                //DarkRiftAPI.SendMessageToServer(NetworkingTags.Server, NetworkingTags.ServerSubjects.ChangeStateToGame, "");
             }
+            DarkRiftAPI.SendMessageToServer(NetworkingTags.Server, NetworkingTags.ServerSubjects.GetMoneyForPlayer, DarkRiftAPI.id);
             DarkRiftAPI.onDataDetailed += ReceiveData;
+            DarkRiftAPI.onPlayerDisconnected += OnPlayerDisconnect;
         }
+
 
 
         void Update()
@@ -132,22 +127,22 @@ namespace Roland
         void OnDestroy()
         {
             DarkRiftAPI.onDataDetailed -= ReceiveData;
+            DarkRiftAPI.onPlayerDisconnected -= OnPlayerDisconnect;
         }
 
         bool ClientReady = false;
         public void StartTimer()
         {
-            ReadyText.SetActive(true);
             ClientReady = !ClientReady;
-            if(ClientReady)
-                DarkRiftAPI.SendMessageToServer(NetworkingTags.Server, NetworkingTags.ServerSubjects.ClientReadyToPlay,"");
+            ReadyText.SetActive(ClientReady);
+            if (ClientReady)
+            {
+                DarkRiftAPI.SendMessageToServer(NetworkingTags.Server, NetworkingTags.ServerSubjects.ClientReadyToPlay, "");
+            }
             else
+            {
                 DarkRiftAPI.SendMessageToServer(NetworkingTags.Server, NetworkingTags.ServerSubjects.ClientNotReady, "");
-        }
-
-        void updatePlayerItems()
-        {
-            CurrentPlayer.Instance.ThePlayer.UpdateItems();
+            }
         }
 
         IEnumerator StartCountdown()
@@ -178,10 +173,19 @@ namespace Roland
                 //Also internally increase the amount of players.
                 if (subject == NetworkingTags.ControllerSubjects.JoinMessage)
                 {
-                    CurrentPlayer.Instance.AmountOfPlayers++;              
-                    if(senderID != DarkRiftAPI.id)
-                        DarkRiftAPI.SendMessageToID(senderID, NetworkingTags.Controller, NetworkingTags.ControllerSubjects.ReplyToJoin, "");
-
+                    CurrentPlayer.Instance.AmountOfPlayers++;
+                    int color = (int)data;
+                    MinersBombMinersServerPlugin.MinersBombMinersServerPlugin.PlayerType player = (MinersBombMinersServerPlugin.MinersBombMinersServerPlugin.PlayerType)color;
+                    if(ourColor == MinersBombMinersServerPlugin.MinersBombMinersServerPlugin.PlayerType.None)
+                    {
+                        ourColor = player;
+                    }
+                    if (senderID != DarkRiftAPI.id)
+                    {
+                        DarkRiftAPI.SendMessageToID(senderID, NetworkingTags.Controller, NetworkingTags.ControllerSubjects.ReplyToJoin, ourColor);
+                    }
+                    color -= 1;
+                    ConnectDisconnect.instance.AddPlayer(color, senderID);
                 }
 
                 else if (subject == NetworkingTags.ControllerSubjects.SpawnPlayer)
@@ -194,6 +198,10 @@ namespace Roland
                 else if(subject == NetworkingTags.ControllerSubjects.ReplyToJoin)
                 {
                     CurrentPlayer.Instance.AmountOfPlayers++;
+                    MinersBombMinersServerPlugin.MinersBombMinersServerPlugin.PlayerType player = (MinersBombMinersServerPlugin.MinersBombMinersServerPlugin.PlayerType)data;
+                    int color = (int)player;
+                    color -= 1;
+                    ConnectDisconnect.instance.AddPlayer(color, senderID);
                 }
                 else if (subject == NetworkingTags.ControllerSubjects.YouWin)
                 {
@@ -203,10 +211,12 @@ namespace Roland
                 {
                     RestartButton.SetActive(true);
                 }
+                else if(subject == NetworkingTags.ControllerSubjects.GetMoneyForPlayer)
+                {
+                    CurrentPlayer.Instance.Money = (int)data;
+                }
                 else if(subject == NetworkingTags.ControllerSubjects.StartGame)
                 {
-                    Debug.Log("Starting game");
-
                     List<MinersBombMinersServerPlugin.PacketUseTypeID> PacketPlayerData = (List<MinersBombMinersServerPlugin.PacketUseTypeID>)data;
                     for (int i = 0; i < PacketPlayerData.Count; i++)
                     {
@@ -215,22 +225,22 @@ namespace Roland
                         Color thePlayerColor = Color.white;
                         switch (PacketPlayerData[i].thePlayerType)
                         {
-                            case 0:
+                            case 1:
                                 theColoredPlayer = PlayerAnimators[0];
                                 SpawnPoint = new Vector2(1, 1);
                                 thePlayerColor = Color.red;
                                 break;
-                            case 1:
+                            case 2:
                                 SpawnPoint = new Vector2(theTileMap.size_x - 2, theTileMap.size_z - 2);
                                 theColoredPlayer = PlayerAnimators[1];
                                 thePlayerColor = Color.green;
                                 break;
-                            case 2:
+                            case 3:
                                 SpawnPoint = new Vector2(theTileMap.size_x - 2, 1);
                                 theColoredPlayer = PlayerAnimators[2];
                                 thePlayerColor = Color.blue;
                                 break;
-                            case 3:
+                            case 4:
                                 SpawnPoint = new Vector2(1, theTileMap.size_z - 2);
                                 theColoredPlayer = PlayerAnimators[3];
                                 thePlayerColor = Color.yellow;
@@ -245,9 +255,9 @@ namespace Roland
 
                             clone = (GameObject)Instantiate(PlayerPrefab, theTileMap.ConvertTileToWorld(SpawnPoint), Quaternion.identity);
                             Player thePlayer = clone.GetComponent<Player>();
-                            thePlayer.AmountOfItems = CurrentPlayer.Instance.AmountOfItems;
                             thePlayer.player_id = PacketPlayerData[i].client_id;
                             thePlayer.theController = this;
+                            thePlayer.theEquipments = CurrentPlayer.Instance.AmountOfEquipments;
                             CurrentPlayer.Instance.ThePlayer = thePlayer;
                             UiHolder theHolder = GetComponent<UiHolder>();
                             HealthBar healthBar = clone.GetComponent<HealthBar>();
@@ -266,9 +276,17 @@ namespace Roland
                     StartCoroutine(StartCountdown());
 
                 }
-                else if(subject == NetworkingTags.ControllerSubjects.SendTest)
+                else if(subject == NetworkingTags.ControllerSubjects.DisconnectYou)
                 {
-                    Debug.Log("Test completed successfully");
+                    DarkRiftAPI.Disconnect();
+                }
+            }
+            else if(tag == NetworkingTags.Server)
+            {
+                if (subject == NetworkingTags.ServerSubjects.PlayerRestarting)
+                {
+                    Debug.Log("Here data is " + data);
+                    
                 }
             }
         }
@@ -286,6 +304,18 @@ namespace Roland
                 WinLose.text = "YOU LOSE";
             }
             WinLose.gameObject.SetActive(true);
+            GameHasStarted = false;
+        }
+
+        public void QuitGame()
+        {
+            Application.Quit();
+        }
+
+        void OnPlayerDisconnect(ushort id)
+        {
+            Debug.Log("Disconnecting id " + id);
+            ConnectDisconnect.instance.RemovePlayer(id);
         }
     }
 }

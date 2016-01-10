@@ -1,0 +1,441 @@
+fileFormatVersion: 2
+guid: 867dcfe81f07dad48ace38424452a93a
+timeCreated: 1452242446
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: man_up_down_0
+    21300002: man_up_down_1
+    21300004: man_up_down_2
+    21300006: man_up_down_3
+    21300008: man_up_down_4
+    21300010: man_up_down_5
+    21300012: man_up_down_6
+    21300014: man_up_down_7
+    21300016: man_up_down_8
+    21300018: man_up_down_9
+    21300020: man_up_down_10
+    21300022: man_up_down_11
+    21300024: man_up_down_12
+    21300026: man_up_down_13
+    21300028: man_up_down_14
+    21300030: man_up_down_15
+    21300032: man_up_down_16
+    21300034: man_up_down_17
+    21300036: man_up_down_18
+    21300038: man_up_down_19
+    21300040: man_up_down_20
+    21300042: man_up_down_21
+    21300044: man_up_down_22
+    21300046: man_up_down_23
+    21300048: man_up_down_24
+    21300050: man_up_down_25
+    21300052: man_up_down_26
+    21300054: man_up_down_27
+    21300056: man_up_down_28
+    21300058: man_up_down_29
+    21300060: man_up_down_30
+    21300062: man_up_down_31
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  cubemapConvolution: 0
+  cubemapConvolutionSteps: 7
+  cubemapConvolutionExponent: 1.5
+  seamlessCubemap: 0
+  textureFormat: -1
+  maxTextureSize: 1024
+  textureSettings:
+    filterMode: 0
+    aniso: 16
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  rGBM: 0
+  compressionQuality: 50
+  allowsAlphaSplitting: 0
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 12
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    sprites:
+    - name: man_up_down_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 34
+        width: 12
+        height: 12
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: man_up_down_1
+      rect:
+        serializedVersion: 2
+        x: 11
+        y: 35
+        width: 12
+        height: 12
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: man_up_down_2
+      rect:
+        serializedVersion: 2
+        x: 23
+        y: 35
+        width: 12
+        height: 12
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: man_up_down_3
+      rect:
+        serializedVersion: 2
+        x: 34
+        y: 35
+        width: 12
+        height: 12
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: man_up_down_4
+      rect:
+        serializedVersion: 2
+        x: 45
+        y: 35
+        width: 11
+        height: 12
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: man_up_down_5
+      rect:
+        serializedVersion: 2
+        x: 56
+        y: 35
+        width: 12
+        height: 12
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: man_up_down_6
+      rect:
+        serializedVersion: 2
+        x: 68
+        y: 35
+        width: 12
+        height: 12
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: man_up_down_7
+      rect:
+        serializedVersion: 2
+        x: 80
+        y: 35
+        width: 12
+        height: 12
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: man_up_down_8
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 23
+        width: 12
+        height: 12
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: man_up_down_9
+      rect:
+        serializedVersion: 2
+        x: 11
+        y: 23
+        width: 12
+        height: 12
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: man_up_down_10
+      rect:
+        serializedVersion: 2
+        x: 22
+        y: 23
+        width: 12
+        height: 12
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: man_up_down_11
+      rect:
+        serializedVersion: 2
+        x: 33
+        y: 24
+        width: 12
+        height: 11
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: man_up_down_12
+      rect:
+        serializedVersion: 2
+        x: 45
+        y: 24
+        width: 11
+        height: 11
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: man_up_down_13
+      rect:
+        serializedVersion: 2
+        x: 56
+        y: 24
+        width: 12
+        height: 11
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: man_up_down_14
+      rect:
+        serializedVersion: 2
+        x: 68
+        y: 24
+        width: 12
+        height: 11
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: man_up_down_15
+      rect:
+        serializedVersion: 2
+        x: 80
+        y: 24
+        width: 12
+        height: 11
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: man_up_down_16
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 12
+        width: 12
+        height: 12
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: man_up_down_17
+      rect:
+        serializedVersion: 2
+        x: 11
+        y: 12
+        width: 12
+        height: 12
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: man_up_down_18
+      rect:
+        serializedVersion: 2
+        x: 22
+        y: 12
+        width: 12
+        height: 12
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: man_up_down_19
+      rect:
+        serializedVersion: 2
+        x: 34
+        y: 12
+        width: 12
+        height: 12
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: man_up_down_20
+      rect:
+        serializedVersion: 2
+        x: 45
+        y: 12
+        width: 11
+        height: 12
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: man_up_down_21
+      rect:
+        serializedVersion: 2
+        x: 56
+        y: 12
+        width: 12
+        height: 12
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: man_up_down_22
+      rect:
+        serializedVersion: 2
+        x: 68
+        y: 12
+        width: 12
+        height: 12
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: man_up_down_23
+      rect:
+        serializedVersion: 2
+        x: 80
+        y: 12
+        width: 12
+        height: 12
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: man_up_down_24
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 11
+        height: 12
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: man_up_down_25
+      rect:
+        serializedVersion: 2
+        x: 10
+        y: 0
+        width: 12
+        height: 12
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: man_up_down_26
+      rect:
+        serializedVersion: 2
+        x: 22
+        y: 0
+        width: 12
+        height: 12
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: man_up_down_27
+      rect:
+        serializedVersion: 2
+        x: 34
+        y: 0
+        width: 12
+        height: 12
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: man_up_down_28
+      rect:
+        serializedVersion: 2
+        x: 46
+        y: 1
+        width: 11
+        height: 12
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: man_up_down_29
+      rect:
+        serializedVersion: 2
+        x: 58
+        y: 1
+        width: 12
+        height: 12
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: man_up_down_30
+      rect:
+        serializedVersion: 2
+        x: 69
+        y: 0
+        width: 12
+        height: 12
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: man_up_down_31
+      rect:
+        serializedVersion: 2
+        x: 80
+        y: 0
+        width: 12
+        height: 12
+      alignment: 9
+      pivot: {x: 0.6114376, y: 0.45910013}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    outline: []
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

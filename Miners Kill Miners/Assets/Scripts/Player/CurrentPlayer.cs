@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using DarkRift;
 using System.Linq.Expressions;
 using System.Linq;
+using UnityEngine.UI;
+
 namespace Roland
 {
     public class CurrentPlayer : Singleton<CurrentPlayer>
@@ -23,6 +25,48 @@ namespace Roland
         //from the room scene. then we don't need to use this.
         public Dictionary<Items_e, int> AmountOfItems = new Dictionary<Items_e, int>();
 
+        public List<EquipmentBase> AmountOfEquipments = new List<EquipmentBase>();
+        int money;
+        public int Money
+        {
+            set 
+            { 
+                money = value;
+                UpdateText(money);
+            }
+            get
+            {
+                return money;
+            }
+        }
+
+        Text theUIText;
+
+        public bool BuyThings(int cost)
+        {
+            int temp = Money - cost;
+            if(temp >= 0)
+            {
+                Money = temp;
+                UpdateText(Money);
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        void UpdateText(int number)
+        {
+            if(theUIText == null)
+            {
+                theUIText = GameObject.Find("Money").GetComponent<Text>();
+            }
+            theUIText.text = "Money: $" + number.ToString(); 
+        }
+        
+
         protected CurrentPlayer()
         {
             if (!loaded)
@@ -30,7 +74,8 @@ namespace Roland
                // playerDataColleciton = PlayerDataContainer.Load(Path.Combine(Application.dataPath, "PlayerData.xml"));
                 loaded = true;
             }
-            InitializeList();
+            //InitializeList();
+          
         }
         ~CurrentPlayer()
         {
@@ -44,17 +89,7 @@ namespace Roland
             set { thePlayer = value; }
         }
         
-        public void AddItem(Items_e theItem)
-        {
-            if (!AmountOfItems.ContainsKey(theItem))
-            {
-                AmountOfItems.Add(theItem, 1);
-            }
-            else
-            {
-                AmountOfItems[theItem]++;
-            }
-        }
+
 
         public PlayerDataContainer GetPlayerDataCollection
         {
@@ -105,6 +140,7 @@ namespace Roland
                 playerDataColleciton = PlayerDataContainer.Load(Path.Combine(Application.dataPath, "PlayerData.xml"));
                 loaded = true;
             }
+            theUIText = GameObject.Find("Money").GetComponent<Text>();
         }
 
         public void InitializeList()
@@ -114,6 +150,11 @@ namespace Roland
             {
                 AmountOfItems.Add(AllItems[i], 0);
             }
+        }
+
+        void Start()
+        {
+            AmountOfEquipments = AmountOfEquipments.OrderBy(o => o.OrderID).ToList();
         }
     }
 }

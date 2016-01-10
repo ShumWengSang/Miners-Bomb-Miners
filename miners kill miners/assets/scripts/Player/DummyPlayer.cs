@@ -3,36 +3,18 @@ using System.Collections;
 
 namespace Roland
 {
-    public class DummyPlayer : MonoBehaviour
+    public class DummyPlayer : PlayerBase
     {
-        Transform ourTransform;
-        public int id;
-        Animator theAnimator;
-        TileMap theTileMap;
-
-        Vector3 Offset;
-        SpriteRenderer sp;
         void Start()
         {
-            sp = GetComponent<SpriteRenderer>();
-            theAnimator = GetComponent<Animator>();
-            ourTransform = GetComponent<Transform>();
-            DarkRift.DarkRiftAPI.onDataDetailed += ReceiveData;
-            DarkRift.DarkRiftAPI.onPlayerDisconnected += OnThePlayerDisconnected;
-            EventManager.OnMouseButtonDown += OnMouseButtonDown;
-            theTileMap = TileMapInterfacer.Instance.TileMap;
-            tilePosBlocker = new Vector2(-1, -1);
+            base.Init();
         }
-
-        Vector2 tilePosBlocker;
-        Vector2 currentTilePos;
         void OnDestroy()
         {
-            DarkRift.DarkRiftAPI.onDataDetailed -= ReceiveData;
-            EventManager.OnMouseButtonDown -= OnMouseButtonDown;
+            base.deInit();
         }
         // Update is called once per frame
-        void ReceiveData(ushort senderID, byte tag, ushort subject, object data)
+        protected override void ReceiveData(ushort senderID, byte tag, ushort subject, object data)
         {
             if (senderID == id)
             {
@@ -51,7 +33,7 @@ namespace Roland
                     else if (subject == NetworkingTags.PlayerSubjects.DestroyMapTile)
                     {
                         Vector2 dataV = (Vector2)data;
-                        TileMapInterfacer.Instance.TileMap.DigTile(dataV, 99999, null, false);
+                        TileMapInterfacer.Instance.TileMap.DigTile(dataV, 99999, false);
                     }
                     else if (subject == NetworkingTags.PlayerSubjects.ChangeDir)
                     {
@@ -71,7 +53,7 @@ namespace Roland
                 }
             }
         }
-        void OnThePlayerDisconnected(ushort id )
+        protected override void OnThePlayerDisconnected(ushort id)
         {
             if(id == this.id)
             {
@@ -79,36 +61,13 @@ namespace Roland
             }
         }
 
-        void MouseButtonSpawn(Items_e theItem)
-        {
-            
-            switch (theItem)
-            {
-                case Items_e.SmallBomb:
-                   ObjectSpawner.SpawnObject("SmallBomb", ourTransform.position);
-                    break;
-                case Items_e.BigBomb:
-                    ObjectSpawner.SpawnObject("BigBomb", ourTransform.position);
-                    break;
-                case Items_e.TNTBomb:
-                   ObjectSpawner.SpawnObject("TNTBomb", ourTransform.position);
-                    break;
-                case Items_e.NuclearBomb:
-
-                    break;
-                default:
-                    break;
-            }
-        }
-
-        public void OnMouseButtonDown(MouseButtons button, int id, Items_e theItem)
+        protected override void OnMouseButtonDown(MouseButtons button, int id, int theItem)
         {
             if (id == this.id)
             {
                 if (button == MouseButtons.left)
                 {
-                    Debug.Log("Spawning bomb");
-                    MouseButtonSpawn(theItem);
+                    CurrentPlayer.Instance.AmountOfEquipments[theItem].DummySpawnBomb(this.ourTransform.position);
                 }
             }
         }

@@ -15,7 +15,7 @@ namespace Roland
         public delegate void KeyboardMovement(Direction theDirection, int player_id);
         public static event KeyboardMovement OnKeyboardButtonDown;
 
-        public delegate void MouseKeyDown(MouseButtons MouseButton, int player_id, Items_e theItem);
+        public delegate void MouseKeyDown(MouseButtons MouseButton, int player_id, int theItemID);
         public static event MouseKeyDown OnMouseButtonDown;
 
         GameSceneController theSceneController;
@@ -39,7 +39,7 @@ namespace Roland
 
         void SendEventKeyboardDown(Direction theDir)
         {
-            //OnKeyboardButtonDown(theDir, client_id);
+            OnKeyboardButtonDown(theDir, client_id);
             if(DarkRiftAPI.isConnected)
                 DarkRiftAPI.SendMessageToAll(NetworkingTags.Events, NetworkingTags.EventSubjects.KeyboardEvent, theDir);
         }
@@ -72,23 +72,23 @@ namespace Roland
 
                 if (Input.GetMouseButtonDown(0))
                 {
-                    OnMouseButtonDown(MouseButtons.left, client_id, CurrentPlayer.Instance.ThePlayer.TheCurrentItem);
+                    //We send 0 because if this is only for out client, so the Player class doesn't care
+                    //what id we sends it since it keeps its own current item
+                    OnMouseButtonDown(MouseButtons.left, client_id, -1);
                 }
                 else if(Input.GetMouseButtonDown(1))
                 {
-                    OnMouseButtonDown(MouseButtons.right, client_id, Items_e.SmallBomb);
-                    if (DarkRiftAPI.isConnected)
-                        DarkRiftAPI.SendMessageToOthers(NetworkingTags.Events, NetworkingTags.EventSubjects.rightMouseButton, CurrentPlayer.Instance.ThePlayer.TheCurrentItem);
+                   
                 }
                 float d = Input.GetAxis("Mouse ScrollWheel");
                 if(d < 0)
                 {
                     //less then 0, scroll down
-                    OnMouseButtonDown(MouseButtons.ScrollDown, client_id, Items_e.BigBomb);
+                    OnMouseButtonDown(MouseButtons.ScrollDown, client_id, -1);
                 }
                 else if(d > 0)
                 {
-                    OnMouseButtonDown(MouseButtons.ScrollUp, client_id, Items_e.BigBomb);
+                    OnMouseButtonDown(MouseButtons.ScrollUp, client_id, -1);
                     //greater than 0, scroll up
                 }
 
@@ -98,24 +98,26 @@ namespace Roland
 
         void ReceiveData(ushort senderID, byte tag, ushort subject, object data)
         {
-            
-            if(tag == NetworkingTags.Events)
+            if (theSceneController.GameHasStarted)
             {
-                switch (subject)
+                if (tag == NetworkingTags.Events)
                 {
-                    case NetworkingTags.EventSubjects.KeyboardEvent:
-                        Direction theDirectionToGo = (Direction)data;
-                        OnKeyboardButtonDown(theDirectionToGo, senderID);
-                        break;
-                    case NetworkingTags.EventSubjects.leftMouseButton:
-                        OnMouseButtonDown(MouseButtons.left, senderID, (Items_e)data);
-                        break;
-                    case NetworkingTags.EventSubjects.rightMouseButton:
-                        OnMouseButtonDown(MouseButtons.right, senderID, (Items_e)data);
-                        break;
-                    default:
-                        Debug.LogWarning("No such subject found: " + subject);
-                        break;
+                    switch (subject)
+                    {
+                        case NetworkingTags.EventSubjects.KeyboardEvent:
+                            Direction theDirectionToGo = (Direction)data;
+                            OnKeyboardButtonDown(theDirectionToGo, senderID);
+                            break;
+                        case NetworkingTags.EventSubjects.leftMouseButton:
+                            OnMouseButtonDown(MouseButtons.left, senderID, (int)data);
+                            break;
+                        case NetworkingTags.EventSubjects.rightMouseButton:
+                            //OnMouseButtonDown(MouseButtons.right, senderID, (Items_e)data);
+                            break;
+                        default:
+                            Debug.LogWarning("No such subject found: " + subject);
+                            break;
+                    }
                 }
             }
         }
