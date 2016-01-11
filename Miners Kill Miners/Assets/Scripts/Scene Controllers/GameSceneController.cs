@@ -258,6 +258,10 @@ namespace Roland
                             thePlayer.player_id = PacketPlayerData[i].client_id;
                             thePlayer.theController = this;
                             thePlayer.theEquipments = CurrentPlayer.Instance.AmountOfEquipments;
+                            thePlayer.HealthPoints += CurrentPlayer.Instance.AddedHealth;
+                            CurrentPlayer.Instance.AddedHealth = 0;
+                            thePlayer.DigPower += CurrentPlayer.Instance.AddedDig;
+                            CurrentPlayer.Instance.AddedDig = 0;
                             CurrentPlayer.Instance.ThePlayer = thePlayer;
                             UiHolder theHolder = GetComponent<UiHolder>();
                             HealthBar healthBar = clone.GetComponent<HealthBar>();

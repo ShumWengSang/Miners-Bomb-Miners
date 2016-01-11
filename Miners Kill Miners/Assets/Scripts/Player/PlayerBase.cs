@@ -16,6 +16,15 @@ namespace Roland
 
         protected SpriteRenderer sp;
 
+        public delegate void RemoteBombExplode(int id);
+        public static event RemoteBombExplode OnRemoteActivate;
+
+        protected void ActivateRemote(int id)
+        {
+            if(OnRemoteActivate != null)
+                OnRemoteActivate(id);
+        }
+
         // Use this for initialization
         protected void Init()
         {
@@ -55,41 +64,5 @@ namespace Roland
 
         }
 
-
-        // Update is called once per frame
-        void Update()
-        {
-
-        }
-
-        //protected void MouseButtonSpawn(Items_e theItem)
-        //{
-        //    GameObject Object;
-        //    switch (theItem)
-        //    {
-        //        case Items_e.SmallBomb:
-        //            Object = ObjectSpawner.SpawnObject("SmallBomb", transform.position);
-        //            Object.GetComponent<BombsParent>().ParentPlayer = this;
-        //            break;
-        //        case Items_e.BigBomb:
-        //            Object = ObjectSpawner.SpawnObject("BigBomb", transform.position);
-        //            Object.GetComponent<BombsParent>().ParentPlayer = this;
-        //            break;
-        //        case Items_e.TNTBomb:
-        //            Object = ObjectSpawner.SpawnObject("TNTBomb", transform.position);
-        //            Object.GetComponent<BombsParent>().ParentPlayer = this;
-        //            break;
-        //        case Items_e.NuclearBomb:
-
-        //            break;
-        //        case Items_e.NapalmBomb:
-        //            Object = ObjectSpawner.SpawnObject("NapalmBomb", transform.position);
-        //            Object.GetComponent<BombsParent>().ParentPlayer = this;
-        //            break;
-        //        default:
-        //            Debug.LogWarning("Item not found or not implemented yet");
-        //            break;
-        //    }
-        //}
     }
 }

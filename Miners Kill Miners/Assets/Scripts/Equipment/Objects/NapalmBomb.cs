@@ -25,7 +25,7 @@ namespace Roland
         {
             int Count = 0;
             Queue<Vector2> q = new Queue<Vector2>();
-            q.Enqueue(new Vector2(x, y));
+            q.Enqueue(Pos);
             while (q.Count > 0)
             {
                 Vector2 current = q.Dequeue();
@@ -68,7 +68,6 @@ namespace Roland
 
             StartCoroutine(explodeNapalm());
 
-            theTileMap.theMap.SetTileAt(new Vector2(x, y), new Noblock());
             GetComponent<Animator>().enabled = false;
             GetComponent<SpriteRenderer>().sprite = null;
            // this.gameObject.SetActive(false);

@@ -244,9 +244,9 @@ namespace Roland
             }
         }
 
-        public List<Vector2Class> GetCircleTiles(int cx, int cz, int cr)
+        public List<Vector2> GetCircleTiles(int cx, int cz, int cr)
         {
-            List<Vector2Class> theList = new List<Vector2Class>();
+            List<Vector2> theList = new List<Vector2>();
             for (int z = cz - cr; z <= cz + cr; z++)
             {
                 for (int x = cx - cr; x <= cx + cr; x++)
@@ -255,7 +255,7 @@ namespace Roland
                     if (isInCircle)
                     {
                         if(map.CheckBoundaries( x,  z))
-                            theList.Add(new Vector2Class(x, z));
+                            theList.Add(new Vector2(x, z));
                     }
                 }
             }
@@ -263,7 +263,7 @@ namespace Roland
             return theList;
         }
 
-        public List<Vector2Class> GetCircleTiles(Vector2 tile, int radius)
+        public List<Vector2> GetCircleTiles(Vector2 tile, int radius)
         {
             return GetCircleTiles((int)tile.x, (int)tile.y, radius);
         }

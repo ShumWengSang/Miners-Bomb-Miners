@@ -17,6 +17,8 @@ namespace Roland
         Player thePlayer;
         public int OurID;
         public int AmountOfPlayers = 0;
+        public int AddedHealth = 0;
+        public int AddedDig = 0;
 
         //temp holder for our player. Since the player class only creates after ready is clicked
         //we need a place to store the weapons the user has.

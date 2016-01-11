@@ -5,6 +5,7 @@ namespace Roland
 {
     public class DummyPlayer : PlayerBase
     {
+        Direction theDirection;
         void Start()
         {
             base.Init();
@@ -67,7 +68,21 @@ namespace Roland
             {
                 if (button == MouseButtons.left)
                 {
-                    CurrentPlayer.Instance.AmountOfEquipments[theItem].DummySpawnBomb(this.ourTransform.position);
+                    if (CurrentPlayer.Instance.AmountOfEquipments[theItem] is GrenadeData)
+                    {
+                        GrenadeData grenade = (GrenadeData)CurrentPlayer.Instance.AmountOfEquipments[theItem];
+                        grenade.SetDirection(theDirection);
+                    }
+                    GameObject obj = CurrentPlayer.Instance.AmountOfEquipments[theItem].DummySpawnBomb(this.ourTransform.position);
+                    RemoteBomb remote = obj.GetComponent<RemoteBomb>();
+                    if(remote != null)
+                    {
+                        remote.id = id;
+                    }
+                }
+                else if (button == MouseButtons.right)
+                {
+                    ActivateRemote(id);
                 }
             }
         }
@@ -113,6 +128,7 @@ namespace Roland
                     theAnimator.SetTrigger("Stop");
                     break;
             }
+            this.theDirection = theDirection;
         }
     }
 }

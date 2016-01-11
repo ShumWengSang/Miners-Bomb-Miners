@@ -1,13 +1,21 @@
 ﻿using UnityEngine;
 using System.Collections;
-
+using System.Collections.Generic;
 namespace Roland
 {
     public class TNTBomb : BombsParent
     {
+        public int Radius;
+        List<Vector2> ListToExplode;
 
         protected override void Explode()
         {
+            //ListToExplode = theTileMap.GetCircleTiles(Pos, Radius);
+
+            //for (int i = 0; i < ListToExplode.Count; i++)
+            //{
+            //    DigSpawnTile(ListToExplode[i], BombPower);
+            //}
             for (int i = x - 2; i <= x + 2; i++)
             {
                 for (int j = y - 2; j <= y + 2; j++)
@@ -24,7 +32,6 @@ namespace Roland
             }
 
             SpawnExplosion(x, y);
-            theTileMap.theMap.SetTileAt(new Vector2(x, y), new Noblock());
             Lean.LeanPool.Despawn(this.gameObject);
         }
     }

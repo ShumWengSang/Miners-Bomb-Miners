@@ -66,6 +66,9 @@ namespace Roland
         public HealthBar ourPlayerHealthBar;
 
         public List<EquipmentBase> theEquipments;
+
+        Direction ourDirection;
+
         IEnumerator InvulCoolDown()
         {
             invul = true;
@@ -202,10 +205,28 @@ namespace Roland
             {
                 if (button == MouseButtons.left)
                 {
-                    TheCurrentItem.PlayerSpawnBomb(ourTransform.position);
+                    if(TheCurrentItem is GrenadeData)
+                    {
+                        GrenadeData grenade = (GrenadeData)TheCurrentItem;
+                        grenade.SetDirection(ourDirection);
+                    }
+                    GameObject obj = TheCurrentItem.PlayerSpawnBomb(ourTransform.position);
+                    RemoteBomb remote = obj.GetComponent<RemoteBomb>();
+                    if(remote != null)
+                    {
+                        remote.id = id;
+                    }
                     if (DarkRiftAPI.isConnected)
                     {
                         DarkRiftAPI.SendMessageToOthers(NetworkingTags.Events, NetworkingTags.EventSubjects.leftMouseButton, TheCurrentItem.OrderID);
+                    }
+                }
+                else if(button == MouseButtons.right)
+                {
+                    ActivateRemote(DarkRiftAPI.id);
+                    if (DarkRiftAPI.isConnected)
+                    {
+                        DarkRiftAPI.SendMessageToOthers(NetworkingTags.Events, NetworkingTags.EventSubjects.rightMouseButton, DarkRiftAPI.id);
                     }
                 }
                 else if (button == MouseButtons.ScrollDown)
@@ -261,7 +282,6 @@ namespace Roland
             UpdateUI(TheCurrentItem);
         }
 
-
         protected override void OnButtonPressed(Direction theDirection, int id)
         {
             //We make sure this is talking to us
@@ -309,6 +329,7 @@ namespace Roland
                         theAnimator.SetTrigger("Stop");
                         break;
                 }
+                ourDirection = theDirection;
                 DarkRiftAPI.SendMessageToOthers(NetworkingTags.Player, NetworkingTags.PlayerSubjects.ChangeDir, theDirection);
                 if (LastDirection != MoveDirection)
                 {

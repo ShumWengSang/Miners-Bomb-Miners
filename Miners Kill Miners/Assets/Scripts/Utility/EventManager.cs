@@ -78,7 +78,7 @@ namespace Roland
                 }
                 else if(Input.GetMouseButtonDown(1))
                 {
-                   
+                    OnMouseButtonDown(MouseButtons.right, client_id, -1);
                 }
                 float d = Input.GetAxis("Mouse ScrollWheel");
                 if(d < 0)
@@ -112,7 +112,7 @@ namespace Roland
                             OnMouseButtonDown(MouseButtons.left, senderID, (int)data);
                             break;
                         case NetworkingTags.EventSubjects.rightMouseButton:
-                            //OnMouseButtonDown(MouseButtons.right, senderID, (Items_e)data);
+                            OnMouseButtonDown(MouseButtons.right, senderID, 0);
                             break;
                         default:
                             Debug.LogWarning("No such subject found: " + subject);

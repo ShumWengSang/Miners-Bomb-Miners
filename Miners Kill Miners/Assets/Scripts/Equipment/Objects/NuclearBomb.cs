@@ -7,7 +7,7 @@ namespace Roland
     public class NuclearBomb : BombsParent
     {
         WaitForSeconds wait;
-        List<Vector2Class> ListToExplode;
+        List<Vector2> ListToExplode;
         public int RadiusByTiles = 30;
 
         void Start()
@@ -15,11 +15,16 @@ namespace Roland
             wait = new WaitForSeconds(0.01f);
         }
 
+        protected override void OnSpawn()
+        {
+            Init();
+            GetComponent<Animator>().enabled = true;
+        }
+
         protected override void Explode()
         {
-            ListToExplode = theTileMap.GetCircleTiles(new Vector2(x, y), RadiusByTiles);
+            ListToExplode = theTileMap.GetCircleTiles(Pos, RadiusByTiles);
 
-            theTileMap.theMap.SetTileAt(new Vector2(x, y), new Noblock());
             GetComponent<Animator>().enabled = false;
             GetComponent<SpriteRenderer>().sprite = null;
             StartCoroutine(BlowItUpBaby());
@@ -29,7 +34,7 @@ namespace Roland
         {
             for (int i = 0; i < ListToExplode.Count; i++)
             {
-                DigSpawnTile(new Vector2(ListToExplode[i].x,ListToExplode[i].z), BombPower);
+                DigSpawnTile(ListToExplode[i], BombPower);
                 yield return wait;
             }
             Lean.LeanPool.Despawn(this.gameObject);

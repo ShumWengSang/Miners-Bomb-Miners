@@ -17,6 +17,8 @@ namespace Roland
 
         public string BombName;
 
+        public GameObject ObjectToSpawn;
+
         public int OrderID
         {
             get { return id; }
@@ -64,17 +66,21 @@ namespace Roland
                 returner = true;
             }
             amount--;
+            if (amount < 0)
+                amount = 0;
             return returner;
         }
-        public virtual void PlayerSpawnBomb(Vector3 location)
+        public virtual GameObject PlayerSpawnBomb(Vector3 location)
         {
             if (MinusBomb())
-                ObjectSpawner.SpawnObject(BombName, location);
+                return ObjectSpawner.SpawnObject(ObjectToSpawn, location);
+            return null;
+                
         }
 
-        public virtual void DummySpawnBomb(Vector3 location)
+        public virtual GameObject DummySpawnBomb(Vector3 location)
         {
-             ObjectSpawner.SpawnObject(BombName, location);
+            return ObjectSpawner.SpawnObject(ObjectToSpawn, location);
         }
 
         public virtual void UpdateInGameUI(Text theText, Image theImage)

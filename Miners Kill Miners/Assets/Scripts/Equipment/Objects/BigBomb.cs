@@ -21,7 +21,6 @@ namespace Roland
             DigSpawnTile(x, y - 2, BombPower);
 
             SpawnExplosion(x, y);
-            theTileMap.theMap.SetTileAt(new Vector2(x, y), new Noblock());
             Lean.LeanPool.Despawn(this.gameObject);
         }
     }
