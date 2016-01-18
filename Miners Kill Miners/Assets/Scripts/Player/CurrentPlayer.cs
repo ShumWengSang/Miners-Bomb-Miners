@@ -17,8 +17,28 @@ namespace Roland
         Player thePlayer;
         public int OurID;
         public int AmountOfPlayers = 0;
-        public int AddedHealth = 0;
-        public int AddedDig = 0;
+
+        public int HealthPoints
+        {
+            get { return healthpoints; }
+            set
+            {
+                healthpoints = value;
+                CurrentPlayer.Instance.UpdateHealthPointInGame();
+            }
+        }
+        public int DigPower
+        {
+            get { return digpower; }
+            set 
+            {
+                digpower = value;
+                DigPowerUI.text = digpower.ToString();
+            }
+        }
+
+        private int healthpoints = 3;
+        private int digpower = 1;
 
         //temp holder for our player. Since the player class only creates after ready is clicked
         //we need a place to store the weapons the user has.
@@ -28,11 +48,22 @@ namespace Roland
         public Dictionary<Items_e, int> AmountOfItems = new Dictionary<Items_e, int>();
 
         public List<EquipmentBase> AmountOfEquipments = new List<EquipmentBase>();
+        public List<int> AmountOfBombs = null;
+        public List<Image> HPIcons = new List<Image>();
+
+        public Sprite HPIconSprite;
+
+        Text theUIText;
+        public Text DigPowerUI;
+
         int money;
+
+        public GameSceneController controller;
+
         public int Money
         {
-            set 
-            { 
+            set
+            {
                 money = value;
                 UpdateText(money);
             }
@@ -42,7 +73,54 @@ namespace Roland
             }
         }
 
-        Text theUIText;
+        public void GetHPIcons(Transform parent)
+        {
+            List<Transform> ParentTransforms = new List<Transform>();
+            HPIcons.Clear();
+            for(int i = 0; i < parent.childCount; i++)
+            {
+                ParentTransforms.Add(parent.GetChild(i));
+            }
+            for(int i = 0; i < ParentTransforms.Count; i++)
+            {
+                for(int k = 0; k < ParentTransforms[i].childCount; k++)
+                {
+                    HPIcons.Add(ParentTransforms[i].GetChild(k).GetComponent<Image>());
+                }
+            }
+            UpdateHealthPointInGame(HealthPoints);
+        }
+
+        public void DeleteHorizontalLayout(Transform parent)
+        {
+            for (int i = 0; i < parent.childCount; i++)
+            {
+                Destroy(parent.GetChild(i).GetComponent<HorizontalLayoutGroup>());
+            }
+        }
+
+        public void UpdateHealthPointInGame(int currentHealth)
+        {
+            for (int i = 0; i < HPIcons.Count; i++)
+            {
+                HPIcons[i].gameObject.SetActive(false);
+            }
+            for (int i = 0; i < currentHealth; i++)
+            {
+                HPIcons[i].gameObject.SetActive(true);
+                if (!HPIcons[i].transform.parent.gameObject.activeInHierarchy)
+                {
+                    HPIcons[i].transform.parent.gameObject.SetActive(true);
+                }
+                HPIcons[i].sprite = HPIconSprite;
+            }
+        }
+
+        public void UpdateHealthPointInGame()
+        {
+            UpdateHealthPointInGame(HealthPoints);
+        }
+
 
         public bool BuyThings(int cost)
         {
@@ -61,13 +139,13 @@ namespace Roland
 
         void UpdateText(int number)
         {
-            if(theUIText == null)
-            {
-                theUIText = GameObject.Find("Money").GetComponent<Text>();
-            }
-            theUIText.text = "Money: $" + number.ToString(); 
+            if (!controller.GameHasStarted)
+                theUIText = controller.MoneyShop;
+            else
+                theUIText = controller.MoneyGame;
+            theUIText.text = "Money: $" + number.ToString();
         }
-        
+
 
         protected CurrentPlayer()
         {
@@ -154,9 +232,27 @@ namespace Roland
             }
         }
 
-        void Start()
+        public void Start()
         {
             AmountOfEquipments = AmountOfEquipments.OrderBy(o => o.OrderID).ToList();
+            if(AmountOfBombs != null)
+            {
+                for (int i = 0; i < AmountOfEquipments.Count; i++)
+                {
+                    AmountOfEquipments[i].Amount = AmountOfBombs[i];
+                }
+            }
+        }
+
+        public void Restart()
+        {
+
+            AmountOfBombs = new List<int>();
+            for(int i = 0; i < AmountOfEquipments.Count; i++)
+            {
+                AmountOfBombs.Add(AmountOfEquipments[i].Amount);
+            }
+            AmountOfEquipments.Clear();
         }
     }
 }

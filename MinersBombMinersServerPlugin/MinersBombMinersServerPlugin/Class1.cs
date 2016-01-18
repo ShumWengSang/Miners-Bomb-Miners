@@ -254,6 +254,15 @@ namespace MinersBombMinersServerPlugin
                     if(AmountOfLost == (theClients.Count - 1))
                     {
                         DarkRiftServer.GetConnectionServiceByID((ushort)IDofWinner).SendReply(NetworkingTags.Controller, NetworkingTags.ControllerSubjects.YouWin, "");
+                        //Reset lost counter.
+                        foreach (KeyValuePair<int, PlayerInfo> theKey in theClients)
+                        {
+                            theKey.Value.Lost = false;
+                        }
+                    }
+                    else if(AmountOfLost == theClients.Count)
+                    {
+                        DarkRiftServer.GetConnectionServiceByID(1).SendReply(NetworkingTags.Controller, NetworkingTags.ControllerSubjects.YouWin, "");
                     }
                 }
                 else if (msg.subject == NetworkingTags.ServerSubjects.PlayerRestarting)

@@ -38,9 +38,19 @@ namespace Roland
         public GameObject Shop;
         public GameObject RestartButton;
         public GameObject NotConnected;
+        
+        public Transform HPIconsParent;
+        
+
+        public Text NumberOfDigs;
 
         public RuntimeAnimatorController[] PlayerAnimators;
         public Sprite[] StartingSprite;
+
+        public Text MoneyShop;
+        public Text MoneyGame;
+        public Text Round;
+
 
         MinersBombMinersServerPlugin.MinersBombMinersServerPlugin.PlayerType ourColor;
 
@@ -58,9 +68,10 @@ namespace Roland
         {
             CurrentPlayer.Instance.Money += BaseIncomeGold;
             //DarkRiftAPI.SendMessageToServer(NetworkingTags.Server, NetworkingTags.ServerSubjects.SetMoneyForPlayer, CurrentPlayer.Instance.Money);
-            Debug.Log("Sending money: " + CurrentPlayer.Instance.Money);
             int money = CurrentPlayer.Instance.Money;
             DarkRiftAPI.SendMessageToServer(NetworkingTags.Server, NetworkingTags.ServerSubjects.PlayerRestarting, money);
+
+            CurrentPlayer.Instance.Restart();
 
             ChangeScene("MultiplayerGame");
         }
@@ -81,6 +92,15 @@ namespace Roland
                 genericplayer.thePlayerData.CreatePlayerData("Generic Player", 0);
                 //CurrentPlayer.Instance.ThePlayer = genericplayer;
             }
+
+            Shop.SetActive(true);
+            Game.SetActive(false);
+            ReadyText.SetActive(false);
+            CurrentPlayer.Instance.GetHPIcons(HPIconsParent);
+            CurrentPlayer.Instance.DigPowerUI = NumberOfDigs;
+            CurrentPlayer.Instance.controller = this;
+            MoneyShop = GameObject.Find("Money").GetComponent<Text>();
+
         }
 
         void Start()
@@ -106,6 +126,18 @@ namespace Roland
             DarkRiftAPI.SendMessageToServer(NetworkingTags.Server, NetworkingTags.ServerSubjects.GetMoneyForPlayer, DarkRiftAPI.id);
             DarkRiftAPI.onDataDetailed += ReceiveData;
             DarkRiftAPI.onPlayerDisconnected += OnPlayerDisconnect;
+
+            string showBomb = System.IO.File.ReadAllText("showBomb.txt");
+            if(showBomb == "True" || showBomb == "true")
+            {
+                RevealFogExplosion.Trigger = true;
+            }
+            else
+            {
+                RevealFogExplosion.Trigger = false;
+            }
+
+            CurrentPlayer.Instance.Start();
         }
 
 
@@ -147,16 +179,20 @@ namespace Roland
 
         IEnumerator StartCountdown()
         {
+            HPIconsParent.GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
             Game.SetActive(true);
+            MoneyGame = GameObject.Find("GameMoney").GetComponent<Text>();
             Shop.SetActive(false);
+            CurrentPlayer.Instance.DeleteHorizontalLayout(HPIconsParent);
             for (int i = 0; i < timeToWaitToStart; i++)
             {
                 TimerCountDownText.text = (timeToWaitToStart - i).ToString();
                 yield return waitForTimer;
             }
             GameHasStarted = true;
+            
+            CurrentPlayer.Instance.Money = CurrentPlayer.Instance.Money;
             TimerCountDownText.gameObject.SetActive(false);
-
         }
 
         void ReceiveData(ushort senderID, byte tag, ushort subject, object data)
@@ -186,6 +222,8 @@ namespace Roland
                     }
                     color -= 1;
                     ConnectDisconnect.instance.AddPlayer(color, senderID);
+                    CurrentPlayer.Instance.HPIconSprite = StartingSprite[ConnectDisconnect.instance.GetPlayerColor(DarkRiftAPI.id)];
+                    CurrentPlayer.Instance.UpdateHealthPointInGame();
                 }
 
                 else if (subject == NetworkingTags.ControllerSubjects.SpawnPlayer)
@@ -254,28 +292,22 @@ namespace Roland
                         {
 
                             clone = (GameObject)Instantiate(PlayerPrefab, theTileMap.ConvertTileToWorld(SpawnPoint), Quaternion.identity);
-                            Player thePlayer = clone.GetComponent<Player>();
+                            Player thePlayer = clone.GetComponentInChildren<Player>();
                             thePlayer.player_id = PacketPlayerData[i].client_id;
                             thePlayer.theController = this;
                             thePlayer.theEquipments = CurrentPlayer.Instance.AmountOfEquipments;
-                            thePlayer.HealthPoints += CurrentPlayer.Instance.AddedHealth;
-                            CurrentPlayer.Instance.AddedHealth = 0;
-                            thePlayer.DigPower += CurrentPlayer.Instance.AddedDig;
-                            CurrentPlayer.Instance.AddedDig = 0;
                             CurrentPlayer.Instance.ThePlayer = thePlayer;
                             UiHolder theHolder = GetComponent<UiHolder>();
-                            HealthBar healthBar = clone.GetComponent<HealthBar>();
-                            healthBar.healthSlider = theHolder.HealthSlider;
+                            HealthBar healthBar = clone.GetComponentInChildren<HealthBar>();
                             healthBar.damageImage = theHolder.DamageHealth;
-                            theHolder.HealthFill.color = thePlayerColor;
                         }
                         else
                         {
                             clone = (GameObject)Instantiate(PlayerDummy, theTileMap.ConvertTileToWorld(SpawnPoint), Quaternion.identity);
-                            DummyPlayer thePlayer = clone.GetComponent<DummyPlayer>();
+                            DummyPlayer thePlayer = clone.GetComponentInChildren<DummyPlayer>();
                             thePlayer.id = PacketPlayerData[i].client_id;
                         }
-                        clone.GetComponent<Animator>().runtimeAnimatorController = theColoredPlayer;
+                        clone.GetComponentInChildren<Animator>().runtimeAnimatorController = theColoredPlayer;
                     }
                     StartCoroutine(StartCountdown());
 
@@ -318,7 +350,6 @@ namespace Roland
 
         void OnPlayerDisconnect(ushort id)
         {
-            Debug.Log("Disconnecting id " + id);
             ConnectDisconnect.instance.RemovePlayer(id);
         }
     }

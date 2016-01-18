@@ -7,6 +7,7 @@ namespace Roland
     public class ItemClickBuy : MonoBehaviour
     {
         public EquipmentBase theEquipment;
+
         void Start()
         {
             if(theEquipment != null)

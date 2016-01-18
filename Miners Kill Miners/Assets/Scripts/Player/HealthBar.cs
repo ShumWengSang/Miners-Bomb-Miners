@@ -43,11 +43,9 @@ public class HealthBar : MonoBehaviour
         }
     }
 
-    public void UpdateHealthBar(int HPNow, int TotalHP)
+    public void RunDamagedImage()
     {
         // Set the damaged flag so the screen will flash.
         damaged = true;
-        healthSlider.value = HPNow;
-        healthSlider.maxValue = TotalHP;
     }
 }

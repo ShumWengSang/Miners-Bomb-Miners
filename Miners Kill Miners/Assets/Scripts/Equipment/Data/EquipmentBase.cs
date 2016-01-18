@@ -30,6 +30,15 @@ namespace Roland
         public int Amount
         {
             get { return amount; }
+            set
+            {
+                amount = value;
+                if (numberOfItemText == null)
+                {
+                    numberOfItemText = transform.FindChild("Item Number").GetComponent<Text>();
+                }
+                numberOfItemText.text = amount.ToString();
+            }
         }
 
         protected void AddItemToList()
@@ -45,7 +54,7 @@ namespace Roland
             CostOfItem = transform.FindChild("Price").GetComponent<Text>();
 
             CostOfItem.text = "$" + cost.ToString();
-            numberOfItemText.text = 0.ToString();
+            numberOfItemText.text = amount.ToString();
         }
         public virtual void BuyItem()
         {

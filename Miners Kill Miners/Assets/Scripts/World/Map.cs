@@ -6,10 +6,20 @@ namespace Roland
     public class Map 
     {
         public static float Offset = 0f;
+        public static float Threshold = 0.5f;
         Block[,] blocks;
         int sizex;
         int sizez;
 
+        public static void MapChangeLevel()
+        {
+            Offset += 2.0f;
+            Threshold -= 0.05f;
+            if(Threshold > 0.3f)
+            {
+                Threshold = 0.3f;
+            }
+        }
         public Map(int x, int z)
         {
             GenerateMap(x, z);
@@ -31,19 +41,20 @@ namespace Roland
                     float number1 = (float)i / 10f + Offset;
                     float number2 = (float)j / 10f + Offset;
                     float number = Mathf.PerlinNoise(number1, number2);
-                    if (number <= 0.5f)
+                    if (number <= Threshold)
                     {
                         //dirt blocks
                         blocks[i, j] = new DirtBlock();
                     }
                     else
                     {
+                        float percentage = (number - Threshold)/ (Threshold);
                         //This is a stone
-                        number -= 0.5f;
-                        number *= 2;
-                        StoneBlocks stone = new StoneBlocks();
 
-                        stone.ChangeDigsToGoThrough((int)(number * 10));
+                        float strength = percentage ;
+                        StoneBlocks stone = new StoneBlocks();
+                        Debug.Log("Strength is " + strength);
+                        stone.ChangeDigsToGoThrough((int)(strength * 10));
                         blocks[i, j] = stone;
                     }
                 }
@@ -51,10 +62,21 @@ namespace Roland
 
             blocks[1, 1] = new Noblock();
             blocks[1, 2] = new Noblock();
-            blocks[1, 3] = new Noblock();
+            blocks[2, 1] = new Noblock();
+
             blocks[1, sizez - 2] = new Noblock();
-            blocks[sizex - 2, sizez - 2] = new Noblock();
+            blocks[1, sizez - 3] = new Noblock();
+            blocks[2, sizez - 2] = new Noblock();
+
             blocks[sizex - 2, 1] = new Noblock();
+            blocks[sizex - 3, 1] = new Noblock();
+            blocks[sizex - 2, 2] = new Noblock();
+
+            blocks[sizex - 2, sizez - 2] = new Noblock();
+            blocks[sizex - 3, sizez - 2] = new Noblock();
+            blocks[sizex - 2, sizez - 3] = new Noblock();
+
+
 
             for (int i = 0; i < sizez; i++)
             {
@@ -126,9 +148,5 @@ namespace Roland
             blocks[x, y] = newBlock;
             return new Vector2(x, y);
         }
-
-
-        
-
     }
 }

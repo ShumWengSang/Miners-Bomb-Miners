@@ -79,6 +79,7 @@ namespace Roland
                     {
                         remote.id = id;
                     }
+                    obj.GetComponent<BombsParent>().ID = id;
                 }
                 else if (button == MouseButtons.right)
                 {

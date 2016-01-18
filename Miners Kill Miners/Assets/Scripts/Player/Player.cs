@@ -30,14 +30,9 @@ namespace Roland
 
         public PlayerData thePlayerData;
 
-
-        public int DigPower = 1;
         public int speed = 5;
         public int player_id;
-        public int HealthPoints = 3;
         public int CurrentHealthPoints;
-        public int Money = 100;
-        public int Score = 0;
 
         public GameSceneController theController;
 
@@ -85,9 +80,10 @@ namespace Roland
         void Start()
         {
             base.Init();
-        
 
-            CurrentHealthPoints = HealthPoints;
+
+            ourTransform = transform.parent;
+            CurrentHealthPoints = CurrentPlayer.Instance.HealthPoints;
             WaitHalfSecond = new WaitForSeconds(WaitTimeForDig);
             invulCD = new WaitForSeconds(invulTime);
 
@@ -134,8 +130,7 @@ namespace Roland
         }
         public void UpdateHealth(int health)
         {
-            ourPlayerHealthBar.UpdateHealthBar(health, HealthPoints);
-            HP.text = health.ToString();
+            CurrentPlayer.Instance.UpdateHealthPointInGame(health);
         }
 
         void OnDestroy()
@@ -150,6 +145,7 @@ namespace Roland
                 StartCoroutine(InvulCoolDown());
                 CurrentHealthPoints -= damage;
                 UpdateHealth(CurrentHealthPoints);
+                ourPlayerHealthBar.RunDamagedImage();
                 if (CurrentHealthPoints <= 0)
                 {
                     //we lose.
@@ -185,7 +181,7 @@ namespace Roland
             if (theNextBlock is Noblock)
             {
                 //Debug.Log("Changing transform and move direction is" + MoveDirection);
-                ourTransform.localPosition += new Vector3(MoveDirection.x, MoveDirection.y, 0) * Time.deltaTime * speed;
+                ourTransform.position += new Vector3(MoveDirection.x, MoveDirection.y, 0) * Time.deltaTime * speed;
                 //DarkRiftAPI.SendMessageToOthers(NetworkingTags.Player, NetworkingTags.PlayerSubjects.ChangeBlockToNonMovable, currentTilePos);
                
                 
@@ -195,7 +191,7 @@ namespace Roland
             {
                 //Dig. We start coroutine to do the cooldown as well.
                 StartCoroutine(DigCooldownUpdate());
-                theTileMap.DigTile(nextTilePos, DigPower);
+                theTileMap.DigTile(nextTilePos, CurrentPlayer.Instance.DigPower);
                 //rb.velocity = Vector3.zero * Time.deltaTime * speed;
             }
         }
@@ -205,20 +201,27 @@ namespace Roland
             {
                 if (button == MouseButtons.left)
                 {
-                    if(TheCurrentItem is GrenadeData)
+                    if (theTileMap.theMap.GetTileAt(currentTilePos) is Noblock || theTileMap.theMap.GetTileAt(currentTilePos) is InvisibleWallBlock)
                     {
-                        GrenadeData grenade = (GrenadeData)TheCurrentItem;
-                        grenade.SetDirection(ourDirection);
-                    }
-                    GameObject obj = TheCurrentItem.PlayerSpawnBomb(ourTransform.position);
-                    RemoteBomb remote = obj.GetComponent<RemoteBomb>();
-                    if(remote != null)
-                    {
-                        remote.id = id;
-                    }
-                    if (DarkRiftAPI.isConnected)
-                    {
-                        DarkRiftAPI.SendMessageToOthers(NetworkingTags.Events, NetworkingTags.EventSubjects.leftMouseButton, TheCurrentItem.OrderID);
+                        if (TheCurrentItem is GrenadeData)
+                        {
+                            GrenadeData grenade = (GrenadeData)TheCurrentItem;
+                            grenade.SetDirection(ourDirection);
+                        }
+                        GameObject obj = TheCurrentItem.PlayerSpawnBomb(theTileMap.ConvertTileToWorld(currentTilePos));
+                        if (obj != null)
+                        {
+                            RemoteBomb remote = obj.GetComponent<RemoteBomb>();
+                            if (remote != null)
+                            {
+                                remote.id = id;
+                            }
+                            if (DarkRiftAPI.isConnected)
+                            {
+                                DarkRiftAPI.SendMessageToOthers(NetworkingTags.Events, NetworkingTags.EventSubjects.leftMouseButton, TheCurrentItem.OrderID);
+                            }
+                            obj.GetComponent<BombsParent>().ID = id;
+                        }
                     }
                 }
                 else if(button == MouseButtons.right)
@@ -335,13 +338,13 @@ namespace Roland
                 {
                     if(Mathf.Abs(LastDirection.x - MoveDirection.x) != 0)
                     {
-                        ourTransform.localPosition = theTileMap.ConvertTileToWorld(theTileMap.ConvertWorldToTile(ourTransform.position));
-                        ourTransform.localPosition = new Vector3(ourTransform.localPosition.x, ourTransform.localPosition.y, -1);
+                        ourTransform.position = theTileMap.ConvertTileToWorld(theTileMap.ConvertWorldToTile(ourTransform.position));
+                        ourTransform.position = new Vector3(ourTransform.position.x, ourTransform.position.y, -1);
                     }
                     else if(Mathf.Abs(LastDirection.y - MoveDirection.y) != 0)
                     {
-                        ourTransform.localPosition = theTileMap.ConvertTileToWorld(theTileMap.ConvertWorldToTile(ourTransform.position));
-                        ourTransform.localPosition = new Vector3(ourTransform.localPosition.x, ourTransform.localPosition.y, -1);
+                        ourTransform.position = theTileMap.ConvertTileToWorld(theTileMap.ConvertWorldToTile(ourTransform.position));
+                        ourTransform.position = new Vector3(ourTransform.position.x, ourTransform.position.y, -1);
                     }
                     LastDirection = MoveDirection;
                    
@@ -364,6 +367,27 @@ namespace Roland
                         }
                     }
                 }
+            }
+        }
+
+        string Explosion = "Explosion";
+        string EndExplosion = "EndExplosion";
+        string Fog = "Fog";
+        string Gold = "Gold";
+        void OnTriggerEnter2D(Collider2D collider)
+        {
+            if (collider.CompareTag(Explosion))
+            {
+                this.MinusHealthPoints(1);
+            }
+            else if(collider.CompareTag(Gold))
+            {
+                CurrentPlayer.Instance.Money += collider.GetComponent<Gold>().MoneyGiven;
+                Lean.LeanPool.Despawn(collider.gameObject);
+            }
+            else if(collider.CompareTag(EndExplosion))
+            {
+                this.MinusHealthPoints(999);
             }
         }
     }

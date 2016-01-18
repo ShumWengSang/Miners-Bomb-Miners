@@ -42,6 +42,10 @@ namespace Roland
 
         bool b_UpdateTexture = false;
 
+        public FogOfWar Fog;
+        public GameObject GoldPrefab;
+        public Transform GoldParent;
+
         public Map theMap
         {
             get { return map; }
@@ -69,7 +73,9 @@ namespace Roland
             theMeshFilter = GetComponent<MeshFilter>();
             theMeshRenderer = GetComponent<MeshRenderer>();
             theMeshCollider = GetComponent<MeshCollider>();
+            Fog.Init();
             BuildMesh();
+
         }
 
         public void TileMapReset()
@@ -171,7 +177,6 @@ namespace Roland
                     uv[z * vsize_x + x] = new Vector2((float)x / size_x, 1f - (float)z / size_z);
                 }
             }
-            Debug.Log("Done Verts!");
 
             for (z = 0; z < size_z; z++)
             {
@@ -189,7 +194,6 @@ namespace Roland
                 }
             }
 
-            Debug.Log("Done Triangles!");
 
             // Create a new Mesh and populate with the data
             Mesh mesh = new Mesh();
@@ -202,10 +206,13 @@ namespace Roland
 
             BuildTexture();
 
+            Fog.CreateFogOfWar();
+            GoldSpawnerManager.SpawnRandomGoldTiles(50, GoldPrefab, GoldParent);
+
             theMeshCollider.sharedMesh = mesh;
 
             transform.localPosition = new Vector3(0, theMeshCollider.bounds.size.y + transform.localPosition.y, 0);
-            Camera.main.transform.localPosition = new Vector3(theMeshRenderer.bounds.center.x, theMeshRenderer.bounds.center.y, -10);
+            Camera.main.transform.localPosition = new Vector3(theMeshRenderer.bounds.center.x, theMeshRenderer.bounds.center.y + 2, -10);
 
             HalfTileX = theMeshRenderer.bounds.size.x / size_x / 2;
             HalfTileY = theMeshRenderer.bounds.size.y / size_z / 2;

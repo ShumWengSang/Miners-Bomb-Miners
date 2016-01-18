@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using DarkRift;
 
 namespace Roland
 {
@@ -12,7 +13,6 @@ namespace Roland
         {
             wait = new WaitForSeconds(time);
             theTileMap.theMap.SetTileAt(Pos, new Noblock());
-            Debug.Log("Setting tile to noblock " + Pos);
             StartCoroutine(waitTime());
         }
 
@@ -20,6 +20,13 @@ namespace Roland
         {
             Init();
             DontActivate = true;
+            DarkRiftAPI.onData += ReceiveData;
+        }
+
+        protected override void OnDespawn()
+        {
+            base.OnDespawn();
+            DarkRiftAPI.onData -= ReceiveData;
         }
 
         IEnumerator waitTime()
@@ -33,21 +40,44 @@ namespace Roland
             //Do nothing. We need this to override the base update.
         }
 
-        void OnTriggerEnter2D(Collider2D theCollider)
+        void ReceiveData(byte tag, ushort subject, object data)
         {
-            Debug.Log("TRIGGERED");
-            if (!DontActivate)
+            if(tag == NetworkingTags.Misc)
             {
-                if (theCollider.CompareTag("Player"))
+                if(subject == NetworkingTags.MiscSubjects.MineExplode)
                 {
-                    DigSpawnTile(x , y, BombPower);
-                    DigSpawnTile(x + 1, y, BombPower);
-                    DigSpawnTile(x - 1, y, BombPower);
-                    DigSpawnTile(x, y + 1, BombPower);
-                    DigSpawnTile(x, y - 1, BombPower);
-                    Lean.LeanPool.Despawn(this.gameObject);
+                    Vector2 pos = (Vector2)data;
+                    if(pos.Equals(this.Pos))
+                    {
+                        MineExplosion();
+                    }
                 }
             }
+        }
+
+        string Player = "Player";
+        string Explosion = "Explosion";
+
+        override protected void OnTriggerEnter2D(Collider2D theCollider)
+        {
+            if (!DontActivate)
+            {
+                if (theCollider.CompareTag(Player) || theCollider.CompareTag(Explosion))
+                {
+                    MineExplosion();
+                }
+            }
+        }
+
+        void MineExplosion()
+        {
+            DigSpawnTile(x, y, BombPower);
+            DigSpawnTile(x + 1, y, BombPower);
+            DigSpawnTile(x - 1, y, BombPower);
+            DigSpawnTile(x, y + 1, BombPower);
+            DigSpawnTile(x, y - 1, BombPower);
+            DarkRiftAPI.SendMessageToOthers(NetworkingTags.Misc, NetworkingTags.MiscSubjects.MineExplode, Pos);
+            Lean.LeanPool.Despawn(this.gameObject);
         }
     }
 }

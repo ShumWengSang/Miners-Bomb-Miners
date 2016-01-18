@@ -9,9 +9,15 @@ namespace Roland
         {
             if (CurrentPlayer.Instance.BuyThings(cost))
             {
-                CurrentPlayer.Instance.AddedDig += addDigAmount;
-                numberOfItemText.text = CurrentPlayer.Instance.AddedDig.ToString();
+                CurrentPlayer.Instance.DigPower += addDigAmount;
+                //numberOfItemText.text = CurrentPlayer.Instance.AddedDig.ToString();
             }
+        }
+
+        public override void Init()
+        {
+            if (CurrentPlayer.Instance != null)
+                CurrentPlayer.Instance.DigPowerUI.text = CurrentPlayer.Instance.DigPower.ToString();
         }
     }
 }

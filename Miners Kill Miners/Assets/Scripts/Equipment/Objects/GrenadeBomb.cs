@@ -82,7 +82,7 @@ namespace Roland
 
         IEnumerator notInvul()
         {
-            yield return wait;
+            yield return waitTime;
             invul = false;
             Debug.Log("Not invulenarable anymore");
         }

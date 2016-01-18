@@ -8,8 +8,8 @@ namespace Roland
         {
             if (CurrentPlayer.Instance.BuyThings(cost))
             {
-                CurrentPlayer.Instance.AddedHealth++;
-                numberOfItemText.text = CurrentPlayer.Instance.AddedHealth.ToString();
+                CurrentPlayer.Instance.HealthPoints++;
+                //numberOfItemText.text = CurrentPlayer.Instance.AddedHealth.ToString();
             }
         }
     }

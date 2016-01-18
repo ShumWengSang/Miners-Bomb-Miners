@@ -7,7 +7,6 @@ namespace Roland
     {
         void Awake()
         {
-            Init();
             OrderID = 3;
             AddItemToList();
             BombName = "TNTBomb";

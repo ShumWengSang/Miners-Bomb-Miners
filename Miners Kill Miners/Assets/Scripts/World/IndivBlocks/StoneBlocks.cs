@@ -12,11 +12,14 @@ namespace Roland
 
         const int LittleLeft = 22;
         const int MediumLeft = 23;
+
+        const int DLittleLeft = 6;
+        const int DMediumLeft = 5;
         int HighNumberBlocks;
+
+        bool firstTime = true;
         public StoneBlocks()
         {
-            DigsToGoThrough = 10;
-            UpdateTexture(DigsToGoThrough);
             HighNumberBlocks = Random.Range(10, 13);
             
         }
@@ -25,6 +28,7 @@ namespace Roland
         {
             DigsToGoThrough = newDigsToGoThrough;
             UpdateTexture(DigsToGoThrough);
+            firstTime = false;
         }
 
 
@@ -50,14 +54,21 @@ namespace Roland
                 this.texture_number = HighNumberBlocks;
                 TileMapInterfacer.Instance.TileMap.UpdateTexture();
             }
-            else if(DigsLeft >= 3)
+            else if(DigsLeft >= 4)
             {
-                this.texture_number = MediumLeft;
+                if (firstTime)
+                    this.texture_number = MediumLeft;
+                else
+                    this.texture_number = DMediumLeft;
                 TileMapInterfacer.Instance.TileMap.UpdateTexture();
             }
             else if(DigsLeft >= 0)
             {
-                this.texture_number = LittleLeft;
+                DigsLeft = 3;
+                if (firstTime)
+                    this.texture_number = LittleLeft;
+                else
+                    this.texture_number = DLittleLeft;
                 TileMapInterfacer.Instance.TileMap.UpdateTexture();
             }
         }

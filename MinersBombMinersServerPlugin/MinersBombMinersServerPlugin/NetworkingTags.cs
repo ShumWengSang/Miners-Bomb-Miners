@@ -10,13 +10,18 @@ namespace Roland
         public const int Room = 3;
         public const int Events = 4;
         public const int Player = 5;
+        public const int Misc = 6;
+
+        public class MiscSubjects
+        {
+            public const int MineExplode = 0;
+        }
 
         public class EventSubjects
         {
             public const int KeyboardEvent = 0;		//Move the player to (Vector3)Data
             public const int leftMouseButton = 1;
             public const int rightMouseButton = 2;
-
         }
 
         public class ControllerSubjects

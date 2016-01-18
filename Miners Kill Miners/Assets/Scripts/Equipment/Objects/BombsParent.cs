@@ -3,6 +3,7 @@ using System.Collections;
 
 namespace Roland
 {
+    [RequireComponent(typeof(BoxCollider2D))]
     public class BombsParent : MonoBehaviour
     {
         public int BombPower;
@@ -13,6 +14,7 @@ namespace Roland
         protected int x, y;
         protected Vector2 Pos;
         public AudioClip theClipToPlayWhenExplode = null;
+        public int ID = 999;
         // Use this for initialization
         protected virtual void Init()
         {
@@ -35,7 +37,7 @@ namespace Roland
         }
         protected virtual void OnDespawn()
         {
-            theTileMap.theMap.SetTileAt(Pos, new Noblock());
+            theTileMap.UpdateTexture(Pos, new Noblock());
         }
 
         IEnumerator CountDown()
@@ -55,11 +57,15 @@ namespace Roland
 
         public GameObject SpawnExplosion(int x, int y)
         {
-            return ObjectSpawner.SpawnObject("Explosion", new Vector2(x, y));
+            GameObject explo = ObjectSpawner.SpawnObject("Explosion", new Vector2(x, y));
+            explo.GetComponent<Explosion>().ID = this.ID;
+            return explo;
         }
         public GameObject SpawnExplosion(Vector2 tile)
         {
-            return ObjectSpawner.SpawnObject("Explosion", tile);
+             GameObject explo = ObjectSpawner.SpawnObject("Explosion", tile);
+             explo.GetComponent<Explosion>().ID = this.ID;
+             return explo;
         }
         
         public virtual void Update()
@@ -84,6 +90,14 @@ namespace Roland
                 return SpawnExplosion((int)tile.x, (int)tile.y);
             }
             return null;
+        }
+
+        virtual protected void OnTriggerEnter2D(Collider2D collider)
+        {
+            if (collider.CompareTag("Explosion"))
+            {
+                Explode();
+            }
         }
     }
 }

@@ -12,5 +12,10 @@ namespace Roland
             AddItemToList();
             BombName = "BigBomb";
         }
+
+        void OnDestroy()
+        {
+            Debug.Log("Destroying");
+        }
     }
 }

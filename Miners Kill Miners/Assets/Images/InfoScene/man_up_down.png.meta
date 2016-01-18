@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 867dcfe81f07dad48ace38424452a93a
-timeCreated: 1452242446
+timeCreated: 1452926618
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -85,8 +85,8 @@ TextureImporter:
     - name: man_up_down_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 34
+        x: 3
+        y: 35
         width: 12
         height: 12
       alignment: 0
@@ -96,7 +96,7 @@ TextureImporter:
     - name: man_up_down_1
       rect:
         serializedVersion: 2
-        x: 11
+        x: 14
         y: 35
         width: 12
         height: 12
@@ -107,8 +107,8 @@ TextureImporter:
     - name: man_up_down_2
       rect:
         serializedVersion: 2
-        x: 23
-        y: 35
+        x: 27
+        y: 36
         width: 12
         height: 12
       alignment: 0
@@ -118,8 +118,8 @@ TextureImporter:
     - name: man_up_down_3
       rect:
         serializedVersion: 2
-        x: 34
-        y: 35
+        x: 39
+        y: 37
         width: 12
         height: 12
       alignment: 0
@@ -129,8 +129,8 @@ TextureImporter:
     - name: man_up_down_4
       rect:
         serializedVersion: 2
-        x: 45
-        y: 35
+        x: 50
+        y: 38
         width: 11
         height: 12
       alignment: 0
@@ -140,8 +140,8 @@ TextureImporter:
     - name: man_up_down_5
       rect:
         serializedVersion: 2
-        x: 56
-        y: 35
+        x: 62
+        y: 38
         width: 12
         height: 12
       alignment: 0
@@ -151,8 +151,8 @@ TextureImporter:
     - name: man_up_down_6
       rect:
         serializedVersion: 2
-        x: 68
-        y: 35
+        x: 73
+        y: 38
         width: 12
         height: 12
       alignment: 0
@@ -162,8 +162,8 @@ TextureImporter:
     - name: man_up_down_7
       rect:
         serializedVersion: 2
-        x: 80
-        y: 35
+        x: 86
+        y: 38
         width: 12
         height: 12
       alignment: 0
@@ -173,8 +173,8 @@ TextureImporter:
     - name: man_up_down_8
       rect:
         serializedVersion: 2
-        x: 0
-        y: 23
+        x: 3
+        y: 24
         width: 12
         height: 12
       alignment: 0
@@ -184,8 +184,8 @@ TextureImporter:
     - name: man_up_down_9
       rect:
         serializedVersion: 2
-        x: 11
-        y: 23
+        x: 14
+        y: 24
         width: 12
         height: 12
       alignment: 0
@@ -195,8 +195,8 @@ TextureImporter:
     - name: man_up_down_10
       rect:
         serializedVersion: 2
-        x: 22
-        y: 23
+        x: 26
+        y: 24
         width: 12
         height: 12
       alignment: 0
@@ -206,8 +206,8 @@ TextureImporter:
     - name: man_up_down_11
       rect:
         serializedVersion: 2
-        x: 33
-        y: 24
+        x: 38
+        y: 25
         width: 12
         height: 11
       alignment: 0
@@ -217,8 +217,8 @@ TextureImporter:
     - name: man_up_down_12
       rect:
         serializedVersion: 2
-        x: 45
-        y: 24
+        x: 50
+        y: 27
         width: 11
         height: 11
       alignment: 0
@@ -228,8 +228,8 @@ TextureImporter:
     - name: man_up_down_13
       rect:
         serializedVersion: 2
-        x: 56
-        y: 24
+        x: 61
+        y: 27
         width: 12
         height: 11
       alignment: 0
@@ -239,8 +239,8 @@ TextureImporter:
     - name: man_up_down_14
       rect:
         serializedVersion: 2
-        x: 68
-        y: 24
+        x: 74
+        y: 26
         width: 12
         height: 11
       alignment: 0
@@ -250,8 +250,8 @@ TextureImporter:
     - name: man_up_down_15
       rect:
         serializedVersion: 2
-        x: 80
-        y: 24
+        x: 86
+        y: 25
         width: 12
         height: 11
       alignment: 0
@@ -261,7 +261,7 @@ TextureImporter:
     - name: man_up_down_16
       rect:
         serializedVersion: 2
-        x: 0
+        x: 3
         y: 12
         width: 12
         height: 12
@@ -272,8 +272,8 @@ TextureImporter:
     - name: man_up_down_17
       rect:
         serializedVersion: 2
-        x: 11
-        y: 12
+        x: 15
+        y: 13
         width: 12
         height: 12
       alignment: 0
@@ -283,8 +283,8 @@ TextureImporter:
     - name: man_up_down_18
       rect:
         serializedVersion: 2
-        x: 22
-        y: 12
+        x: 26
+        y: 13
         width: 12
         height: 12
       alignment: 0
@@ -294,8 +294,8 @@ TextureImporter:
     - name: man_up_down_19
       rect:
         serializedVersion: 2
-        x: 34
-        y: 12
+        x: 38
+        y: 14
         width: 12
         height: 12
       alignment: 0
@@ -305,8 +305,8 @@ TextureImporter:
     - name: man_up_down_20
       rect:
         serializedVersion: 2
-        x: 45
-        y: 12
+        x: 50
+        y: 15
         width: 11
         height: 12
       alignment: 0
@@ -316,8 +316,8 @@ TextureImporter:
     - name: man_up_down_21
       rect:
         serializedVersion: 2
-        x: 56
-        y: 12
+        x: 62
+        y: 15
         width: 12
         height: 12
       alignment: 0
@@ -327,8 +327,8 @@ TextureImporter:
     - name: man_up_down_22
       rect:
         serializedVersion: 2
-        x: 68
-        y: 12
+        x: 74
+        y: 13
         width: 12
         height: 12
       alignment: 0
@@ -338,8 +338,8 @@ TextureImporter:
     - name: man_up_down_23
       rect:
         serializedVersion: 2
-        x: 80
-        y: 12
+        x: 86
+        y: 13
         width: 12
         height: 12
       alignment: 0
@@ -349,8 +349,8 @@ TextureImporter:
     - name: man_up_down_24
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
+        x: 3
+        y: 1
         width: 11
         height: 12
       alignment: 0
@@ -360,8 +360,8 @@ TextureImporter:
     - name: man_up_down_25
       rect:
         serializedVersion: 2
-        x: 10
-        y: 0
+        x: 14
+        y: 1
         width: 12
         height: 12
       alignment: 0
@@ -371,8 +371,8 @@ TextureImporter:
     - name: man_up_down_26
       rect:
         serializedVersion: 2
-        x: 22
-        y: 0
+        x: 26
+        y: 1
         width: 12
         height: 12
       alignment: 0
@@ -382,8 +382,8 @@ TextureImporter:
     - name: man_up_down_27
       rect:
         serializedVersion: 2
-        x: 34
-        y: 0
+        x: 38
+        y: 2
         width: 12
         height: 12
       alignment: 0
@@ -393,8 +393,8 @@ TextureImporter:
     - name: man_up_down_28
       rect:
         serializedVersion: 2
-        x: 46
-        y: 1
+        x: 50
+        y: 2
         width: 11
         height: 12
       alignment: 0
@@ -404,8 +404,8 @@ TextureImporter:
     - name: man_up_down_29
       rect:
         serializedVersion: 2
-        x: 58
-        y: 1
+        x: 61
+        y: 2
         width: 12
         height: 12
       alignment: 0
@@ -415,8 +415,8 @@ TextureImporter:
     - name: man_up_down_30
       rect:
         serializedVersion: 2
-        x: 69
-        y: 0
+        x: 74
+        y: 2
         width: 12
         height: 12
       alignment: 0
@@ -426,8 +426,8 @@ TextureImporter:
     - name: man_up_down_31
       rect:
         serializedVersion: 2
-        x: 80
-        y: 0
+        x: 87
+        y: 1
         width: 12
         height: 12
       alignment: 9

@@ -69,6 +69,10 @@ namespace Roland
                     //right
                     SendEventKeyboardDown(Direction.Right);
                 }
+                else if(Input.GetKeyDown(KeyCode.Z))
+                {
+                    SendEventKeyboardDown(Direction.Stop);
+                }
 
                 if (Input.GetMouseButtonDown(0))
                 {
