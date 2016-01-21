@@ -25,3 +25,4 @@ C:\Users\Roland\Documents\Git\miners-bomb-miners\MinersBombMinersServerPlugin\Mi
 C:\Users\Roland\Documents\Git\miners-bomb-miners\MinersBombMinersServerPlugin\MinersBombMinersServerPlugin\obj\Debug\MinersBombMinersServerPlugin.dll
 C:\Users\Roland\Documents\Git\miners-bomb-miners\MinersBombMinersServerPlugin\MinersBombMinersServerPlugin\obj\Debug\MinersBombMinersServerPlugin.pdb
 C:\Users\Roland\Documents\Git\miners-bomb-miners\MinersBombMinersServerPlugin\MinersBombMinersServerPlugin\$(SolutionDir)\Debug\DarkRift.xml
+C:\Users\Roland\Desktop\Git Folder\miners-bomb-miners\MinersBombMinersServerPlugin\MinersBombMinersServerPlugin\$(SolutionDir)\Debug\DarkRift.xml

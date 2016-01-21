@@ -19,6 +19,7 @@ namespace Roland
         {
             Init();
             GetComponent<Animator>().enabled = true;
+            GetComponent<Collider2D>().enabled = true;
         } 
 
         protected override void Explode()
@@ -60,6 +61,7 @@ namespace Roland
 
                 BlocksToExplode.Add(current);
                 Count++;
+ 
                 if (Count >= TotalAmountOfBlocksToDestroy)
                 {
                     break;
@@ -67,7 +69,7 @@ namespace Roland
             }
 
             StartCoroutine(explodeNapalm());
-
+            GetComponent<Collider2D>().enabled = false;
             GetComponent<Animator>().enabled = false;
             GetComponent<SpriteRenderer>().sprite = null;
            // this.gameObject.SetActive(false);

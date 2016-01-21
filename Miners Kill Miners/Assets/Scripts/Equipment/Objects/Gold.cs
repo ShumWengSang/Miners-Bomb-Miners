@@ -18,7 +18,12 @@ namespace Roland
             DarkRift.DarkRiftAPI.onData += ReceiveData;
         }
 
-        protected void OnDespawn()
+        public void OnDespawn()
+        {
+            DarkRift.DarkRiftAPI.onData -= ReceiveData;
+        }
+
+        void OnDestroy()
         {
             DarkRift.DarkRiftAPI.onData -= ReceiveData;
         }
@@ -54,9 +59,9 @@ namespace Roland
             {
                 if (subject == NetworkingTags.MiscSubjects.GoldPickedUp)
                 {
-                    Vector2 theTilePos = (Vector2)data;
+                    Vector3 theDataPos = (Vector3)data;
                     Vector3 pos = transform.position;
-                    if (theTilePos == tm.ConvertWorldToTile(pos))
+                    if (theDataPos == pos)
                     {
                         Lean.LeanPool.Despawn(this.gameObject);
                     }

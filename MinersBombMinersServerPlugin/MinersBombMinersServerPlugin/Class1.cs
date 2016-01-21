@@ -335,23 +335,26 @@ namespace MinersBombMinersServerPlugin
         }
 
         public void OnPlayerDisconnect(ConnectionService con)
-        {            
-            if(IDsToIgnore.Contains(con.id))
+        {
+            if (con != null)
             {
-                Interface.Log("Removing player from ignore list " + con.id);
-                IDsToIgnore.Remove(con.id);
-            }
-            if(theClients.ContainsKey(con.id))
-            {
-                PlayerColorsAvailableClass.MakeColorAvailable((int)theClients[con.id].thePlayerType - 1);
-                theClients.Remove(con.id);
+                if (IDsToIgnore.Contains(con.id))
+                {
+                    Interface.Log("Removing player from ignore list " + con.id);
+                    IDsToIgnore.Remove(con.id);
+                }
+                if (theClients.ContainsKey(con.id))
+                {
+                    PlayerColorsAvailableClass.MakeColorAvailable((int)theClients[con.id].thePlayerType - 1);
+                    theClients.Remove(con.id);
 
-                PlayerNum--;
-                Interface.Log("Player number has decreased to " + PlayerNum);
-            }
-            if(theClients.Count <= 0)
-            {
-                CurrentGameState = GameState.Room;
+                    PlayerNum--;
+                    Interface.Log("Player number has decreased to " + PlayerNum);
+                }
+                if (theClients.Count <= 0)
+                {
+                    CurrentGameState = GameState.Room;
+                }
             }
         }
 

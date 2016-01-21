@@ -74,6 +74,7 @@ namespace Roland
             CurrentPlayer.Instance.Money += BaseIncomeGold;
             //DarkRiftAPI.SendMessageToServer(NetworkingTags.Server, NetworkingTags.ServerSubjects.SetMoneyForPlayer, CurrentPlayer.Instance.Money);
             int money = CurrentPlayer.Instance.Money;
+            Debug.Log("Sennding " + money);
             DarkRiftAPI.SendMessageToServer(NetworkingTags.Server, NetworkingTags.ServerSubjects.PlayerRestarting, money);
 
             CurrentPlayer.Instance.Restart();
@@ -172,10 +173,6 @@ namespace Roland
             DarkRiftAPI.onDataDetailed -= ReceiveData;
             DarkRiftAPI.onPlayerDisconnected -= OnPlayerDisconnect;
             EventManager.OnDisplayKD -= DisplayKD;
-            if(DarkRiftAPI.isConnected)
-            {
-                DarkRiftAPI.Disconnect();
-            }
         }
 
         bool ClientReady = false;

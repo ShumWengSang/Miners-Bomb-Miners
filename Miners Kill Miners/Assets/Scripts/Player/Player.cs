@@ -386,7 +386,7 @@ namespace Roland
             else if(collider.CompareTag(Gold))
             {
                 CurrentPlayer.Instance.Money += collider.GetComponent<Gold>().MoneyGiven;
-                DarkRiftAPI.SendMessageToAll(NetworkingTags.Misc, NetworkingTags.MiscSubjects.GoldPickedUp, theTileMap.ConvertWorldToTile(collider.transform.position));
+                DarkRiftAPI.SendMessageToAll(NetworkingTags.Misc, NetworkingTags.MiscSubjects.GoldPickedUp, collider.transform.position);
             }
             else if(collider.CompareTag(EndExplosion))
             {
