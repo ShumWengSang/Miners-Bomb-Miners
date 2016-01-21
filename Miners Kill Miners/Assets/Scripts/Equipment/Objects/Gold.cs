@@ -9,10 +9,18 @@ namespace Roland
         public Sprite[] GoldSprites;
         public int MoneyGiven;
         public static int MoneyEscalator = 25;
+        TileMap tm;
 
         void Start()
         {
             RandomizeSprites();
+            tm = TileMapInterfacer.Instance.TileMap;
+            DarkRift.DarkRiftAPI.onData += ReceiveData;
+        }
+
+        protected void OnDespawn()
+        {
+            DarkRift.DarkRiftAPI.onData -= ReceiveData;
         }
 
         void RandomizeSprites()
@@ -38,6 +46,22 @@ namespace Roland
             MoneyGiven = random * MoneyEscalator;
 
             GetComponent<SpriteRenderer>().sprite = GoldSprites[random];
+        }
+
+        protected  void ReceiveData(byte tag, ushort subject, object data)
+        {
+            if (tag == NetworkingTags.Misc)
+            {
+                if (subject == NetworkingTags.MiscSubjects.GoldPickedUp)
+                {
+                    Vector2 theTilePos = (Vector2)data;
+                    Vector3 pos = transform.position;
+                    if (theTilePos == tm.ConvertWorldToTile(pos))
+                    {
+                        Lean.LeanPool.Despawn(this.gameObject);
+                    }
+                }
+            }
         }
 
 

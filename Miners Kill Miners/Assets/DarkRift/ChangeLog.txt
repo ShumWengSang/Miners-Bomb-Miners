@@ -76,7 +76,7 @@ V1.3:
 	- Added NetworkMessage.DecodeData.
 	- Deprecated onDataDecoded.
 	- Fixed server close bug.
-	- Fixed glitch where plugins were receiveing internal NetworkMessages.
+	- Fixed glitch where plugins were recieveing internal NetworkMessages.
 	- Added // comments to configuration files.
 	- Added comments to configuration file to describe the key/values.
 	- Added HasData to ConnectionService.
@@ -104,3 +104,18 @@ V1.3:
 	performance for any throughput traffic and also allowing you to read data in onDistribute.
 
 	!!!!! Your projects will need to reference DarkRift.dll instead of DarkRiftServer.exe as of this update !!!!!
+
+V1.4
+	Server:
+	- Made server use async sockets to improve performance.
+	- Made PerformanceMonitor.totalConnectionReadCounts obsolete (use totalConnectionHeaderCounts and totalConnectionBodyCounts instead).
+	- Added PerformanceMonitor.totalConnectionHeaderCounts, totalConnectionBodyCounts, totalConnectionHeaderTime and totalConnectionBodyTime.
+	- Fixed off by 1 glitch in the connection limit.
+	- Fixed informing client of closing/kicking.
+	- Stopped TCP grouping messages.
+	- Fixed kickall and kick command bugs.
+
+	API:
+	- Added ConnectInBackground methods.
+	- Fixed informing server of disconnects.
+	- Stopped TCP grouping messages.

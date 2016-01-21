@@ -2,6 +2,7 @@
 using System.Collections;
 using UnityEngine.UI;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Roland
 {
@@ -82,6 +83,11 @@ namespace Roland
             int color = Players[id];
             Texts[color].text = "NOT CONNECTED";
             Texts[color].color = Color.red;
+        }
+
+        public ushort[] GetAllPlayer()
+        {
+            return Players.Keys.ToArray();
         }
     }
 }

@@ -10,7 +10,7 @@ public class CubeNetworkManager : MonoBehaviour
 
 	void Start()
 	{
-		DarkRiftAPI.workInBackground = true;
+		DarkRiftAPI.workInBackground = false;
 		DarkRiftAPI.Connect(IP);
 	}
 

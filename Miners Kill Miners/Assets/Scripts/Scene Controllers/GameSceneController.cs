@@ -51,8 +51,13 @@ namespace Roland
         public Text MoneyGame;
         public Text Round;
 
+        public DisplayKDUI KDObject;
+
+        public GameObject PauseObj;
 
         MinersBombMinersServerPlugin.MinersBombMinersServerPlugin.PlayerType ourColor;
+
+
 
         public void RestartLevel()
         {
@@ -77,7 +82,8 @@ namespace Roland
         }
 
         void Awake()
-        { 
+        {
+            Random.seed = 1;
             changeScene = GetGlobalObject.FindAndGetComponent<ChangeScenes>(this.gameObject, "Global");
 
             //Check whether its sandbox or multiplayer.
@@ -100,6 +106,7 @@ namespace Roland
             CurrentPlayer.Instance.DigPowerUI = NumberOfDigs;
             CurrentPlayer.Instance.controller = this;
             MoneyShop = GameObject.Find("Money").GetComponent<Text>();
+            KillTrackSystem.Instance.theUI = KDObject;
 
         }
 
@@ -123,9 +130,9 @@ namespace Roland
                 DarkRiftAPI.SendMessageToAll(NetworkingTags.Controller, NetworkingTags.ControllerSubjects.JoinMessage, "hi");
                 //DarkRiftAPI.SendMessageToServer(NetworkingTags.Server, NetworkingTags.ServerSubjects.ChangeStateToGame, "");
             }
-            DarkRiftAPI.SendMessageToServer(NetworkingTags.Server, NetworkingTags.ServerSubjects.GetMoneyForPlayer, DarkRiftAPI.id);
             DarkRiftAPI.onDataDetailed += ReceiveData;
             DarkRiftAPI.onPlayerDisconnected += OnPlayerDisconnect;
+            EventManager.OnDisplayKD += DisplayKD;
 
             string showBomb = System.IO.File.ReadAllText("showBomb.txt");
             if(showBomb == "True" || showBomb == "true")
@@ -149,6 +156,10 @@ namespace Roland
                 Shop.SetActive(false);
                 NotConnected.SetActive(true);
             }
+            if(Input.GetKeyDown(KeyCode.Escape))
+            {
+                Pause(true);
+            }
         }
 
         public void ChangeScene(string newScene)
@@ -160,6 +171,11 @@ namespace Roland
         {
             DarkRiftAPI.onDataDetailed -= ReceiveData;
             DarkRiftAPI.onPlayerDisconnected -= OnPlayerDisconnect;
+            EventManager.OnDisplayKD -= DisplayKD;
+            if(DarkRiftAPI.isConnected)
+            {
+                DarkRiftAPI.Disconnect();
+            }
         }
 
         bool ClientReady = false;
@@ -190,7 +206,7 @@ namespace Roland
                 yield return waitForTimer;
             }
             GameHasStarted = true;
-            
+            KDObject.UpdateUIAll();
             CurrentPlayer.Instance.Money = CurrentPlayer.Instance.Money;
             TimerCountDownText.gameObject.SetActive(false);
         }
@@ -220,7 +236,13 @@ namespace Roland
                     {
                         DarkRiftAPI.SendMessageToID(senderID, NetworkingTags.Controller, NetworkingTags.ControllerSubjects.ReplyToJoin, ourColor);
                     }
+                    else
+                    {
+                        DarkRiftAPI.SendMessageToServer(NetworkingTags.Server, NetworkingTags.ServerSubjects.GetMoneyForPlayer, DarkRiftAPI.id);
+                    }
                     color -= 1;
+
+                    KillTrackSystem.Instance.AddPlayer(senderID, new PlayerStats());
                     ConnectDisconnect.instance.AddPlayer(color, senderID);
                     CurrentPlayer.Instance.HPIconSprite = StartingSprite[ConnectDisconnect.instance.GetPlayerColor(DarkRiftAPI.id)];
                     CurrentPlayer.Instance.UpdateHealthPointInGame();
@@ -240,6 +262,7 @@ namespace Roland
                     int color = (int)player;
                     color -= 1;
                     ConnectDisconnect.instance.AddPlayer(color, senderID);
+                    KillTrackSystem.Instance.AddPlayer(senderID, new PlayerStats());
                 }
                 else if (subject == NetworkingTags.ControllerSubjects.YouWin)
                 {
@@ -351,6 +374,32 @@ namespace Roland
         void OnPlayerDisconnect(ushort id)
         {
             ConnectDisconnect.instance.RemovePlayer(id);
+            KillTrackSystem.Instance.RemovePlayer(id);
+        }
+
+
+
+        bool KDdisplay = false;
+        public void DisplayKD()
+        {
+            KDdisplay = !KDdisplay; 
+            KDObject.gameObject.SetActive(KDdisplay);
+        }
+
+        bool GameHasStartedTemp;
+        public void Pause(bool pause)
+        {
+            if(pause)
+            {
+                GameHasStartedTemp = GameHasStarted;
+                GameHasStarted = false;
+                PauseObj.SetActive(true);
+            }
+            else
+            {
+                GameHasStarted = GameHasStartedTemp;
+                PauseObj.SetActive(false);
+            }
         }
     }
 }

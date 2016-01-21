@@ -24,3 +24,4 @@ C:\Users\Roland\Documents\Git\miners-bomb-miners\MinersBombMinersServerPlugin\Mi
 C:\Users\Roland\Documents\Git\miners-bomb-miners\MinersBombMinersServerPlugin\MinersBombMinersServerPlugin\obj\Debug\MinersBombMinersServerPlugin.csprojResolveAssemblyReference.cache
 C:\Users\Roland\Documents\Git\miners-bomb-miners\MinersBombMinersServerPlugin\MinersBombMinersServerPlugin\obj\Debug\MinersBombMinersServerPlugin.dll
 C:\Users\Roland\Documents\Git\miners-bomb-miners\MinersBombMinersServerPlugin\MinersBombMinersServerPlugin\obj\Debug\MinersBombMinersServerPlugin.pdb
+C:\Users\Roland\Documents\Git\miners-bomb-miners\MinersBombMinersServerPlugin\MinersBombMinersServerPlugin\$(SolutionDir)\Debug\DarkRift.xml

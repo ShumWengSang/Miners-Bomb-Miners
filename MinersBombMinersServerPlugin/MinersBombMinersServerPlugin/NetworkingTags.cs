@@ -15,6 +15,7 @@ namespace Roland
         public class MiscSubjects
         {
             public const int MineExplode = 0;
+            public const int GoldPickedUp = 1;
         }
 
         public class EventSubjects

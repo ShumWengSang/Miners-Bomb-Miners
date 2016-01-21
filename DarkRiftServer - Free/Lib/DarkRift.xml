@@ -167,10 +167,23 @@
             	Performs the initial (accepting) handshake with the client.
             </summary>
         </member>
-        <member name="M:DarkRift.ConnectionService.UpdateConnection">
+        <member name="M:DarkRift.ConnectionService.RejectConnection(System.Net.Sockets.Socket)">
             <summary>
-            	Takes data off the connection onto the buffer
+                Sends a reject message to the given socket and closes it.
             </summary>
+            <param name="soc"></param>
+        </member>
+        <member name="M:DarkRift.ConnectionService.ReadHeaderCallback(System.IAsyncResult)">
+            <summary>
+                Callback to read the header bytes from socket
+            </summary>
+            <param name="result"></param>
+        </member>
+        <member name="M:DarkRift.ConnectionService.ReadBodyCallback(System.IAsyncResult)">
+            <summary>
+                Callback to read the body from the socket.
+            </summary>
+            <param name="result"></param>
         </member>
         <member name="M:DarkRift.ConnectionService.ProcessDataItem(System.Object)">
             <summary>
@@ -202,8 +215,14 @@
         </member>
         <member name="M:DarkRift.ConnectionService.Close">
             <summary>
-            	Close this connection.
+            	Close this connection and informs the client.
             </summary>
+        </member>
+        <member name="M:DarkRift.ConnectionService.Close(System.Boolean)">
+            <summary>
+                Closes this connection and can inform the client.
+            </summary>
+            <param name="inform"></param>
         </member>
         <member name="M:DarkRift.ConnectionService.SetData(System.String,System.String,System.Object)">
             <summary>
@@ -502,7 +521,31 @@
         </member>
         <member name="P:DarkRift.PerformanceMonitor.totalConnectionReadTime">
             <summary>
-            	Gets the total time the server has been reading data.
+            	Gets the total time the server has been reading data (total time reader the header + total time reading the body).
+            </summary>
+            <value>The total execution time.</value>
+        </member>
+        <member name="P:DarkRift.PerformanceMonitor.totalConnectionHeaderReadCounts">
+            <summary>
+            	Gets the total number of connection reads for the header.
+            </summary>
+            <value>The total number of executions.</value>
+        </member>
+        <member name="P:DarkRift.PerformanceMonitor.totalConnectionHeaderReadTime">
+            <summary>
+            	Gets the total time the server has been reading header data.
+            </summary>
+            <value>The total execution time.</value>
+        </member>
+        <member name="P:DarkRift.PerformanceMonitor.totalConnectionBodyReadCounts">
+            <summary>
+            	Gets the total number of connection reads for the body.
+            </summary>
+            <value>The total number of executions.</value>
+        </member>
+        <member name="P:DarkRift.PerformanceMonitor.totalConnectionBodyReadTime">
+            <summary>
+            	Gets the total time the server has been reading body data.
             </summary>
             <value>The total execution time.</value>
         </member>
@@ -515,6 +558,18 @@
         <member name="P:DarkRift.PerformanceMonitor.averageConnectionReadTime">
             <summary>
             	Gets the average time it takes to read a single message.
+            </summary>
+            <value>The average processing time.</value>
+        </member>
+        <member name="P:DarkRift.PerformanceMonitor.averageConnectionHeaderReadTime">
+            <summary>
+            	Gets the average time it takes to read a single message header.
+            </summary>
+            <value>The average processing time.</value>
+        </member>
+        <member name="P:DarkRift.PerformanceMonitor.averageConnectionBodyReadTime">
+            <summary>
+            	Gets the average time it takes to read a single message body.
             </summary>
             <value>The average processing time.</value>
         </member>

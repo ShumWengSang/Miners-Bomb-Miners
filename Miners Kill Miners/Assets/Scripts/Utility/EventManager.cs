@@ -18,6 +18,9 @@ namespace Roland
         public delegate void MouseKeyDown(MouseButtons MouseButton, int player_id, int theItemID);
         public static event MouseKeyDown OnMouseButtonDown;
 
+        public delegate void DisplayKD();
+        public static event DisplayKD OnDisplayKD;
+
         GameSceneController theSceneController;
 
         int client_id;
@@ -69,9 +72,9 @@ namespace Roland
                     //right
                     SendEventKeyboardDown(Direction.Right);
                 }
-                else if(Input.GetKeyDown(KeyCode.Z))
+                if(Input.GetKeyDown(KeyCode.Backslash))
                 {
-                    SendEventKeyboardDown(Direction.Stop);
+                    OnDisplayKD();
                 }
 
                 if (Input.GetMouseButtonDown(0))
@@ -95,8 +98,6 @@ namespace Roland
                     OnMouseButtonDown(MouseButtons.ScrollUp, client_id, -1);
                     //greater than 0, scroll up
                 }
-
-
             }
         }
 

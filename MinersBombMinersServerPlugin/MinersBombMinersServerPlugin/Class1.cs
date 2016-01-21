@@ -173,8 +173,9 @@ namespace MinersBombMinersServerPlugin
             if(CurrentGameState != GameState.Room)
             {
                 Interface.Log("Closing conenction");
-                con.SendReply(NetworkingTags.Controller, NetworkingTags.ControllerSubjects.DisconnectYou, "");
-                IDsToIgnore.Add(con.id);
+                //con.SendReply(NetworkingTags.Controller, NetworkingTags.ControllerSubjects.DisconnectYou, "");
+                //IDsToIgnore.Add(con.id);
+                con.Close();
             }
         }
 
@@ -326,8 +327,8 @@ namespace MinersBombMinersServerPlugin
                     }
                     else
                     {
-                        Interface.Log("Disconnecting player: game room is " + CurrentGameState);
-                        con.Close();
+                        //Interface.Log("Disconnecting player: game room is " + CurrentGameState);
+                        //con.Close();
                     }
                 }
             }

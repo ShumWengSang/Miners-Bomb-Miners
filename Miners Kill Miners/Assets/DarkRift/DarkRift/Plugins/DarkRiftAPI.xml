@@ -9,6 +9,27 @@
                 The connection used by DarkRiftAPI.
             </summary>
         </member>
+        <member name="F:DarkRift.DarkRiftAPI.areEventsRedirected">
+            <summary>
+                Indicates whether events have beon redirected to the API yet.
+            </summary>
+        </member>
+        <member name="M:DarkRift.DarkRiftAPI.ConnectInBackground(System.String)">
+            <summary>
+            	Connect to the specified IP in the background.
+            </summary>
+            <param name="ip">The target IP.</param>
+            <remarks>
+            	Defaults to port 4296.
+            </remarks>
+        </member>
+        <member name="M:DarkRift.DarkRiftAPI.ConnectInBackground(System.String,System.Int32)">
+            <summary>
+            	Connect to the specified IP through the specified port in the background.
+            </summary>
+            <param name="ip">The target IP.</param>
+            <param name="port">The port to use.</param>
+        </member>
         <member name="M:DarkRift.DarkRiftAPI.Connect(System.String)">
             <summary>
             	Connect to the specified IP.
@@ -94,6 +115,11 @@
             	Disconnect from the server.
             </summary>
         </member>
+        <member name="M:DarkRift.DarkRiftAPI.RedirectConnectionEvents">
+            <summary>
+                Sets up the redirection of events from the Connection to the API.
+            </summary>
+        </member>
         <member name="P:DarkRift.DarkRiftAPI.id">
             <summary>
             	This is the id of the client as assigned by the server.
@@ -125,6 +151,22 @@
             <summary>
             	Occurs when a player has disconnected.
             </summary>
+        </member>
+        <member name="M:DarkRift.DarkRiftConnection.ConnectInBackground(System.String)">
+            <summary>
+            	Connect to the specified IP in the background.
+            </summary>
+            <param name="ip">The target IP.</param>
+            <remarks>
+            	Defaults to port 4296.
+            </remarks>
+        </member>
+        <member name="M:DarkRift.DarkRiftConnection.ConnectInBackground(System.String,System.Int32)">
+            <summary>
+            	Connect to the specified IP through the specified port in the background.
+            </summary>
+            <param name="ip">The target IP.</param>
+            <param name="port">The port to use.</param>
         </member>
         <member name="M:DarkRift.DarkRiftConnection.Connect(System.String)">
             <summary>

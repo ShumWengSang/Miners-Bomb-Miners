@@ -138,7 +138,7 @@ namespace Roland
             base.deInit();
         }
 
-        public void MinusHealthPoints(int damage)
+        public void MinusHealthPoints(int damage, ushort explosionid)
         {
             if (!invul)
             {
@@ -149,9 +149,11 @@ namespace Roland
                 if (CurrentHealthPoints <= 0)
                 {
                     //we lose.
-                    gameObject.SetActive(false);
+                    Lean.LeanPool.Despawn(this.gameObject);
                     //tell controller to check who wins, if any.
-                    DarkRiftAPI.SendMessageToOthers(NetworkingTags.Player, NetworkingTags.PlayerSubjects.PlayerDied, "");
+                    DarkRiftAPI.SendMessageToOthers(NetworkingTags.Player, NetworkingTags.PlayerSubjects.PlayerDied, explosionid);
+                    Debug.Log("Adding kill player " + this.id + " explosion id " + explosionid);
+                    KillTrackSystem.Instance.AddKill((ushort)this.player_id, explosionid);
                     if(player_id == DarkRiftAPI.id)
                         theController.CheckWinLose(false);
                     
@@ -378,16 +380,17 @@ namespace Roland
         {
             if (collider.CompareTag(Explosion))
             {
-                this.MinusHealthPoints(1);
+                Explosion theEx = collider.GetComponentInParent<Explosion>();
+                this.MinusHealthPoints(1, (ushort)theEx.ID);
             }
             else if(collider.CompareTag(Gold))
             {
                 CurrentPlayer.Instance.Money += collider.GetComponent<Gold>().MoneyGiven;
-                Lean.LeanPool.Despawn(collider.gameObject);
+                DarkRiftAPI.SendMessageToAll(NetworkingTags.Misc, NetworkingTags.MiscSubjects.GoldPickedUp, theTileMap.ConvertWorldToTile(collider.transform.position));
             }
             else if(collider.CompareTag(EndExplosion))
             {
-                this.MinusHealthPoints(999);
+                this.MinusHealthPoints(999, 999);
             }
         }
     }

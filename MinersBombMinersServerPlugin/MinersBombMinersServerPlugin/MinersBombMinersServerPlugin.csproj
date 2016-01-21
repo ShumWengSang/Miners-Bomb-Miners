@@ -31,24 +31,22 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DarkRift">
-      <HintPath>..\..\..\..\Git\miners-bomb-miners\Server\Lib\DarkRift.dll</HintPath>
+    <Reference Include="DarkRift, Version=1.0.5711.22738, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\DarkRiftServer - Free\Lib\DarkRift.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
-    <Reference Include="Transmission">
-      <HintPath>..\..\..\..\Git\miners-bomb-miners\Server\Lib\Transmission.dll</HintPath>
+    <Reference Include="Transmission, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\DarkRiftServer - Free\Lib\Transmission.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Class1.cs" />
     <Compile Include="NetworkingTags.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="DarkRift.dll" />
-    <Content Include="Transmission.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -53,7 +53,6 @@ namespace Roland
 
                         float strength = percentage ;
                         StoneBlocks stone = new StoneBlocks();
-                        Debug.Log("Strength is " + strength);
                         stone.ChangeDigsToGoThrough((int)(strength * 10));
                         blocks[i, j] = stone;
                     }

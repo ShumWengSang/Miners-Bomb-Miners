@@ -16,6 +16,9 @@ You might also find stuff at DarkRift.NinjaPokeStudios.co.uk
 
 There is now also a forum thread for plugins!
 	http://forum.unity3d.com/threads/darkrift-plugin-sharing-area.318262/
+	
+Finally join our beta program by sticking a request in the beta thread!
+	 http://forum.unity3d.com/threads/darkrift-networking-beta-thread.314987/
 
 Legal bits:
 ~~~~~~~~~~~

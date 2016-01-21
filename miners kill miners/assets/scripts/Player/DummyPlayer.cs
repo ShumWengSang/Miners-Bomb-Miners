@@ -43,7 +43,8 @@ namespace Roland
                     }
                     else if(subject == NetworkingTags.PlayerSubjects.PlayerDied)
                     {
-                        Destroy(this.gameObject);
+                        Lean.LeanPool.Despawn(this.gameObject);
+                        KillTrackSystem.Instance.AddKill((ushort)this.id, (ushort)data);
                     }
                     else if(subject == NetworkingTags.PlayerSubjects.ChangeBlockToNonMovable)
                     {
