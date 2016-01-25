@@ -329,7 +329,7 @@ TextureImporter:
   bumpmap:
     convertToNormalMap: 0
     externalNormalMap: 0
-    heightScale: .25
+    heightScale: 0.25
     normalMapFilter: 0
   isReadable: 0
   grayScaleToAlpha: 0
@@ -339,7 +339,7 @@ TextureImporter:
   cubemapConvolutionExponent: 1.5
   seamlessCubemap: 0
   textureFormat: -1
-  maxTextureSize: 1024
+  maxTextureSize: 512
   textureSettings:
     filterMode: 0
     aniso: 16
@@ -354,7 +354,7 @@ TextureImporter:
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
-  spritePivot: {x: .5, y: .5}
+  spritePivot: {x: 0.5, y: 0.5}
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spritePixelsToUnits: 12
   alphaIsTransparency: 1
@@ -372,6 +372,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_1
       rect:
         serializedVersion: 2
@@ -382,6 +383,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_2
       rect:
         serializedVersion: 2
@@ -392,6 +394,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_3
       rect:
         serializedVersion: 2
@@ -402,6 +405,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_4
       rect:
         serializedVersion: 2
@@ -412,6 +416,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_5
       rect:
         serializedVersion: 2
@@ -422,6 +427,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_6
       rect:
         serializedVersion: 2
@@ -432,6 +438,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_7
       rect:
         serializedVersion: 2
@@ -442,6 +449,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_8
       rect:
         serializedVersion: 2
@@ -452,6 +460,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_9
       rect:
         serializedVersion: 2
@@ -462,6 +471,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_10
       rect:
         serializedVersion: 2
@@ -472,6 +482,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_11
       rect:
         serializedVersion: 2
@@ -482,6 +493,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_12
       rect:
         serializedVersion: 2
@@ -492,6 +504,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_13
       rect:
         serializedVersion: 2
@@ -502,6 +515,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_14
       rect:
         serializedVersion: 2
@@ -512,6 +526,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_15
       rect:
         serializedVersion: 2
@@ -522,6 +537,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_16
       rect:
         serializedVersion: 2
@@ -532,6 +548,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_17
       rect:
         serializedVersion: 2
@@ -542,6 +559,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_18
       rect:
         serializedVersion: 2
@@ -552,6 +570,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_19
       rect:
         serializedVersion: 2
@@ -562,6 +581,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_20
       rect:
         serializedVersion: 2
@@ -572,6 +592,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_21
       rect:
         serializedVersion: 2
@@ -582,6 +603,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_22
       rect:
         serializedVersion: 2
@@ -592,6 +614,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_23
       rect:
         serializedVersion: 2
@@ -602,6 +625,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_24
       rect:
         serializedVersion: 2
@@ -612,6 +636,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_25
       rect:
         serializedVersion: 2
@@ -622,6 +647,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_26
       rect:
         serializedVersion: 2
@@ -632,6 +658,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_27
       rect:
         serializedVersion: 2
@@ -642,6 +669,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_28
       rect:
         serializedVersion: 2
@@ -652,6 +680,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_29
       rect:
         serializedVersion: 2
@@ -662,6 +691,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_30
       rect:
         serializedVersion: 2
@@ -672,6 +702,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_31
       rect:
         serializedVersion: 2
@@ -682,6 +713,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_32
       rect:
         serializedVersion: 2
@@ -692,6 +724,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_33
       rect:
         serializedVersion: 2
@@ -702,6 +735,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_34
       rect:
         serializedVersion: 2
@@ -712,6 +746,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_35
       rect:
         serializedVersion: 2
@@ -722,6 +757,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_36
       rect:
         serializedVersion: 2
@@ -732,6 +768,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_37
       rect:
         serializedVersion: 2
@@ -742,6 +779,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_38
       rect:
         serializedVersion: 2
@@ -752,6 +790,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_39
       rect:
         serializedVersion: 2
@@ -762,6 +801,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_40
       rect:
         serializedVersion: 2
@@ -772,6 +812,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_41
       rect:
         serializedVersion: 2
@@ -782,6 +823,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_42
       rect:
         serializedVersion: 2
@@ -792,6 +834,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_43
       rect:
         serializedVersion: 2
@@ -802,6 +845,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_44
       rect:
         serializedVersion: 2
@@ -812,6 +856,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_45
       rect:
         serializedVersion: 2
@@ -822,6 +867,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_46
       rect:
         serializedVersion: 2
@@ -832,6 +878,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_47
       rect:
         serializedVersion: 2
@@ -842,6 +889,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_48
       rect:
         serializedVersion: 2
@@ -852,6 +900,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_49
       rect:
         serializedVersion: 2
@@ -862,6 +911,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_50
       rect:
         serializedVersion: 2
@@ -872,6 +922,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_51
       rect:
         serializedVersion: 2
@@ -882,6 +933,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_52
       rect:
         serializedVersion: 2
@@ -892,6 +944,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_53
       rect:
         serializedVersion: 2
@@ -902,6 +955,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_54
       rect:
         serializedVersion: 2
@@ -912,6 +966,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_55
       rect:
         serializedVersion: 2
@@ -922,6 +977,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_56
       rect:
         serializedVersion: 2
@@ -932,6 +988,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_57
       rect:
         serializedVersion: 2
@@ -942,6 +999,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_58
       rect:
         serializedVersion: 2
@@ -952,6 +1010,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_59
       rect:
         serializedVersion: 2
@@ -962,6 +1021,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_60
       rect:
         serializedVersion: 2
@@ -972,6 +1032,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_61
       rect:
         serializedVersion: 2
@@ -982,6 +1043,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_62
       rect:
         serializedVersion: 2
@@ -992,6 +1054,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_63
       rect:
         serializedVersion: 2
@@ -1002,6 +1065,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_64
       rect:
         serializedVersion: 2
@@ -1012,6 +1076,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_65
       rect:
         serializedVersion: 2
@@ -1022,6 +1087,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_66
       rect:
         serializedVersion: 2
@@ -1032,6 +1098,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_67
       rect:
         serializedVersion: 2
@@ -1042,6 +1109,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_68
       rect:
         serializedVersion: 2
@@ -1052,6 +1120,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_69
       rect:
         serializedVersion: 2
@@ -1062,6 +1131,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_70
       rect:
         serializedVersion: 2
@@ -1072,6 +1142,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_71
       rect:
         serializedVersion: 2
@@ -1082,6 +1153,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_72
       rect:
         serializedVersion: 2
@@ -1092,6 +1164,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_73
       rect:
         serializedVersion: 2
@@ -1102,6 +1175,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_74
       rect:
         serializedVersion: 2
@@ -1112,6 +1186,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_75
       rect:
         serializedVersion: 2
@@ -1122,6 +1197,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_76
       rect:
         serializedVersion: 2
@@ -1132,6 +1208,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_77
       rect:
         serializedVersion: 2
@@ -1142,6 +1219,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_78
       rect:
         serializedVersion: 2
@@ -1152,6 +1230,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_79
       rect:
         serializedVersion: 2
@@ -1162,6 +1241,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_80
       rect:
         serializedVersion: 2
@@ -1172,6 +1252,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_81
       rect:
         serializedVersion: 2
@@ -1182,6 +1263,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_82
       rect:
         serializedVersion: 2
@@ -1192,6 +1274,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_83
       rect:
         serializedVersion: 2
@@ -1202,6 +1285,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_84
       rect:
         serializedVersion: 2
@@ -1212,6 +1296,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_85
       rect:
         serializedVersion: 2
@@ -1222,6 +1307,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_86
       rect:
         serializedVersion: 2
@@ -1232,6 +1318,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_87
       rect:
         serializedVersion: 2
@@ -1242,6 +1329,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_88
       rect:
         serializedVersion: 2
@@ -1252,6 +1340,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_89
       rect:
         serializedVersion: 2
@@ -1262,6 +1351,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_90
       rect:
         serializedVersion: 2
@@ -1272,6 +1362,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_91
       rect:
         serializedVersion: 2
@@ -1282,6 +1373,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_92
       rect:
         serializedVersion: 2
@@ -1292,6 +1384,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_93
       rect:
         serializedVersion: 2
@@ -1302,6 +1395,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_94
       rect:
         serializedVersion: 2
@@ -1312,6 +1406,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_95
       rect:
         serializedVersion: 2
@@ -1322,6 +1417,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_96
       rect:
         serializedVersion: 2
@@ -1332,6 +1428,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_97
       rect:
         serializedVersion: 2
@@ -1342,6 +1439,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_98
       rect:
         serializedVersion: 2
@@ -1352,6 +1450,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_99
       rect:
         serializedVersion: 2
@@ -1362,6 +1461,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_100
       rect:
         serializedVersion: 2
@@ -1372,6 +1472,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_101
       rect:
         serializedVersion: 2
@@ -1382,6 +1483,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_102
       rect:
         serializedVersion: 2
@@ -1392,6 +1494,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_103
       rect:
         serializedVersion: 2
@@ -1402,6 +1505,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_104
       rect:
         serializedVersion: 2
@@ -1412,6 +1516,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_105
       rect:
         serializedVersion: 2
@@ -1422,6 +1527,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_106
       rect:
         serializedVersion: 2
@@ -1432,6 +1538,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_107
       rect:
         serializedVersion: 2
@@ -1442,6 +1549,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_108
       rect:
         serializedVersion: 2
@@ -1452,6 +1560,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_109
       rect:
         serializedVersion: 2
@@ -1462,6 +1571,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_110
       rect:
         serializedVersion: 2
@@ -1472,6 +1582,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_111
       rect:
         serializedVersion: 2
@@ -1482,6 +1593,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_112
       rect:
         serializedVersion: 2
@@ -1492,6 +1604,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_113
       rect:
         serializedVersion: 2
@@ -1502,6 +1615,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_114
       rect:
         serializedVersion: 2
@@ -1512,6 +1626,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_115
       rect:
         serializedVersion: 2
@@ -1522,6 +1637,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_116
       rect:
         serializedVersion: 2
@@ -1532,6 +1648,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_117
       rect:
         serializedVersion: 2
@@ -1542,6 +1659,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_118
       rect:
         serializedVersion: 2
@@ -1552,6 +1670,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_119
       rect:
         serializedVersion: 2
@@ -1562,6 +1681,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_120
       rect:
         serializedVersion: 2
@@ -1572,6 +1692,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_121
       rect:
         serializedVersion: 2
@@ -1582,6 +1703,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_122
       rect:
         serializedVersion: 2
@@ -1592,6 +1714,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_123
       rect:
         serializedVersion: 2
@@ -1602,6 +1725,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_124
       rect:
         serializedVersion: 2
@@ -1612,6 +1736,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_125
       rect:
         serializedVersion: 2
@@ -1622,6 +1747,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_126
       rect:
         serializedVersion: 2
@@ -1632,6 +1758,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_127
       rect:
         serializedVersion: 2
@@ -1642,6 +1769,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_128
       rect:
         serializedVersion: 2
@@ -1652,6 +1780,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_129
       rect:
         serializedVersion: 2
@@ -1662,6 +1791,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_130
       rect:
         serializedVersion: 2
@@ -1672,6 +1802,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_131
       rect:
         serializedVersion: 2
@@ -1682,6 +1813,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_132
       rect:
         serializedVersion: 2
@@ -1692,6 +1824,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_133
       rect:
         serializedVersion: 2
@@ -1702,6 +1835,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_134
       rect:
         serializedVersion: 2
@@ -1712,6 +1846,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_135
       rect:
         serializedVersion: 2
@@ -1722,6 +1857,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_136
       rect:
         serializedVersion: 2
@@ -1732,6 +1868,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_137
       rect:
         serializedVersion: 2
@@ -1742,6 +1879,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_138
       rect:
         serializedVersion: 2
@@ -1752,6 +1890,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_139
       rect:
         serializedVersion: 2
@@ -1762,6 +1901,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_140
       rect:
         serializedVersion: 2
@@ -1772,6 +1912,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_141
       rect:
         serializedVersion: 2
@@ -1782,6 +1923,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_142
       rect:
         serializedVersion: 2
@@ -1792,6 +1934,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_143
       rect:
         serializedVersion: 2
@@ -1802,6 +1945,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_144
       rect:
         serializedVersion: 2
@@ -1812,6 +1956,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_145
       rect:
         serializedVersion: 2
@@ -1822,6 +1967,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_146
       rect:
         serializedVersion: 2
@@ -1832,6 +1978,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_147
       rect:
         serializedVersion: 2
@@ -1842,6 +1989,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_148
       rect:
         serializedVersion: 2
@@ -1852,6 +2000,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_149
       rect:
         serializedVersion: 2
@@ -1862,6 +2011,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_150
       rect:
         serializedVersion: 2
@@ -1872,6 +2022,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_151
       rect:
         serializedVersion: 2
@@ -1882,6 +2033,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_152
       rect:
         serializedVersion: 2
@@ -1892,6 +2044,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_153
       rect:
         serializedVersion: 2
@@ -1902,6 +2055,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_154
       rect:
         serializedVersion: 2
@@ -1912,6 +2066,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_155
       rect:
         serializedVersion: 2
@@ -1922,6 +2077,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_156
       rect:
         serializedVersion: 2
@@ -1932,6 +2088,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_157
       rect:
         serializedVersion: 2
@@ -1942,6 +2099,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_158
       rect:
         serializedVersion: 2
@@ -1952,6 +2110,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_159
       rect:
         serializedVersion: 2
@@ -1962,6 +2121,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_160
       rect:
         serializedVersion: 2
@@ -1972,6 +2132,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_161
       rect:
         serializedVersion: 2
@@ -1982,6 +2143,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_162
       rect:
         serializedVersion: 2
@@ -1992,6 +2154,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_163
       rect:
         serializedVersion: 2
@@ -2002,6 +2165,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_164
       rect:
         serializedVersion: 2
@@ -2012,6 +2176,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_165
       rect:
         serializedVersion: 2
@@ -2022,6 +2187,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_166
       rect:
         serializedVersion: 2
@@ -2032,6 +2198,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_167
       rect:
         serializedVersion: 2
@@ -2042,6 +2209,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_168
       rect:
         serializedVersion: 2
@@ -2052,6 +2220,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_169
       rect:
         serializedVersion: 2
@@ -2062,6 +2231,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_170
       rect:
         serializedVersion: 2
@@ -2072,6 +2242,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_171
       rect:
         serializedVersion: 2
@@ -2082,6 +2253,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_172
       rect:
         serializedVersion: 2
@@ -2092,6 +2264,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_173
       rect:
         serializedVersion: 2
@@ -2102,6 +2275,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_174
       rect:
         serializedVersion: 2
@@ -2112,6 +2286,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_175
       rect:
         serializedVersion: 2
@@ -2122,6 +2297,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_176
       rect:
         serializedVersion: 2
@@ -2132,6 +2308,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_177
       rect:
         serializedVersion: 2
@@ -2142,6 +2319,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_178
       rect:
         serializedVersion: 2
@@ -2152,6 +2330,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_179
       rect:
         serializedVersion: 2
@@ -2162,6 +2341,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_180
       rect:
         serializedVersion: 2
@@ -2172,6 +2352,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_181
       rect:
         serializedVersion: 2
@@ -2182,6 +2363,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_182
       rect:
         serializedVersion: 2
@@ -2192,6 +2374,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_183
       rect:
         serializedVersion: 2
@@ -2202,6 +2385,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_184
       rect:
         serializedVersion: 2
@@ -2212,6 +2396,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_185
       rect:
         serializedVersion: 2
@@ -2222,6 +2407,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_186
       rect:
         serializedVersion: 2
@@ -2232,6 +2418,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_187
       rect:
         serializedVersion: 2
@@ -2242,6 +2429,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_188
       rect:
         serializedVersion: 2
@@ -2252,6 +2440,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_189
       rect:
         serializedVersion: 2
@@ -2262,6 +2451,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_190
       rect:
         serializedVersion: 2
@@ -2272,6 +2462,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_191
       rect:
         serializedVersion: 2
@@ -2282,6 +2473,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_192
       rect:
         serializedVersion: 2
@@ -2292,6 +2484,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_193
       rect:
         serializedVersion: 2
@@ -2302,6 +2495,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_194
       rect:
         serializedVersion: 2
@@ -2312,6 +2506,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_195
       rect:
         serializedVersion: 2
@@ -2322,6 +2517,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_196
       rect:
         serializedVersion: 2
@@ -2332,6 +2528,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_197
       rect:
         serializedVersion: 2
@@ -2342,6 +2539,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_198
       rect:
         serializedVersion: 2
@@ -2352,6 +2550,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_199
       rect:
         serializedVersion: 2
@@ -2362,6 +2561,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_200
       rect:
         serializedVersion: 2
@@ -2372,6 +2572,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_201
       rect:
         serializedVersion: 2
@@ -2382,6 +2583,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_202
       rect:
         serializedVersion: 2
@@ -2392,6 +2594,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_203
       rect:
         serializedVersion: 2
@@ -2402,6 +2605,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_204
       rect:
         serializedVersion: 2
@@ -2412,6 +2616,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_205
       rect:
         serializedVersion: 2
@@ -2422,6 +2627,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_206
       rect:
         serializedVersion: 2
@@ -2432,6 +2638,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_207
       rect:
         serializedVersion: 2
@@ -2442,6 +2649,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_208
       rect:
         serializedVersion: 2
@@ -2452,6 +2660,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_209
       rect:
         serializedVersion: 2
@@ -2462,6 +2671,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_210
       rect:
         serializedVersion: 2
@@ -2472,6 +2682,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_211
       rect:
         serializedVersion: 2
@@ -2482,6 +2693,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_212
       rect:
         serializedVersion: 2
@@ -2492,6 +2704,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_213
       rect:
         serializedVersion: 2
@@ -2502,6 +2715,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_214
       rect:
         serializedVersion: 2
@@ -2512,6 +2726,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_215
       rect:
         serializedVersion: 2
@@ -2522,6 +2737,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_216
       rect:
         serializedVersion: 2
@@ -2532,6 +2748,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_217
       rect:
         serializedVersion: 2
@@ -2542,6 +2759,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_218
       rect:
         serializedVersion: 2
@@ -2552,6 +2770,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_219
       rect:
         serializedVersion: 2
@@ -2562,6 +2781,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_220
       rect:
         serializedVersion: 2
@@ -2572,6 +2792,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_221
       rect:
         serializedVersion: 2
@@ -2582,6 +2803,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_222
       rect:
         serializedVersion: 2
@@ -2592,6 +2814,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_223
       rect:
         serializedVersion: 2
@@ -2602,6 +2825,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_224
       rect:
         serializedVersion: 2
@@ -2612,6 +2836,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_225
       rect:
         serializedVersion: 2
@@ -2622,6 +2847,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_226
       rect:
         serializedVersion: 2
@@ -2632,6 +2858,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_227
       rect:
         serializedVersion: 2
@@ -2642,6 +2869,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_228
       rect:
         serializedVersion: 2
@@ -2652,6 +2880,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_229
       rect:
         serializedVersion: 2
@@ -2662,6 +2891,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_230
       rect:
         serializedVersion: 2
@@ -2672,6 +2902,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_231
       rect:
         serializedVersion: 2
@@ -2682,6 +2913,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_232
       rect:
         serializedVersion: 2
@@ -2692,6 +2924,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_233
       rect:
         serializedVersion: 2
@@ -2702,6 +2935,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_234
       rect:
         serializedVersion: 2
@@ -2712,6 +2946,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_235
       rect:
         serializedVersion: 2
@@ -2722,6 +2957,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_236
       rect:
         serializedVersion: 2
@@ -2732,6 +2968,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_237
       rect:
         serializedVersion: 2
@@ -2742,6 +2979,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_238
       rect:
         serializedVersion: 2
@@ -2752,6 +2990,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_239
       rect:
         serializedVersion: 2
@@ -2762,6 +3001,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_240
       rect:
         serializedVersion: 2
@@ -2772,6 +3012,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_241
       rect:
         serializedVersion: 2
@@ -2782,6 +3023,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_242
       rect:
         serializedVersion: 2
@@ -2792,6 +3034,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_243
       rect:
         serializedVersion: 2
@@ -2802,6 +3045,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_244
       rect:
         serializedVersion: 2
@@ -2812,6 +3056,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_245
       rect:
         serializedVersion: 2
@@ -2822,6 +3067,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_246
       rect:
         serializedVersion: 2
@@ -2832,6 +3078,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_247
       rect:
         serializedVersion: 2
@@ -2842,6 +3089,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_248
       rect:
         serializedVersion: 2
@@ -2852,6 +3100,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_249
       rect:
         serializedVersion: 2
@@ -2862,6 +3111,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_250
       rect:
         serializedVersion: 2
@@ -2872,6 +3122,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_251
       rect:
         serializedVersion: 2
@@ -2882,6 +3133,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_252
       rect:
         serializedVersion: 2
@@ -2892,6 +3144,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_253
       rect:
         serializedVersion: 2
@@ -2902,6 +3155,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_254
       rect:
         serializedVersion: 2
@@ -2912,6 +3166,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_255
       rect:
         serializedVersion: 2
@@ -2922,6 +3177,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_256
       rect:
         serializedVersion: 2
@@ -2932,6 +3188,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_257
       rect:
         serializedVersion: 2
@@ -2942,6 +3199,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_258
       rect:
         serializedVersion: 2
@@ -2952,6 +3210,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_259
       rect:
         serializedVersion: 2
@@ -2962,6 +3221,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_260
       rect:
         serializedVersion: 2
@@ -2972,6 +3232,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_261
       rect:
         serializedVersion: 2
@@ -2982,6 +3243,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_262
       rect:
         serializedVersion: 2
@@ -2992,6 +3254,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_263
       rect:
         serializedVersion: 2
@@ -3002,6 +3265,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_264
       rect:
         serializedVersion: 2
@@ -3012,6 +3276,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_265
       rect:
         serializedVersion: 2
@@ -3022,6 +3287,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_266
       rect:
         serializedVersion: 2
@@ -3032,6 +3298,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_267
       rect:
         serializedVersion: 2
@@ -3042,6 +3309,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_268
       rect:
         serializedVersion: 2
@@ -3052,6 +3320,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_269
       rect:
         serializedVersion: 2
@@ -3062,6 +3331,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_270
       rect:
         serializedVersion: 2
@@ -3072,6 +3342,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_271
       rect:
         serializedVersion: 2
@@ -3082,6 +3353,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_272
       rect:
         serializedVersion: 2
@@ -3092,6 +3364,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_273
       rect:
         serializedVersion: 2
@@ -3102,6 +3375,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_274
       rect:
         serializedVersion: 2
@@ -3112,6 +3386,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_275
       rect:
         serializedVersion: 2
@@ -3122,6 +3397,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_276
       rect:
         serializedVersion: 2
@@ -3132,6 +3408,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_277
       rect:
         serializedVersion: 2
@@ -3142,6 +3419,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_278
       rect:
         serializedVersion: 2
@@ -3152,6 +3430,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_279
       rect:
         serializedVersion: 2
@@ -3162,6 +3441,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_280
       rect:
         serializedVersion: 2
@@ -3172,6 +3452,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_281
       rect:
         serializedVersion: 2
@@ -3182,6 +3463,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_282
       rect:
         serializedVersion: 2
@@ -3192,6 +3474,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_283
       rect:
         serializedVersion: 2
@@ -3202,6 +3485,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_284
       rect:
         serializedVersion: 2
@@ -3212,6 +3496,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_285
       rect:
         serializedVersion: 2
@@ -3222,6 +3507,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_286
       rect:
         serializedVersion: 2
@@ -3232,6 +3518,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_287
       rect:
         serializedVersion: 2
@@ -3242,6 +3529,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_288
       rect:
         serializedVersion: 2
@@ -3252,6 +3540,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_289
       rect:
         serializedVersion: 2
@@ -3262,6 +3551,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_290
       rect:
         serializedVersion: 2
@@ -3272,6 +3562,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_291
       rect:
         serializedVersion: 2
@@ -3282,6 +3573,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_292
       rect:
         serializedVersion: 2
@@ -3292,6 +3584,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_293
       rect:
         serializedVersion: 2
@@ -3302,6 +3595,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_294
       rect:
         serializedVersion: 2
@@ -3312,6 +3606,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_295
       rect:
         serializedVersion: 2
@@ -3322,6 +3617,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_296
       rect:
         serializedVersion: 2
@@ -3332,6 +3628,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_297
       rect:
         serializedVersion: 2
@@ -3342,6 +3639,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_298
       rect:
         serializedVersion: 2
@@ -3352,6 +3650,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_299
       rect:
         serializedVersion: 2
@@ -3362,6 +3661,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_300
       rect:
         serializedVersion: 2
@@ -3372,6 +3672,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_301
       rect:
         serializedVersion: 2
@@ -3382,6 +3683,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_302
       rect:
         serializedVersion: 2
@@ -3392,6 +3694,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_303
       rect:
         serializedVersion: 2
@@ -3402,6 +3705,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_304
       rect:
         serializedVersion: 2
@@ -3412,6 +3716,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_305
       rect:
         serializedVersion: 2
@@ -3422,6 +3727,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_306
       rect:
         serializedVersion: 2
@@ -3432,6 +3738,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_307
       rect:
         serializedVersion: 2
@@ -3442,6 +3749,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_308
       rect:
         serializedVersion: 2
@@ -3452,6 +3760,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_309
       rect:
         serializedVersion: 2
@@ -3462,6 +3771,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_310
       rect:
         serializedVersion: 2
@@ -3472,6 +3782,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
     - name: mb_mans_311
       rect:
         serializedVersion: 2
@@ -3482,6 +3793,8 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    outline: []
   spritePackingTag: 
   userData: 
   assetBundleName: 

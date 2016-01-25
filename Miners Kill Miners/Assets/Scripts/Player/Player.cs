@@ -22,6 +22,13 @@ namespace Roland
         BigRemoteBomb
     }
 
+    public enum WinLoseDraw
+    {
+        Win = 0,
+        Lose,
+        Draw
+    }
+
     public class Player : PlayerBase
     {
         public bool isControllable;
@@ -133,9 +140,16 @@ namespace Roland
             CurrentPlayer.Instance.UpdateHealthPointInGame(health);
         }
 
+        void OnDespawn()
+        {
+            OnDestroy();
+        }
+
+
         void OnDestroy()
         {
             base.deInit();
+            DarkRiftAPI.SendMessageToServer(NetworkingTags.Server, NetworkingTags.ServerSubjects.ILose, "");
         }
 
         public void MinusHealthPoints(int damage, ushort explosionid)
@@ -153,10 +167,7 @@ namespace Roland
                     //tell controller to check who wins, if any.
                     DarkRiftAPI.SendMessageToOthers(NetworkingTags.Player, NetworkingTags.PlayerSubjects.PlayerDied, explosionid);
                     Debug.Log("Adding kill player " + this.id + " explosion id " + explosionid);
-                    KillTrackSystem.Instance.AddKill((ushort)this.player_id, explosionid);
-                    if(player_id == DarkRiftAPI.id)
-                        theController.CheckWinLose(false);
-                    
+                    KillTrackSystem.Instance.AddKill((ushort)this.player_id, explosionid);                    
                 }
             }
         }

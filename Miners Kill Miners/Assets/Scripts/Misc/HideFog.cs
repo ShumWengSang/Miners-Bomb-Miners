@@ -9,7 +9,17 @@ namespace Roland
         {
             if (collider.CompareTag(Fog))
             {
-                Lean.LeanPool.Despawn(collider.gameObject);
+                collider.GetComponent<MeshRenderer>().enabled = false;
+                //Lean.LeanPool.Despawn(collider.gameObject);
+            }
+        }
+
+        void OnTriggerExit2D(Collider2D collider)
+        {
+            if(collider.CompareTag(Fog))
+            {
+                collider.GetComponent<MeshRenderer>().enabled = true;
+                //Lean.LeanPool.Despawn(collider.gameObject);
             }
         }
     }

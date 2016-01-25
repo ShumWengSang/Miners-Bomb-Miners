@@ -263,7 +263,15 @@ namespace Roland
                 }
                 else if (subject == NetworkingTags.ControllerSubjects.YouWin)
                 {
-                    CheckWinLose(true);
+                    CheckWinLose(WinLoseDraw.Win);
+                }
+                else if (subject == NetworkingTags.ControllerSubjects.Draw)
+                {
+                    CheckWinLose(WinLoseDraw.Draw);
+                }
+                else if (subject == NetworkingTags.ControllerSubjects.YouLose)
+                {
+                    CheckWinLose(WinLoseDraw.Lose);
                 }
                 else if(subject == NetworkingTags.ControllerSubjects.GameOver)
                 {
@@ -347,17 +355,23 @@ namespace Roland
             }
         }
 
-        public void CheckWinLose(bool win)
+
+        public void CheckWinLose(WinLoseDraw cond)
         {
-            if(win)
+            switch (cond)
             {
-                WinLose.text = "YOU WIN";
-                DarkRiftAPI.SendMessageToAll(NetworkingTags.Controller, NetworkingTags.ControllerSubjects.GameOver, "");
-            }
-            else
-            {
-                DarkRiftAPI.SendMessageToServer(NetworkingTags.Server, NetworkingTags.ServerSubjects.ILose, "");
-                WinLose.text = "YOU LOSE";
+                case WinLoseDraw.Draw:
+                    WinLose.text = "DRAW";
+                    DarkRiftAPI.SendMessageToAll(NetworkingTags.Controller, NetworkingTags.ControllerSubjects.GameOver, "");
+                    break;
+                case WinLoseDraw.Win:
+                     WinLose.text = "YOU WIN";
+                    DarkRiftAPI.SendMessageToAll(NetworkingTags.Controller, NetworkingTags.ControllerSubjects.GameOver, "");
+                    break;
+                case WinLoseDraw.Lose:
+                    //DarkRiftAPI.SendMessageToServer(NetworkingTags.Server, NetworkingTags.ServerSubjects.ILose, "");
+                    WinLose.text = "YOU LOSE";
+                    break;
             }
             WinLose.gameObject.SetActive(true);
             GameHasStarted = false;

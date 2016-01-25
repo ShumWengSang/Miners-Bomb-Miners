@@ -39,6 +39,8 @@ namespace Roland
             public const int SendTest = 9;
             public const int DisconnectYou = 10;
             public const int GetMoneyForPlayer = 11;
+            public const int Draw = 12;
+            public const int YouLose = 13;
         }
 
         public class RoomSubjects

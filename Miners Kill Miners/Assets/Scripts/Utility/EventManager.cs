@@ -74,7 +74,7 @@ namespace Roland
                 }
                 if(Input.GetKeyDown(KeyCode.Backslash))
                 {
-                    OnDisplayKD();
+                    //OnDisplayKD();
                 }
 
                 if (Input.GetMouseButtonDown(0))

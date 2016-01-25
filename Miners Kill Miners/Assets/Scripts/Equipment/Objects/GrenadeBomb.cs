@@ -77,14 +77,12 @@ namespace Roland
             ourTransform = transform;
 
             StartCoroutine(notInvul());
-            Debug.Log("Here");
         }
 
         IEnumerator notInvul()
         {
             yield return waitTime;
             invul = false;
-            Debug.Log("Not invulenarable anymore");
         }
         protected override void OnSpawn()
         {

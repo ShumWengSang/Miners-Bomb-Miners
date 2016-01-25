@@ -235,6 +235,7 @@ namespace MinersBombMinersServerPlugin
                 }
                 else if(msg.subject == NetworkingTags.ServerSubjects.ILose)
                 {
+                    con.SendReply(NetworkingTags.Controller, NetworkingTags.ControllerSubjects.YouLose, "");
                     theClients[msg.senderID].Lost = true;
 
                     int AmountOfLost = 0;
@@ -263,7 +264,11 @@ namespace MinersBombMinersServerPlugin
                     }
                     else if(AmountOfLost == theClients.Count)
                     {
-                        DarkRiftServer.GetConnectionServiceByID(1).SendReply(NetworkingTags.Controller, NetworkingTags.ControllerSubjects.YouWin, "");
+                        ConnectionService[] allID = DarkRiftServer.GetAllConnections();
+                        for (int i = 0; i < allID.Length; i++)
+                        {
+                            allID[i].SendReply(NetworkingTags.Controller, NetworkingTags.ControllerSubjects.Draw, "");
+                        }
                     }
                 }
                 else if (msg.subject == NetworkingTags.ServerSubjects.PlayerRestarting)
