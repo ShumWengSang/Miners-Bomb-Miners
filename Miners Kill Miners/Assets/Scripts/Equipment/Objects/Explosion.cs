@@ -14,10 +14,6 @@ namespace Roland
         {
             wait = new WaitForSeconds(time);
             StartCoroutine(destroyself());
-            AudioSource src = gameObject.AddComponent<AudioSource>();
-            src.clip = explosion;
-            src.loop = false;
-            src.Play();
         }
 
         protected virtual void OnSpawn()

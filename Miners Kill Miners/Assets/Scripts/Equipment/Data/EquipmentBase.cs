@@ -12,6 +12,7 @@ namespace Roland
 
         protected Text CostOfItem;
         protected Text numberOfItemText;
+        protected Text InGameUINumberOfItem;
 
         public Sprite UISprite;
 

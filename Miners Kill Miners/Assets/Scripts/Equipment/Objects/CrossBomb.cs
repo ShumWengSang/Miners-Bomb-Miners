@@ -24,6 +24,7 @@ namespace Roland
             }
 
             SpawnExplosion(x, y);
+            theSrc.Play();
             Lean.LeanPool.Despawn(this.gameObject);
         }
     }

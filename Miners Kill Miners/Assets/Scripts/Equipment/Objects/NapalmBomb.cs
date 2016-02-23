@@ -72,6 +72,7 @@ namespace Roland
             GetComponent<Collider2D>().enabled = false;
             GetComponent<Animator>().enabled = false;
             GetComponent<SpriteRenderer>().sprite = null;
+            theSrc.Play();
            // this.gameObject.SetActive(false);
             //DestroyObject(this.gameObject);
         }

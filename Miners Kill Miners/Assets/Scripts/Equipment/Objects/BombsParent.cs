@@ -15,9 +15,12 @@ namespace Roland
         protected Vector2 Pos;
         public AudioClip theClipToPlayWhenExplode = null;
         public int ID = 999;
+        protected AudioSource theSrc;
+        protected bool Exploded = false;
         // Use this for initialization
         protected virtual void Init()
         {
+            Exploded = false;
             WaitTillExplode = new WaitForSeconds(TimeToExplode);
             theTileMap = TileMapInterfacer.Instance.TileMap;
             Vector2 tilePos = theTileMap.ConvertWorldToTile(transform.position);
@@ -25,9 +28,10 @@ namespace Roland
             transform.position = theTileMap.ConvertTileToWorld(tilePos);
             StartCoroutine(CountDown());
 
-            AudioSource theSrc = gameObject.AddComponent<AudioSource>();
+            theSrc = gameObject.AddComponent<AudioSource>();
             theSrc.clip = theClipToPlayWhenExplode;
             theSrc.playOnAwake = false;
+            theSrc.loop = false;
             //  InvisibleWallBlock
             theTileMap.theMap.SetTileAt(Pos, new InvisibleWallBlock());
         }
@@ -96,7 +100,8 @@ namespace Roland
         {
             if (collider.CompareTag("Explosion"))
             {
-                Explode();
+                if (!this.Exploded)
+                    Explode();
             }
         }
     }

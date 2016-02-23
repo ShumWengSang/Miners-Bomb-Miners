@@ -66,6 +66,7 @@ namespace Roland
 
         protected override void Init()
         {
+            speed += CurrentPlayer.Instance.ThePlayer.speed;
             theTileMap = TileMapInterfacer.Instance.TileMap;
             Vector2 tilePos = theTileMap.ConvertWorldToTile(transform.position);
             SetTilePos((int)tilePos.x, (int)tilePos.y);
@@ -105,12 +106,14 @@ namespace Roland
             {
                 if (!invul)
                 {
-                    Debug.Log("Exploding invul is " + invul);
-                    //EXPLODE
                     Vector2 tilePos = theTileMap.ConvertWorldToTile(transform.position);
                     SetTilePos((int)tilePos.x, (int)tilePos.y);
                     transform.position = theTileMap.ConvertTileToWorld(tilePos);
                     Explode();
+                }
+                else if(theNextBlock is InvisibleWallBlock)
+                {
+                    ourTransform.localPosition += new Vector3(MoveDirection.x, MoveDirection.y, 0) * Time.deltaTime * speed;
                 }
             }
         }
@@ -130,6 +133,7 @@ namespace Roland
             DigSpawnTile(x, y - 2, BombPower);
 
             SpawnExplosion(x, y);
+            theSrc.Play();
             Lean.LeanPool.Despawn(this.gameObject);
         }
     }

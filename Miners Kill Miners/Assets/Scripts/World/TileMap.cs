@@ -261,8 +261,10 @@ namespace Roland
                     bool isInCircle = (x - cx) * (x - cx) + (z - cz) * (z - cz) < cr * cr;
                     if (isInCircle)
                     {
-                        if(map.CheckBoundaries( x,  z))
-                            theList.Add(new Vector2(x, z));
+                        if (map.CheckBoundaries(x, z))
+                        {
+                            theList.Add(new Vector2(x,z));
+                        }
                     }
                 }
             }

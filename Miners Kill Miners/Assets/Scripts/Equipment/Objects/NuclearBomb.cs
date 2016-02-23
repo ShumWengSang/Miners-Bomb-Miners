@@ -28,6 +28,7 @@ namespace Roland
             GetComponent<Animator>().enabled = false;
             GetComponent<SpriteRenderer>().sprite = null;
             StartCoroutine(BlowItUpBaby());
+            Exploded = true;
         }
 
         IEnumerator BlowItUpBaby()
@@ -37,6 +38,7 @@ namespace Roland
                 DigSpawnTile(ListToExplode[i], BombPower);
                 yield return wait;
             }
+            theSrc.Play();
             Lean.LeanPool.Despawn(this.gameObject);
         }
     }
