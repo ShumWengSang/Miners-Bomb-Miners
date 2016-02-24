@@ -142,6 +142,7 @@ namespace Roland
 
         void OnDespawn()
         {
+            DarkRiftAPI.SendMessageToServer(NetworkingTags.Server, NetworkingTags.ServerSubjects.ILose, "");
             OnDestroy();
         }
 
@@ -149,7 +150,6 @@ namespace Roland
         void OnDestroy()
         {
             base.deInit();
-            DarkRiftAPI.SendMessageToServer(NetworkingTags.Server, NetworkingTags.ServerSubjects.ILose, "");
         }
 
         public void MinusHealthPoints(int damage, ushort explosionid)
@@ -163,7 +163,7 @@ namespace Roland
                 if (CurrentHealthPoints <= 0)
                 {
                     //we lose.
-                    Lean.LeanPool.Despawn(this.gameObject);
+                    Lean.LeanPool.Despawn(this.transform.root);
                     //tell controller to check who wins, if any.
                     DarkRiftAPI.SendMessageToOthers(NetworkingTags.Player, NetworkingTags.PlayerSubjects.PlayerDied, explosionid);
                     Debug.Log("Adding kill player " + this.id + " explosion id " + explosionid);

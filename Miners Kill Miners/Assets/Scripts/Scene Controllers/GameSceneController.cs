@@ -319,7 +319,7 @@ namespace Roland
                         if (PacketPlayerData[i].client_id == DarkRiftAPI.id)
                         {
 
-                            clone = (GameObject)Instantiate(PlayerPrefab, theTileMap.ConvertTileToWorld(SpawnPoint), Quaternion.identity);
+                            clone = Lean.LeanPool.Spawn(PlayerPrefab, theTileMap.ConvertTileToWorld(SpawnPoint), Quaternion.identity);
                             Player thePlayer = clone.GetComponentInChildren<Player>();
                             thePlayer.player_id = PacketPlayerData[i].client_id;
                             thePlayer.theController = this;
@@ -331,7 +331,7 @@ namespace Roland
                         }
                         else
                         {
-                            clone = (GameObject)Instantiate(PlayerDummy, theTileMap.ConvertTileToWorld(SpawnPoint), Quaternion.identity);
+                            clone = Lean.LeanPool.Spawn(PlayerDummy, theTileMap.ConvertTileToWorld(SpawnPoint), Quaternion.identity);
                             DummyPlayer thePlayer = clone.GetComponentInChildren<DummyPlayer>();
                             thePlayer.id = PacketPlayerData[i].client_id;
                         }
@@ -358,6 +358,7 @@ namespace Roland
 
         public void CheckWinLose(WinLoseDraw cond)
         {
+            Debug.Log("Changing win lose text");
             switch (cond)
             {
                 case WinLoseDraw.Draw:

@@ -235,6 +235,7 @@ namespace MinersBombMinersServerPlugin
                 }
                 else if(msg.subject == NetworkingTags.ServerSubjects.ILose)
                 {
+                    Interface.Log("Received message from" + con.id + " to lose");
                     con.SendReply(NetworkingTags.Controller, NetworkingTags.ControllerSubjects.YouLose, "");
                     theClients[msg.senderID].Lost = true;
 

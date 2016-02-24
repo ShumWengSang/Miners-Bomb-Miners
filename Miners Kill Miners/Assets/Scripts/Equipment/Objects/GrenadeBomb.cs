@@ -72,11 +72,11 @@ namespace Roland
             SetTilePos((int)tilePos.x, (int)tilePos.y);
             transform.position = theTileMap.ConvertTileToWorld(tilePos);
 
-            AudioSource theSrc = gameObject.AddComponent<AudioSource>();
+            theSrc = gameObject.AddComponent<AudioSource>();
             theSrc.clip = theClipToPlayWhenExplode;
             theSrc.playOnAwake = false;
             ourTransform = transform;
-
+            invul = true;
             StartCoroutine(notInvul());
         }
 
@@ -89,7 +89,6 @@ namespace Roland
         {
             Init();
             waitTime = new WaitForSeconds(wait);
-            invul = true;
         }
 
         public override void Update()
@@ -120,6 +119,8 @@ namespace Roland
 
         protected override void Explode()
         {
+            theSrc.Play();
+            Lean.LeanPool.Despawn(this.gameObject);
             for (int i = x - 1; i <= x + 1; i++)
             {
                 for (int j = y - 1; j <= y + 1; j++)
@@ -133,8 +134,6 @@ namespace Roland
             DigSpawnTile(x, y - 2, BombPower);
 
             SpawnExplosion(x, y);
-            theSrc.Play();
-            Lean.LeanPool.Despawn(this.gameObject);
         }
     }
 }

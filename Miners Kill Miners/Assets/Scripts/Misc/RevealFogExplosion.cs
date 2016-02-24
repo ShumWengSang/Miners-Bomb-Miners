@@ -26,8 +26,15 @@ namespace Roland
                 if (collider.CompareTag(explosion) || collider.CompareTag(EndExplosion))
                 {
                     Explosion exp = collider.GetComponentInParent<Explosion>();
-                    if (exp.ID == DarkRift.DarkRiftAPI.id)
-                        StartCoroutine(RevealFog());
+                    if (exp != null)
+                    {
+                        if (exp.ID == DarkRift.DarkRiftAPI.id)
+                            StartCoroutine(RevealFog());
+                    }
+                    else
+                    {
+                        mr.enabled = false;
+                    }
                 }
             }
         }
