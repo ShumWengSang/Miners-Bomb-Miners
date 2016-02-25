@@ -16,7 +16,6 @@ namespace Roland
                 }
                 //if(Object.CurrentPlayer.Instance.ThePlayer.TheCurrentItem.GetType() is CurrentPlayer.Instance.AmountOfEquipments[9].GetType())
                 InGameUINumberOfItem.text = amount.ToString();
-            Lean.LeanPool.Despawn(this.gameObject);
         }
     }
 }
