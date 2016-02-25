@@ -13,7 +13,9 @@ namespace Roland
         protected void OnTriggerEnter2D(Collider2D collider)
         {
             if (collider.CompareTag(player))
+            {
                 PickItems();
+            }
         }
     }
 }

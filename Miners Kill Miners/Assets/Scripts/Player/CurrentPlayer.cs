@@ -246,13 +246,24 @@ namespace Roland
 
         public void Restart()
         {
+            StartCoroutine(RestartGame());
+        }
 
-            AmountOfBombs = new List<int>();
-            for(int i = 0; i < AmountOfEquipments.Count; i++)
+        IEnumerator RestartGame()
+        {
+            yield return new WaitForSeconds(1.0f);
+            if (thePlayer != null)
             {
-                AmountOfBombs.Add(AmountOfEquipments[i].Amount);
+                Debug.Log("The Player is " + thePlayer);
+                AmountOfBombs = new List<int>();
+                for (int i = 0; i < AmountOfEquipments.Count; i++)
+                {
+                    AmountOfBombs.Add(AmountOfEquipments[i].Amount);
+                }
+                AmountOfEquipments.Clear();
             }
-            AmountOfEquipments.Clear();
+            healthpoints = 3;
+            digpower = 1;
         }
     }
 }

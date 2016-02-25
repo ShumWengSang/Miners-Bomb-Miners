@@ -39,8 +39,15 @@ namespace Roland
                 DigSpawnTile(x, y - 2, BombPower);
                 theSrc.Play();
                 SpawnExplosion(x, y);
-                Lean.LeanPool.Despawn(this.gameObject);
+                StartCoroutine(DestroyObject());
             }
+        }
+
+        protected IEnumerator DestroyObject()
+        {
+            transform.position = new Vector3(-1000,-1000,-1000);
+            yield return null;
+            Lean.LeanPool.Despawn(this.gameObject);
         }
     }
 }
