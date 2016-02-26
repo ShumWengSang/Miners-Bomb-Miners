@@ -9,12 +9,10 @@ namespace Roland
         public Sprite[] GoldSprites;
         public int MoneyGiven;
         public static int MoneyEscalator = 25;
-        TileMap tm;
 
         void Start()
         {
             RandomizeSprites();
-            tm = TileMapInterfacer.Instance.TileMap;
             DarkRift.DarkRiftAPI.onData += ReceiveData;
         }
 

@@ -12,6 +12,8 @@ namespace Roland
         public Font theFontToUse;
         Transform thisTransform;
         // Update is called once per frame
+
+#if UNITY_EDITOR
         void Update()
         {
             Text[] Texts = FindObjectsOfType(typeof(Text)) as Text[];
@@ -20,5 +22,6 @@ namespace Roland
                 Texts[i].font = theFontToUse;
             }
         }
+#endif
     }
 }

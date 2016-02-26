@@ -10,7 +10,6 @@ namespace Roland
         {
             OrderID = 1;
             AddItemToList();
-            BombName = "BigBomb";
         }
 
         void OnDestroy()

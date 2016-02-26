@@ -9,7 +9,6 @@ namespace Roland
         {
             OrderID = 5;
             AddItemToList();
-            BombName = "CrossBomb";
         }
     }
 }

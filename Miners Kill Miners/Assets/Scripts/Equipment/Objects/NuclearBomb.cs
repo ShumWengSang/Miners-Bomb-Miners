@@ -6,13 +6,16 @@ namespace Roland
 {
     public class NuclearBomb : BombsParent
     {
-        WaitForSeconds wait;
+        [Range(0, 100)]
+        public float PercentageDamage;
         List<Vector2> ListToExplode;
         public int RadiusByTiles = 30;
 
-        void Start()
+        protected override void Init()
         {
-            wait = new WaitForSeconds(0.01f);
+            base.Init();
+            PercentageDamage *= 0.01f;
+
         }
 
         protected override void OnSpawn()
@@ -33,13 +36,24 @@ namespace Roland
 
         IEnumerator BlowItUpBaby()
         {
+
             for (int i = 0; i < ListToExplode.Count; i++)
             {
-                DigSpawnTile(ListToExplode[i], BombPower);
-                yield return wait;
+                DigSpawnTile(ListToExplode[i], BombPower, BombDamage);
+                yield return StartCoroutine(WaitForRealSeconds(0.01f)) ;
             }
             theSrc.Play();
             Lean.LeanPool.Despawn(this.gameObject);
+
+        }
+
+        public static IEnumerator WaitForRealSeconds(float delay)
+        {
+            float start = Time.realtimeSinceStartup;
+            while (Time.realtimeSinceStartup < start + delay)
+            {
+                yield return null;
+            }
         }
     }
 }

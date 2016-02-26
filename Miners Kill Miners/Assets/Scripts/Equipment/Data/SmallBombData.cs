@@ -10,7 +10,6 @@ namespace Roland
         {
             OrderID = 0;
             AddItemToList();
-            BombName = "SmallBomb";
         }
 
         public override GameObject PlayerSpawnBomb(Vector3 location)

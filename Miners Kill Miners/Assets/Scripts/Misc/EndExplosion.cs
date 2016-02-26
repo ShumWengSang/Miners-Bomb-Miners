@@ -7,10 +7,8 @@ namespace Roland
         Animator ChildAnimator;
         public float time;
         public AudioClip explosion;
-        WaitForSeconds wait;
         void Init()
         {
-            wait = new WaitForSeconds(time);
             AudioSource src = gameObject.AddComponent<AudioSource>();
             src.clip = explosion;
             src.loop = false;

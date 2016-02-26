@@ -10,6 +10,7 @@ namespace Roland
         public float time;
         public AudioClip explosion;
         WaitForSeconds wait;
+        public float damage = 1;
         void Init()
         {
             wait = new WaitForSeconds(time);

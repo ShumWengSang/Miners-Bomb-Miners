@@ -10,13 +10,12 @@ namespace Roland
         public static bool Trigger = false;
         public float Wait;
         public LayerMask playerMask;
-        MeshRenderer mr;
-        WaitForSeconds wait;
+        public MeshRenderer mr;
         GameObject thePlayer;
         public CircleCollider2D PlayerCollider;
+        string remoteBomb = "RemoteBomb";
         void Start()
         {
-            wait = new WaitForSeconds(Wait);
             mr = GetComponent<MeshRenderer>();
         }
         void OnTriggerEnter2D(Collider2D collider)
@@ -29,7 +28,7 @@ namespace Roland
                     if (exp != null)
                     {
                         if (exp.ID == DarkRift.DarkRiftAPI.id)
-                            StartCoroutine(RevealFog());
+                            StartCoroutine(RevealFogPlayer());
                     }
                     else
                     {
@@ -39,7 +38,31 @@ namespace Roland
             }
         }
 
-        IEnumerator RevealFog()
+        void OnTriggerStay2D(Collider2D collider)
+        {
+            if (collider.name.Contains(remoteBomb))
+            {
+                if (collider.GetComponent<RemoteBomb>().id == DarkRift.DarkRiftAPI.id)
+                {
+                    mr.enabled = false;
+                }
+            }
+        }
+
+           
+
+        void OnTriggerExit2D(Collider2D collider)
+        {
+            if (collider.name.Contains(remoteBomb))
+            {
+                if (collider.GetComponent<RemoteBomb>().id == DarkRift.DarkRiftAPI.id)
+                {
+                    mr.enabled = true;
+                }
+            }
+        }
+
+        IEnumerator RevealFogPlayer()
         {
             thePlayer = CurrentPlayer.Instance.ThePlayer.gameObject;
             float currentTime = Time.time;
@@ -57,6 +80,18 @@ namespace Roland
             mr.enabled = true;
         }
 
-
+        IEnumerator RevealFog()
+        {
+            thePlayer = CurrentPlayer.Instance.ThePlayer.gameObject;
+            float currentTime = Time.time;
+            float MaxTime = currentTime + Wait;
+            while (currentTime < MaxTime)
+            {
+                currentTime += Time.deltaTime;
+                mr.enabled = false;
+                yield return null;
+            }
+            mr.enabled = true;
+        }
     }
 }

@@ -20,6 +20,9 @@ namespace Roland
 
         public GameObject ObjectToSpawn;
 
+        public string ItemDescription;
+        public Transform SetDescTo;
+
         public int OrderID
         {
             get { return id; }

@@ -99,8 +99,18 @@ namespace Roland
             }
         }
 
-        public void UpdateHealthPointInGame(int currentHealth)
+        public void UpdateHealthPointInGame(int currentHealth, bool LoseHp = false)
         {
+            if(LoseHp)
+            {
+                //MEans we lose hp
+                //Fire Particle
+                if(currentHealth < 0)
+                {
+                    currentHealth = 0;
+                }
+                ExplosionParticleEffect.Instance.PositionParticleAndExplode(HPIcons[currentHealth].transform);
+            }
             for (int i = 0; i < HPIcons.Count; i++)
             {
                 HPIcons[i].gameObject.SetActive(false);
@@ -246,13 +256,24 @@ namespace Roland
 
         public void Restart()
         {
+            StartCoroutine(RestartGame());
+        }
 
-            AmountOfBombs = new List<int>();
-            for(int i = 0; i < AmountOfEquipments.Count; i++)
+        IEnumerator RestartGame()
+        {
+            yield return new WaitForSeconds(1.0f);
+            if (thePlayer != null)
             {
-                AmountOfBombs.Add(AmountOfEquipments[i].Amount);
+                Debug.Log("The Player is " + thePlayer);
+                AmountOfBombs = new List<int>();
+                for (int i = 0; i < AmountOfEquipments.Count; i++)
+                {
+                    AmountOfBombs.Add(AmountOfEquipments[i].Amount);
+                }
+                AmountOfEquipments.Clear();
             }
-            AmountOfEquipments.Clear();
+            healthpoints = 3;
+            digpower = 1;
         }
     }
 }

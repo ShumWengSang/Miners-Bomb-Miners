@@ -23,7 +23,7 @@ namespace Roland
                 DigSpawnTile(this.x, i, BombPower);
             }
 
-            SpawnExplosion(x, y);
+            SpawnExplosion(x, y, BombDamage);
             theSrc.Play();
             Lean.LeanPool.Despawn(this.gameObject);
         }

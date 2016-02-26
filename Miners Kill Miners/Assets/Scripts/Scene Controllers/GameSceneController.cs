@@ -288,28 +288,23 @@ namespace Roland
                     {
                         Vector2 SpawnPoint = Vector2.zero;
                         RuntimeAnimatorController theColoredPlayer = PlayerAnimators[0];
-                        Color thePlayerColor = Color.white;
                         switch (PacketPlayerData[i].thePlayerType)
                         {
                             case 1:
                                 theColoredPlayer = PlayerAnimators[0];
                                 SpawnPoint = new Vector2(1, 1);
-                                thePlayerColor = Color.red;
                                 break;
                             case 2:
                                 SpawnPoint = new Vector2(theTileMap.size_x - 2, theTileMap.size_z - 2);
                                 theColoredPlayer = PlayerAnimators[1];
-                                thePlayerColor = Color.green;
                                 break;
                             case 3:
                                 SpawnPoint = new Vector2(theTileMap.size_x - 2, 1);
                                 theColoredPlayer = PlayerAnimators[2];
-                                thePlayerColor = Color.blue;
                                 break;
                             case 4:
                                 SpawnPoint = new Vector2(1, theTileMap.size_z - 2);
                                 theColoredPlayer = PlayerAnimators[3];
-                                thePlayerColor = Color.yellow;
                                 break;
                             default:
                                 Debug.LogWarning("No such player type found! Logged " + PacketPlayerData[i].thePlayerType);
