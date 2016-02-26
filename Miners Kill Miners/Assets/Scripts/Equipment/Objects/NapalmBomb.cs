@@ -81,7 +81,7 @@ namespace Roland
         {
             for(int i = 0; i < BlocksToExplode.Count; i++)
             {
-                SpawnExplosion(BlocksToExplode[i]);
+                SpawnExplosion(BlocksToExplode[i], BombDamage);
                 yield return wait;
             }
             Lean.LeanPool.Despawn(this.gameObject);

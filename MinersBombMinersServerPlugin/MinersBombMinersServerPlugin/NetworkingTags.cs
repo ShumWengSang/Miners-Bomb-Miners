@@ -16,7 +16,7 @@ namespace Roland
         {
             public const int MineExplode = 0;
             public const int GoldPickedUp = 1;
-            public const int GrenadePickUp = 2;
+            public const int ItemPickUp = 2;
         }
 
         public class EventSubjects

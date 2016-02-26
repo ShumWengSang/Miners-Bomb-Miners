@@ -99,8 +99,18 @@ namespace Roland
             }
         }
 
-        public void UpdateHealthPointInGame(int currentHealth)
+        public void UpdateHealthPointInGame(int currentHealth, bool LoseHp = false)
         {
+            if(LoseHp)
+            {
+                //MEans we lose hp
+                //Fire Particle
+                if(currentHealth < 0)
+                {
+                    currentHealth = 0;
+                }
+                ExplosionParticleEffect.Instance.PositionParticleAndExplode(HPIcons[currentHealth].transform);
+            }
             for (int i = 0; i < HPIcons.Count; i++)
             {
                 HPIcons[i].gameObject.SetActive(false);

@@ -9,7 +9,6 @@ namespace Roland
         {
             OrderID = 2;
             AddItemToList();
-            BombName = "NapalmBomb";
         }
     }
 }

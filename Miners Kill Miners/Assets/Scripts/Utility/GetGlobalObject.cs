@@ -22,8 +22,6 @@ namespace Roland
             //If no such object found, create our own.
             if (returnObject == null)
             {
-                Debug.LogWarning("SceneChanger not found");
-                Debug.LogWarning("Creating Scene Changer");
                 GameObject go = new GameObject();
                 go.tag = tag;
                 returnObject = go.AddComponent<T>();

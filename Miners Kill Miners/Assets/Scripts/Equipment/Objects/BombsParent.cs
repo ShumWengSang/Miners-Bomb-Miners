@@ -6,6 +6,7 @@ namespace Roland
     [RequireComponent(typeof(BoxCollider2D))]
     public class BombsParent : MonoBehaviour
     {
+        public int BombDamage = 1;
         public int BombPower;
         public int TimeToExplode = 2;
         public PlayerBase ParentPlayer = null;
@@ -28,7 +29,7 @@ namespace Roland
             transform.position = theTileMap.ConvertTileToWorld(tilePos);
             StartCoroutine(CountDown());
 
-            theSrc = gameObject.AddComponent<AudioSource>();
+            theSrc = this.gameObject.AddComponent<AudioSource>();
             theSrc.clip = theClipToPlayWhenExplode;
             theSrc.playOnAwake = false;
             theSrc.loop = false;
@@ -59,16 +60,21 @@ namespace Roland
 
         protected virtual void Explode() { }
 
-        public GameObject SpawnExplosion(int x, int y)
+        public GameObject SpawnExplosion(int x, int y, int damage)
         {
             GameObject explo = ObjectSpawner.SpawnObject("Explosion", new Vector2(x, y));
-            explo.GetComponent<Explosion>().ID = this.ID;
+            Explosion exp = explo.GetComponent<Explosion>();
+            exp.ID = this.ID;
+            exp.damage = damage;
+            
             return explo;
         }
-        public GameObject SpawnExplosion(Vector2 tile)
+        public GameObject SpawnExplosion(Vector2 tile, int damage)
         {
              GameObject explo = ObjectSpawner.SpawnObject("Explosion", tile);
-             explo.GetComponent<Explosion>().ID = this.ID;
+             Explosion exp = explo.GetComponent<Explosion>();
+             exp.ID = this.ID;
+             exp.damage = damage;
              return explo;
         }
         
@@ -78,20 +84,20 @@ namespace Roland
                 theTileMap.theMap.SetTileAt(new Vector2(x, y), new InvisibleWallBlock());
         }
 
-        protected GameObject DigSpawnTile(int x, int y, int BombPower)
+        protected GameObject DigSpawnTile(int x, int y, int BombPower, int Damage = 1)
         {
             if(theTileMap.DigTile(x , y, BombPower))
             {
-                return SpawnExplosion(x, y);
+                return SpawnExplosion(x, y, Damage);
             }
             return null;
         }
 
-        protected GameObject DigSpawnTile(Vector2 tile, int BombPower)
+        protected GameObject DigSpawnTile(Vector2 tile, int BombPower, int Damage = 1)
         {
             if (theTileMap.DigTile((int)tile.x, (int)tile.y, BombPower))
             {
-                return SpawnExplosion((int)tile.x, (int)tile.y);
+                return SpawnExplosion((int)tile.x, (int)tile.y, Damage);
             }
             return null;
         }

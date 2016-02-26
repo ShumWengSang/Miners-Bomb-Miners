@@ -11,13 +11,11 @@ namespace Roland
         public float Wait;
         public LayerMask playerMask;
         public MeshRenderer mr;
-        WaitForSeconds wait;
         GameObject thePlayer;
         public CircleCollider2D PlayerCollider;
         string remoteBomb = "RemoteBomb";
         void Start()
         {
-            wait = new WaitForSeconds(Wait);
             mr = GetComponent<MeshRenderer>();
         }
         void OnTriggerEnter2D(Collider2D collider)

@@ -109,7 +109,7 @@ namespace Roland
             NumberOfBombs = theHolder.AmountOfBombs;
             BombType = theHolder.TypeOfBomb;
             UpdateUI(TheCurrentItem);
-            UpdateHealth(CurrentHealthPoints);
+            //UpdateHealth(CurrentHealthPoints);
             if(this.player_id == DarkRiftAPI.id)
                 StartCoroutine(UpdatePosition());
 
@@ -137,7 +137,7 @@ namespace Roland
         }
         public void UpdateHealth(int health)
         {
-            CurrentPlayer.Instance.UpdateHealthPointInGame(health);
+            CurrentPlayer.Instance.UpdateHealthPointInGame(health, true);
         }
 
         void OnDespawn()
@@ -158,6 +158,7 @@ namespace Roland
             {
                 StartCoroutine(InvulCoolDown());
                 CurrentHealthPoints -= damage;
+
                 UpdateHealth(CurrentHealthPoints);
                 ourPlayerHealthBar.RunDamagedImage();
                 if (CurrentHealthPoints <= 0)
@@ -385,14 +386,13 @@ namespace Roland
 
         string Explosion = "Explosion";
         string EndExplosion = "EndExplosion";
-        string Fog = "Fog";
         string Gold = "Gold";
         void OnTriggerEnter2D(Collider2D collider)
         {
             if (collider.CompareTag(Explosion))
             {
                 Explosion theEx = collider.GetComponentInParent<Explosion>();
-                this.MinusHealthPoints(1, (ushort)theEx.ID);
+                this.MinusHealthPoints((int)theEx.damage, (ushort)theEx.ID);
             }
             else if(collider.CompareTag(Gold))
             {
