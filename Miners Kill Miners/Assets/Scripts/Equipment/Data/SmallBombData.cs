@@ -14,7 +14,7 @@ namespace Roland
 
         public override GameObject PlayerSpawnBomb(Vector3 location)
         {
-            return ObjectSpawner.SpawnObject(BombName, location);
+            return ObjectSpawner.SpawnObject("SmallBomb", location);
         }
 
         public override void UpdateInGameUI(Text theText, Image theImage)
