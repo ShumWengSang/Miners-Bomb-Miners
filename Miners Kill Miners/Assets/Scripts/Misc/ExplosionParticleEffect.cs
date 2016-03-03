@@ -18,6 +18,11 @@ public class ExplosionParticleEffect : Singleton<ExplosionParticleEffect>
 
     public void PositionParticleAndExplode( Transform HealthToExplode)
     {
+        if(ParentParticle == null)
+        {
+            ParentParticle = GameObject.Find("ParticleParent").transform;
+            ParentParticle.gameObject.SetActive(false);
+        }
         Vector3 ResultPos = Camera.main.ScreenToWorldPoint(HealthToExplode.position);
         ParentParticle.gameObject.SetActive(false);
         ParentParticle.position = new Vector3(ResultPos.x, ResultPos.y, ParentParticle.position.z);
