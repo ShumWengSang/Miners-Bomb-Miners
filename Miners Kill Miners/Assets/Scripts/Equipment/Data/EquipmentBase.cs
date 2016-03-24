@@ -67,7 +67,8 @@ namespace Roland
                 if (!Upgrade)
                 {
                     amount++;
-                    numberOfItemText.text = amount.ToString();
+                    //numberOfItemText.text = amount.ToString();
+                    UIShowDescr.instance.UpdateText();
                 }
             }
         }

@@ -1,0 +1,62 @@
+23/3/2016 13:34:59 PM	[Trace]	#### Server boot ####
+23/3/2016 13:34:59 PM	[Trace]	#### Server boot ####
+23/3/2016 13:34:59 PM	[Log]	Server mounted, listening on port 4296
+23/3/2016 13:34:59 PM	[Trace]	Found plugin: C:\Users\Roland\Desktop\Git Folder\miners-bomb-miners\DarkRiftServer - Free\Plugins\MinersBombMinersServerPlugin.dll, type of MinersBombMinersServerPlugin.MinersBombMinersServerPlugin
+23/3/2016 13:34:59 PM	[Trace]	Found a total of 1 plugins.
+23/3/2016 13:34:59 PM	[Log]	------------------------------------------
+23/3/2016 13:34:59 PM	[Log]	IPADDRESS FOR THIS SERVER IS: 172.27.184.132
+23/3/2016 13:34:59 PM	[Log]	Please connect to the IP Address
+23/3/2016 13:34:59 PM	[Log]	------------------------------------------
+23/3/2016 13:34:59 PM	[Log]	Loaded plugin: Miners Bomb Miners Plugin Version: 1.1
+23/3/2016 13:35:03 PM	[Log]	Connected: 127.0.0.1:58467
+23/3/2016 13:35:04 PM	[Log]	sending money : 500
+23/3/2016 13:35:17 PM	[Log]	Player number has decreased to 0
+23/3/2016 13:35:17 PM	[Log]	Disconnected: 127.0.0.1:58467
+23/3/2016 13:35:42 PM	[Log]	Connected: 127.0.0.1:58678
+23/3/2016 13:35:42 PM	[Log]	sending money : 500
+23/3/2016 13:36:24 PM	[Log]	Player number has decreased to 0
+23/3/2016 13:36:24 PM	[Log]	Disconnected: 127.0.0.1:58678
+23/3/2016 13:37:40 PM	[Log]	Connected: 127.0.0.1:59143
+23/3/2016 13:37:40 PM	[Log]	sending money : 500
+23/3/2016 13:38:12 PM	[Log]	Player number has decreased to 0
+23/3/2016 13:38:12 PM	[Log]	Disconnected: 127.0.0.1:59143
+23/3/2016 13:49:14 PM	[Log]	Connected: 127.0.0.1:60097
+23/3/2016 13:49:14 PM	[Log]	sending money : 500
+23/3/2016 13:56:59 PM	[Log]	Player number has decreased to 0
+23/3/2016 13:56:59 PM	[Log]	Disconnected: 127.0.0.1:60097
+23/3/2016 14:03:31 PM	[Log]	Connected: 127.0.0.1:61205
+23/3/2016 14:03:31 PM	[Log]	sending money : 500
+23/3/2016 14:03:45 PM	[Log]	Player number has decreased to 0
+23/3/2016 14:03:45 PM	[Log]	Disconnected: 127.0.0.1:61205
+23/3/2016 14:04:12 PM	[Log]	Connected: 127.0.0.1:61420
+23/3/2016 14:04:13 PM	[Log]	sending money : 500
+23/3/2016 14:04:32 PM	[Log]	Player number has decreased to 0
+23/3/2016 14:04:32 PM	[Log]	Disconnected: 127.0.0.1:61420
+23/3/2016 14:04:44 PM	[Log]	Connected: 127.0.0.1:61627
+23/3/2016 14:04:44 PM	[Log]	sending money : 500
+23/3/2016 14:05:37 PM	[Log]	Player number has decreased to 0
+23/3/2016 14:05:37 PM	[Log]	Disconnected: 127.0.0.1:61627
+23/3/2016 14:27:56 PM	[Log]	Connected: 127.0.0.1:63448
+23/3/2016 14:27:56 PM	[Log]	sending money : 500
+23/3/2016 14:28:16 PM	[Log]	Player number has decreased to 0
+23/3/2016 14:28:16 PM	[Log]	Disconnected: 127.0.0.1:63448
+23/3/2016 14:28:53 PM	[Log]	Connected: 127.0.0.1:63686
+23/3/2016 14:28:53 PM	[Log]	sending money : 500
+23/3/2016 14:29:05 PM	[Trace]	SocketException (ConnectionReset) occured in CS.ReadHeaderCallback|EndReceive: System.Net.Sockets.SocketException (0x80004005): An existing connection was forcibly closed by the remote host
+   at System.Net.Sockets.Socket.EndReceive(IAsyncResult asyncResult)
+   at DarkRift.ConnectionService.ReadHeaderCallback(IAsyncResult result)
+23/3/2016 14:57:46 PM	[Log]	Connected: 127.0.0.1:1172
+23/3/2016 14:57:46 PM	[Log]	Closing conenction
+23/3/2016 14:57:46 PM	[Log]	Disconnected: 127.0.0.1:1172
+23/3/2016 14:57:54 PM	[Log]	Connected: 127.0.0.1:1356
+23/3/2016 14:57:54 PM	[Log]	Closing conenction
+23/3/2016 14:57:54 PM	[Log]	Disconnected: 127.0.0.1:1356
+23/3/2016 14:58:02 PM	[Trace]	SocketException (ConnectionReset) occured in CS.ReadHeaderCallback|EndReceive: System.Net.Sockets.SocketException (0x80004005): An existing connection was forcibly closed by the remote host
+   at System.Net.Sockets.Socket.EndReceive(IAsyncResult asyncResult)
+   at DarkRift.ConnectionService.ReadHeaderCallback(IAsyncResult result)
+23/3/2016 14:58:05 PM	[Log]	Connected: 127.0.0.1:1543
+23/3/2016 14:58:05 PM	[Log]	Closing conenction
+23/3/2016 14:58:05 PM	[Log]	Disconnected: 127.0.0.1:1543
+23/3/2016 14:58:11 PM	[Log]	Connected: 127.0.0.1:1724
+23/3/2016 14:58:11 PM	[Log]	Closing conenction
+23/3/2016 14:58:11 PM	[Log]	Disconnected: 127.0.0.1:1724

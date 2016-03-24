@@ -3,7 +3,7 @@ using UnityEngine.UI;
 using System.Collections;
 using Roland;
 public class UIShowDescr : MonoBehaviour {
-
+    public static UIShowDescr instance;
     public GameObject child;
     bool MouseOver;
 
@@ -15,7 +15,13 @@ public class UIShowDescr : MonoBehaviour {
     EquipmentBase currentEquipment;
     void Start()
     {
+        instance = this;
         waitSeconds = new WaitForSeconds(WaitTime);
+    }
+
+    void OnDestroy()
+    {
+        instance = null;
     }
 
     public void OnMouseHover(GameObject theObject)
@@ -23,25 +29,30 @@ public class UIShowDescr : MonoBehaviour {
         MouseOver = true;
         currentEquipment = theObject.GetComponent<EquipmentBase>();
         StartCoroutine(StartCountDown());
-        Debug.Log("Starting coroutine");
+        Title.text = "";
+    }
+
+    public void UpdateText()
+    {
+        Title.text = currentEquipment.Amount.ToString() + " ";
+        Title.text += currentEquipment.BombName;
     }
 
     IEnumerator StartCountDown()
     {
         yield return waitSeconds;
-        Debug.Log("MouseOver is " + MouseOver);
         if(MouseOver)
         {
             child.SetActive(true);
             child.transform.position = currentEquipment.SetDescTo.position;
-            Title.text = currentEquipment.BombName;
+            Title.text = currentEquipment.Amount.ToString() + " ";
+            Title.text += currentEquipment.BombName;
             Desc.text = currentEquipment.ItemDescription;
         }
     }
 
     public void OnMouseExit()
     {
-        Debug.Log("Exit");
         MouseOver = false;
         child.SetActive(false);
         StopAllCoroutines();

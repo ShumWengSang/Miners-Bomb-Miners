@@ -1,0 +1,8 @@
+C:\Users\Roland\Desktop\Git Folder\miners-bomb-miners\MinersBombMinersServerPlugin\MinersBombMinersServerPlugin\bin\Release\MinersBombMinersServerPlugin.dll
+C:\Users\Roland\Desktop\Git Folder\miners-bomb-miners\MinersBombMinersServerPlugin\MinersBombMinersServerPlugin\bin\Release\MinersBombMinersServerPlugin.pdb
+C:\Users\Roland\Desktop\Git Folder\miners-bomb-miners\MinersBombMinersServerPlugin\MinersBombMinersServerPlugin\bin\Release\DarkRift.dll
+C:\Users\Roland\Desktop\Git Folder\miners-bomb-miners\MinersBombMinersServerPlugin\MinersBombMinersServerPlugin\bin\Release\Transmission.dll
+C:\Users\Roland\Desktop\Git Folder\miners-bomb-miners\MinersBombMinersServerPlugin\MinersBombMinersServerPlugin\bin\Release\DarkRift.xml
+C:\Users\Roland\Desktop\Git Folder\miners-bomb-miners\MinersBombMinersServerPlugin\MinersBombMinersServerPlugin\obj\Release\MinersBombMinersServerPlugin.csprojResolveAssemblyReference.cache
+C:\Users\Roland\Desktop\Git Folder\miners-bomb-miners\MinersBombMinersServerPlugin\MinersBombMinersServerPlugin\obj\Release\MinersBombMinersServerPlugin.dll
+C:\Users\Roland\Desktop\Git Folder\miners-bomb-miners\MinersBombMinersServerPlugin\MinersBombMinersServerPlugin\obj\Release\MinersBombMinersServerPlugin.pdb
