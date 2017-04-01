@@ -256,12 +256,13 @@ namespace Roland
 
         public void Restart()
         {
-            StartCoroutine(RestartGame());
+            //StartCoroutine(RestartGame());
+            RestartGame();
         }
 
-        IEnumerator RestartGame()
+        void RestartGame()
         {
-            yield return new WaitForSeconds(1.0f);
+            //yield return new WaitForSeconds(1.0f);
             if (thePlayer != null)
             {
                 Debug.Log("The Player is " + thePlayer);

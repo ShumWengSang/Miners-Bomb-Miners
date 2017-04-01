@@ -99,6 +99,7 @@ namespace Roland
                     if (sp.sprite != null)
                     {
                         Offset = sp.sprite.bounds.extents;
+                        Offset -= Offset * 0.1f;
                     }
                     theAnimator.SetTrigger("Move Up");
                     break;
@@ -106,7 +107,7 @@ namespace Roland
                     if (sp.sprite != null)
                     {
                         Offset = -sp.sprite.bounds.extents;
-                        Offset -= Offset * 0.01f;
+                        Offset -= Offset * 0.1f;
 
                     }
                     theAnimator.SetTrigger("Move Down");
@@ -115,7 +116,7 @@ namespace Roland
                     if (sp.sprite != null)
                     {
                         Offset = -sp.sprite.bounds.extents;
-                        Offset -= Offset * 0.01f;
+                        Offset -= Offset * 0.1f;
                     }
                     theAnimator.SetTrigger("MoveLeft");
                     break;
@@ -123,6 +124,7 @@ namespace Roland
                     if (sp.sprite != null)
                     {
                         Offset = sp.sprite.bounds.extents;
+                        Offset -= Offset * 0.1f;
                     }
                     theAnimator.SetTrigger("MoveRight");
                     break;

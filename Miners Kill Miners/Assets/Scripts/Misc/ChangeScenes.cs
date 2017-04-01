@@ -43,6 +43,7 @@ namespace Roland
                 //Meaning we load it the first time. so we set gamelevel to 0.
                 gameLevel = 0;
                 SceneManager.LoadSceneAsync(LoadThisLevel);
+                //SceneManager.LoadSceneAsync(LoadThisLevel);
             }
             else
             {
