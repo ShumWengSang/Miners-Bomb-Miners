@@ -71,7 +71,7 @@ namespace Roland
 
         void MineExplosion()
         {
-            theSrc.Play();
+            theSrc.Play(theClipToPlayWhenExplode);
             DigSpawnTile(x, y, BombPower);
             DigSpawnTile(x + 1, y, BombPower);
             DigSpawnTile(x - 1, y, BombPower);

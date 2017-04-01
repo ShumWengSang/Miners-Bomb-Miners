@@ -48,7 +48,7 @@ namespace Roland
             }
             MoneyGiven = random * MoneyEscalator;
 
-            GetComponent<SpriteRenderer>().sprite = GoldSprites[random];
+            GetComponent<SpriteRenderer>().sprite = GoldSprites[Random.Range(0,GoldSprites.Length - 1)];
         }
 
         protected  void ReceiveData(byte tag, ushort subject, object data)

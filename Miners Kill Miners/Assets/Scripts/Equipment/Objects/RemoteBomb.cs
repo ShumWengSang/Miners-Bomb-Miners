@@ -37,7 +37,7 @@ namespace Roland
                 DigSpawnTile(x - 2, y, BombPower);
                 DigSpawnTile(x, y + 2, BombPower);
                 DigSpawnTile(x, y - 2, BombPower);
-                theSrc.Play();
+                theSrc.Play(theClipToPlayWhenExplode);
                 SpawnExplosion(x, y, BombDamage);
                 StartCoroutine(DestroyObject());
             }

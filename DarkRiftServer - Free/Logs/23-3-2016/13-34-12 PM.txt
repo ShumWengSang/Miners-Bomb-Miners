@@ -1,0 +1,31 @@
+23/3/2016 13:34:12 PM	[Trace]	#### Server boot ####
+23/3/2016 13:34:12 PM	[Trace]	#### Server boot ####
+23/3/2016 13:34:13 PM	[Log]	Server mounted, listening on port 4296
+23/3/2016 13:34:13 PM	[Trace]	Found plugin: C:\Users\Roland\Desktop\Git Folder\miners-bomb-miners\DarkRiftServer - Free\Plugins\MinersBombMinersServerPlugin.dll, type of MinersBombMinersServerPlugin.MinersBombMinersServerPlugin
+23/3/2016 13:34:13 PM	[Trace]	Found a total of 1 plugins.
+23/3/2016 13:34:13 PM	[Log]	------------------------------------------
+23/3/2016 13:34:13 PM	[Log]	IPADDRESS FOR THIS SERVER IS: 172.27.184.132
+23/3/2016 13:34:13 PM	[Log]	Please connect to the IP Address
+23/3/2016 13:34:13 PM	[Log]	------------------------------------------
+23/3/2016 13:34:13 PM	[Log]	Loaded plugin: Miners Bomb Miners Plugin Version: 1.1
+23/3/2016 13:34:28 PM	[Log]	Connected: 127.0.0.1:57743
+23/3/2016 13:34:38 PM	[Log]	Player number has decreased to 0
+23/3/2016 13:34:38 PM	[Log]	Disconnected: 127.0.0.1:57743
+23/3/2016 13:34:38 PM	[Trace]	SocketException (ConnectionReset) occured in CS.ReadHeaderCallback|EndReceive: System.Net.Sockets.SocketException (0x80004005): An existing connection was forcibly closed by the remote host
+   at System.Net.Sockets.Socket.EndReceive(IAsyncResult asyncResult)
+   at DarkRift.ConnectionService.ReadHeaderCallback(IAsyncResult result)
+23/3/2016 13:34:44 PM	[Log]	Connected: 127.0.0.1:57930
+23/3/2016 13:34:44 PM	[Log]	sending money : 500
+23/3/2016 13:34:48 PM	[Log]	Player number has decreased to 0
+23/3/2016 13:34:48 PM	[Trace]	SocketException (ConnectionReset) occured in CS.ReadHeaderCallback|EndReceive: System.Net.Sockets.SocketException (0x80004005): An existing connection was forcibly closed by the remote host
+   at System.Net.Sockets.Socket.EndReceive(IAsyncResult asyncResult)
+   at DarkRift.ConnectionService.ReadHeaderCallback(IAsyncResult result)
+23/3/2016 13:34:48 PM	[Log]	Disconnected: 127.0.0.1:57930
+23/3/2016 13:34:51 PM	[Log]	Connected: 127.0.0.1:58111
+23/3/2016 13:34:51 PM	[Log]	sending money : 500
+23/3/2016 13:34:52 PM	[Log]	Player number has decreased to 0
+23/3/2016 13:34:52 PM	[Log]	Disconnected: 127.0.0.1:58111
+23/3/2016 13:34:55 PM	[Log]	Connected: 127.0.0.1:58286
+23/3/2016 13:34:55 PM	[Log]	sending money : 500
+23/3/2016 13:34:56 PM	[Log]	Player number has decreased to 0
+23/3/2016 13:34:56 PM	[Log]	Disconnected: 127.0.0.1:58286

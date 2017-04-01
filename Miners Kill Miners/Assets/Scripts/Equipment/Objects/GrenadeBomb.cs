@@ -71,10 +71,6 @@ namespace Roland
             Vector2 tilePos = theTileMap.ConvertWorldToTile(transform.position);
             SetTilePos((int)tilePos.x, (int)tilePos.y);
             transform.position = theTileMap.ConvertTileToWorld(tilePos);
-
-            theSrc = gameObject.AddComponent<AudioSource>();
-            theSrc.clip = theClipToPlayWhenExplode;
-            theSrc.playOnAwake = false;
             ourTransform = transform;
             invul = true;
             StartCoroutine(notInvul());
@@ -119,7 +115,7 @@ namespace Roland
 
         protected override void Explode()
         {
-            theSrc.Play();
+            theSrc.Play(theClipToPlayWhenExplode);
             Lean.LeanPool.Despawn(this.gameObject);
             for (int i = x - 1; i <= x + 1; i++)
             {
