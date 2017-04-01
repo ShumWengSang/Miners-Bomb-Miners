@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
+# Visual Studio 2015
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Miners Kill Miners.CSharp", "Miners Kill Miners.CSharp.csproj", "{B908BA06-A1A3-1F9F-E17C-625278AA3BE6}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Miners Kill Miners.CSharp.Editor", "Miners Kill Miners.CSharp.Editor.csproj", "{075A2A3D-6264-F5E9-61C4-1127847C496F}"
