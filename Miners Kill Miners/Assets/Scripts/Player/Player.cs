@@ -328,7 +328,7 @@ namespace Roland
                         if (sp.sprite != null)
                         {
                             Offset = -sp.sprite.bounds.extents;
-                            Offset -= Offset * 0.01f;
+                            Offset -= Offset * 0.1f;
                         }
                         MoveDirection = new Vector2(-1, 0);
                         theAnimator.SetTrigger("MoveLeft");

@@ -66,6 +66,7 @@ namespace Roland
 
         protected override void Init()
         {
+            theSrc = SoundPlayer.instance;
             speed += CurrentPlayer.Instance.ThePlayer.speed;
             theTileMap = TileMapInterfacer.Instance.TileMap;
             Vector2 tilePos = theTileMap.ConvertWorldToTile(transform.position);

@@ -31,6 +31,10 @@ public class ExplosionParticleEffect : Singleton<ExplosionParticleEffect>
 
     void Update()
     {
+        if(Child == null)
+        {
+            Start();
+        }
         if(!Child.isPlaying)
         {
             ParentParticle.gameObject.SetActive(false);

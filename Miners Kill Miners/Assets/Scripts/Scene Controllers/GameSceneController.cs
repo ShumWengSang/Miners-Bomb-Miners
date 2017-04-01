@@ -353,24 +353,27 @@ namespace Roland
 
         public void CheckWinLose(WinLoseDraw cond)
         {
-            Debug.Log("Changing win lose text");
-            switch (cond)
+            if (GameHasStarted)
             {
-                case WinLoseDraw.Draw:
-                    WinLose.text = "DRAW";
-                    DarkRiftAPI.SendMessageToAll(NetworkingTags.Controller, NetworkingTags.ControllerSubjects.GameOver, "");
-                    break;
-                case WinLoseDraw.Win:
-                     WinLose.text = "YOU WIN";
-                    DarkRiftAPI.SendMessageToAll(NetworkingTags.Controller, NetworkingTags.ControllerSubjects.GameOver, "");
-                    break;
-                case WinLoseDraw.Lose:
-                    //DarkRiftAPI.SendMessageToServer(NetworkingTags.Server, NetworkingTags.ServerSubjects.ILose, "");
-                    WinLose.text = "YOU LOSE";
-                    break;
+                Debug.Log("Changing win lose text");
+                switch (cond)
+                {
+                    case WinLoseDraw.Draw:
+                        WinLose.text = "DRAW";
+                        DarkRiftAPI.SendMessageToAll(NetworkingTags.Controller, NetworkingTags.ControllerSubjects.GameOver, "");
+                        break;
+                    case WinLoseDraw.Win:
+                        WinLose.text = "YOU WIN";
+                        DarkRiftAPI.SendMessageToAll(NetworkingTags.Controller, NetworkingTags.ControllerSubjects.GameOver, "");
+                        break;
+                    case WinLoseDraw.Lose:
+                        //DarkRiftAPI.SendMessageToServer(NetworkingTags.Server, NetworkingTags.ServerSubjects.ILose, "");
+                        WinLose.text = "YOU LOSE";
+                        break;
+                }
+                WinLose.gameObject.SetActive(true);
+                GameHasStarted = false;
             }
-            WinLose.gameObject.SetActive(true);
-            GameHasStarted = false;
         }
 
         public void QuitGame()
