@@ -84,7 +84,7 @@ namespace Roland
 
         void Awake()
         {
-            Random.seed = 1;
+            Random.InitState(0);
             changeScene = GetGlobalObject.FindAndGetComponent<ChangeScenes>(this.gameObject, "Global");
 
             //Check whether its sandbox or multiplayer.

@@ -249,7 +249,9 @@ namespace Roland
             {
                 for (int i = 0; i < AmountOfEquipments.Count; i++)
                 {
-                    AmountOfEquipments[i].Amount = AmountOfBombs[i];
+                    //test
+                    //AmountOfEquipments[i].Amount = AmountOfBombs[i];
+                    AmountOfBombs.Add(AmountOfEquipments[i].Amount);
                 }
             }
         }

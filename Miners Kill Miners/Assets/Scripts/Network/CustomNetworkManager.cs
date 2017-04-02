@@ -6,10 +6,17 @@ namespace Roland
 {
     public class CustomNetworkManager : Singleton<CustomNetworkManager>
     {
-        public void Connect(string serverIP)
+        public bool Connect(string serverIP)
         {
             //Connect to the DarkRift Server using the Ip specified (will hang until connected or timeout)
-            DarkRiftAPI.Connect(serverIP);
+            try {
+                DarkRiftAPI.Connect(serverIP);
+            }
+            catch(ConnectionFailedException e)
+            {
+                return false;
+            }
+            return true;
             
             //Tell others that we've entered the game and to instantiate a player object for us.
             if (DarkRiftAPI.isConnected)
