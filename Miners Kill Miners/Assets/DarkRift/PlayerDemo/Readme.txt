@@ -1,5 +1,5 @@
-This is a more complex example that uses players specific to one client, this means creating a destroying them
-and syncromising them at the start. If you're brand new to DarkRift have a look at the CubeDemo first.
+This is a more complex example that uses players specific to one client, this means creating, destroying them
+and syncronising them at the start. If you're brand new to DarkRift have a look at the CubeDemo first.
 
 
 #############################
@@ -27,15 +27,15 @@ API.
 
 TagIndex.cs
 
-Have a look at the TagIndex.cs file. Because this is a more complex example and may get complicated we need a 
+Have a look at the TagIndex.cs file. Because this is a more complex example and may get complicated, we need a 
 nice way of organising the Tags and Subjects for when you start getting a lot of them, this can be used both 
-on the server plugins and clients to make life easier. We seriously reccomend you do this for every project!
+on the server plugins and clients to make life easier. We seriously recommend you do this for every project!
 
 
 NetworkManager.cs:
 
-As you should guess the NetworkManager script handles the connection, in this case though is also does a little
-more. In this example is is responsible for creating players when new people connect and also telling them about 
+As you should guess the NetworkManager script handles the connection, in this case though it also does a little
+more. In this example it is responsible for creating players when new people connect and also telling them about 
 our player.
 
 As usual the first thing to do is connect to the Server using DarkRift.Connect(IP) but as we need to have data 
@@ -44,9 +44,9 @@ the ID of the sender and is called second; we'll use the senders ID to work out 
 
 The final part of Start() is to talk to tell everyone else we're here! Firstly we send a JoinMessage which will 
 trigger everyone to tell us to spawn a player and then we teel everyone to spawn us a player using SpawnPlayer.
-As all these are delt with by the NetworkManagers we attach controller tags to them.
+As all these are dealt with by the NetworkManagers we attach controller tags to them.
 
-In RecieveData(sender, tag, subject, data) as usual we fisrt check to see if it's for us and then the subject.
+In RecieveData(sender, tag, subject, data) as usual we first check to see if it's for us and then the subject.
 For the JoinMessage all we really need to do is tell the sender to spawn a player to represent us so we use the 
 SpawnPlayer subject in a reply and pass our position as data.
 

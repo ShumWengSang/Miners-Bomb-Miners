@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-
+using UnityEditor;
 /// <summary>
 /// Be aware this will not prevent a non singleton constructor
 ///   such as `T myT = new T();`
@@ -44,8 +44,8 @@ public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
                         GameObject singleton = new GameObject();
                         _instance = singleton.AddComponent<T>();
                         singleton.name = "(singleton) " + typeof(T).ToString();
-
-                        DontDestroyOnLoad(singleton);
+                        if(Application.isPlaying)
+                            DontDestroyOnLoad(singleton);
 
                         Debug.Log("[Singleton] An instance of " + typeof(T) +
                             " is needed in the scene, so '" + singleton +
@@ -63,7 +63,7 @@ public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
         }
     }
 
-    private static bool applicationIsQuitting = false;
+    protected static bool applicationIsQuitting = false;
     /// <summary>
     /// When Unity quits, it destroys objects in a random order.
     /// In principle, a Singleton is only destroyed when application quits.
@@ -72,7 +72,7 @@ public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
     ///   even after stopping playing the Application. Really bad!
     /// So, this was made to be sure we're not creating that buggy ghost object.
     /// </summary>
-    public void OnDestroy()
+    public virtual void OnDestroy()
     {
         applicationIsQuitting = true;
     }

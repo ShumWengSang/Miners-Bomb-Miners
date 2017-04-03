@@ -12,22 +12,11 @@ namespace Roland
             try {
                 DarkRiftAPI.Connect(serverIP);
             }
-            catch(ConnectionFailedException e)
+            catch(ConnectionFailedException)
             {
                 return false;
             }
             return true;
-            
-            //Tell others that we've entered the game and to instantiate a player object for us.
-            if (DarkRiftAPI.isConnected)
-            {
-                //Get everyone else to tell us to spawn them a player (this doesn't need the data field so just put whatever)
-               // DarkRiftAPI.SendMessageToOthers(NetworkingTags.Controller, NetworkingTags.ControllerSubjects.JoinMessage, "hi");
-                //Then tell them to spawn us a player! (this time the data is the spawn position)
-                //DarkRiftAPI.SendMessageToAll(TagIndex.Controller, TagIndex.ControllerSubjects.SpawnPlayer,i);
-            }
-            else
-                Debug.Log("Failed to connect to DarkRift Server!");
         }
 
         void OnApplicationQuit()

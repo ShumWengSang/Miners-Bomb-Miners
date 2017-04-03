@@ -45,7 +45,7 @@ public class NetworkManager : MonoBehaviour
 	void ReceiveData (ushort senderID, byte tag, ushort subject, object data){
 		//When any data is received it will be passed here, 
 		//we then need to process it if it's got a tag of 0 and, if 
-		//so, create an object. This is where you'd handle most adminy 
+		//so, create an object. This is where you'd handle most admin 
 		//stuff like that.
 
 		//Ok, if data has a Controller tag then it's for us

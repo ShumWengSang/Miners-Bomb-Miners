@@ -5,17 +5,9 @@ using DarkRift;
 using System.Collections.Generic;
 namespace Roland
 {
-    public enum Direction
-    {
-        Up = 0,
-        Down,
-        Left,
-        Right,
-        Stop
-    }
-
     public class GameSceneController : MonoBehaviour
     {
+        int a;
         ChangeScenes changeScene = null;
         public bool Sandbox = false;
         public bool GameHasStarted = false;
@@ -125,7 +117,7 @@ namespace Roland
             {
                 if(!DarkRiftAPI.isConnected)
                 {
-                    string IPAddress = System.IO.File.ReadAllText("ipaddress.txt");
+                    string IPAddress = "127.0.0.1";
                     CustomNetworkManager.Instance.Connect(IPAddress);
                 }
                 DarkRiftAPI.SendMessageToAll(NetworkingTags.Controller, NetworkingTags.ControllerSubjects.JoinMessage, "hi");
@@ -350,7 +342,7 @@ namespace Roland
             }
         }
 
-
+        
         public void CheckWinLose(WinLoseDraw cond)
         {
             if (GameHasStarted)
@@ -411,5 +403,14 @@ namespace Roland
                 PauseObj.SetActive(false);
             }
         }
+    }
+
+    public enum Direction
+    {
+        Up = 0,
+        Down,
+        Left,
+        Right,
+        Stop
     }
 }

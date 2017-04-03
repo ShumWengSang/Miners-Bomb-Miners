@@ -3,8 +3,8 @@ Hello there!
 Thank you for choosing DarkRift Servers for you project, we hope that you'll find them to be perfect for your 
 games!
 
-The package you've downloaded has 3 examples in it, CubeDemo, Player Demo, a varient of the CubeDemo 
-showing manual serialisation and a varient of CubeDemo using a Unity based server. You should also find the
+The package you've downloaded has 4 examples in it, CubeDemo, Player Demo, a varient of the CubeDemo 
+showing manual serialisation, a varient of CubeDemo using a Unity based server and the HeavySyncDemo. You should also find the
 server, the API and some documentation for you. Within each folder is a Readme file to get you started.
 
 I reccomend you start with the CubeDemo and PlayerDemo to get the basics.

@@ -12,7 +12,8 @@ public class InputeField : MonoBehaviour {
     public GameObject connecting;
     public GameObject button;
     public GameObject enterIP;
-
+    public GameObject ipaddressText;
+    public GameObject PlaceHolder;
     // Checks if there is anything entered into the input field.
     public void LockInput(InputField input)
     {
@@ -26,13 +27,15 @@ public class InputeField : MonoBehaviour {
 
         if(CustomNetworkManager.Instance.Connect(input.text))
         {
-            Debug.Log("Connection successful");
+            //Debug.Log("Connection successful");
             connected.gameObject.SetActive(true);
             button.GetComponent<Button>().interactable = true;
+            input.text = "";
+            PlaceHolder.GetComponent<Text>().text = "";
         }
         else
         {
-            Debug.Log("Connection failed");
+            //Debug.Log("Connection failed");
             notConnected.gameObject.SetActive(true);
         }
         connecting.gameObject.SetActive(false);

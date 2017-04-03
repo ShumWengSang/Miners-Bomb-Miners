@@ -186,16 +186,36 @@
             <param name="ip">The target IP.</param>
             <param name="port">The port to use.</param>
         </member>
-        <member name="M:DarkRift.DarkRiftConnection.DecodeDataToBuffer(System.IAsyncResult)">
+        <member name="M:DarkRift.DarkRiftConnection.StartWaitingForBytes(System.Int32,System.Action{System.Byte[]})">
             <summary>
-                Background receive the data and decoding it
+                Waits for the specified amount of bytes to be received.
             </summary>
+            <param name="length">The number of bytes to receive.</param>
+            <param name="callback">The callback </param>
         </member>
-        <member name="M:DarkRift.DarkRiftConnection.ReadAndDecode(System.UInt32)">
+        <member name="M:DarkRift.DarkRiftConnection.StartWaitingForChunk(DarkRift.StateObject)">
             <summary>
-                Reads, decodes and returns a NetworkMessage from the stream.
+                Waits for the next chunk of data from this socket.
             </summary>
-            <returns></returns>
+            <param name="state">The StateObject for the receive operation.</param>
+        </member>
+        <member name="M:DarkRift.DarkRiftConnection.ChunkReadCallback(System.IAsyncResult)">
+            <summary>
+                Called when a chunk has been read.
+            </summary>
+            <param name="result"></param>
+        </member>
+        <member name="M:DarkRift.DarkRiftConnection.ReadHeaderCallback(System.Byte[])">
+            <summary>
+                Callback to read the header bytes from socket
+            </summary>
+            <param name="result"></param>
+        </member>
+        <member name="M:DarkRift.DarkRiftConnection.ReadBodyCallback(System.Byte[])">
+            <summary>
+                Callback to read the body from the socket.
+            </summary>
+            <param name="result"></param>
         </member>
         <member name="M:DarkRift.DarkRiftConnection.Recieve">
             <summary>
@@ -303,6 +323,12 @@
             	Disconnect from the server.
             </summary>
         </member>
+        <member name="M:DarkRift.DarkRiftConnection.Close(System.Boolean)">
+            <summary>
+                Closes this connection and can inform the server.
+            </summary>
+            <param name="inform"></param>
+        </member>
         <member name="P:DarkRift.DarkRiftConnection.id">
             <summary>
             	This is the id of the client as assigned by the server.
@@ -334,6 +360,33 @@
             <summary>
             	Occurs when a player has disconnected.
             </summary>
+        </member>
+        <member name="T:DarkRift.StateObject">
+            <summary>
+                Represents the state of the current receive operation for TCP connections.
+            </summary>
+        </member>
+        <member name="F:DarkRift.StateObject.buffer">
+            <summary>
+                The buffer we're receiving.
+            </summary>
+        </member>
+        <member name="F:DarkRift.StateObject.totalBytesReceived">
+            <summary>
+                The total number of bytes received so far.
+            </summary>
+        </member>
+        <member name="F:DarkRift.StateObject.callback">
+            <summary>
+                The callback to invoke once the buffer has been filled.
+            </summary>
+        </member>
+        <member name="M:DarkRift.StateObject.#ctor(System.Int32,System.Action{System.Byte[]})">
+            <summary>
+                Creates a StateObject with the specified length.
+            </summary>
+            <param name="length">The number of bytes expected to be received.</param>
+            <param name="callback">The callback to invoke once data has been received.</param>
         </member>
     </members>
 </doc>

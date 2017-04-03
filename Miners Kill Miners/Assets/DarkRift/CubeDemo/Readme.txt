@@ -46,7 +46,7 @@ reads in as a generic 'object' type, here we need a Vector3 so simply cast data 
 
 When an object in Unity is dragged with the mouse OnMouseDrag is called so we use this to detect when we need 
 to send data. Firstly we will get an error if we are not connected to a server so we use 
-DarkRiftAPI.isConnected to test this; if we are connected then we need can send the new position using 
+DarkRiftAPI.isConnected to test this; if we are connected then we need to send the new position using 
 DarkRiftAPI.SendToOthers(tag, subject, data). To avoid too much data being sent we only send when we've 
 moved further than 0.05  The first parameter is the tag that we send with the object, this should state what 
 topic the message describes eg, a change on the player, a change in environment, a chat message etc - as the 

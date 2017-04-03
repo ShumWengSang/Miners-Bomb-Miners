@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2015
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Miners Kill Miners.CSharp", "Miners Kill Miners.CSharp.csproj", "{B908BA06-A1A3-1F9F-E17C-625278AA3BE6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Miners Kill Miners", "Miners Kill Miners.csproj", "{10DF7F8D-4934-24CD-8392-EAEF44719C6B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Miners Kill Miners.CSharp.Editor", "Miners Kill Miners.CSharp.Editor.csproj", "{075A2A3D-6264-F5E9-61C4-1127847C496F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Miners Kill Miners.Editor", "Miners Kill Miners.Editor.csproj", "{4AEB0DF5-BA99-9341-EE8A-CF9ECD8149CE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,14 +11,14 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{B908BA06-A1A3-1F9F-E17C-625278AA3BE6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B908BA06-A1A3-1F9F-E17C-625278AA3BE6}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B908BA06-A1A3-1F9F-E17C-625278AA3BE6}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B908BA06-A1A3-1F9F-E17C-625278AA3BE6}.Release|Any CPU.Build.0 = Release|Any CPU
-		{075A2A3D-6264-F5E9-61C4-1127847C496F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{075A2A3D-6264-F5E9-61C4-1127847C496F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{075A2A3D-6264-F5E9-61C4-1127847C496F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{075A2A3D-6264-F5E9-61C4-1127847C496F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{10DF7F8D-4934-24CD-8392-EAEF44719C6B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{10DF7F8D-4934-24CD-8392-EAEF44719C6B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{10DF7F8D-4934-24CD-8392-EAEF44719C6B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{10DF7F8D-4934-24CD-8392-EAEF44719C6B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4AEB0DF5-BA99-9341-EE8A-CF9ECD8149CE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4AEB0DF5-BA99-9341-EE8A-CF9ECD8149CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4AEB0DF5-BA99-9341-EE8A-CF9ECD8149CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4AEB0DF5-BA99-9341-EE8A-CF9ECD8149CE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

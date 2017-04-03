@@ -119,3 +119,36 @@ V1.4
 	- Added ConnectInBackground methods.
 	- Fixed informing server of disconnects.
 	- Stopped TCP grouping messages.
+
+V1.4.1
+	API:
+	- Improved Server.cs.
+	
+	Server:
+	- Bug fixes.
+
+V1.4.2
+	API:
+	- Fixed NullReferenceException when players disconnected and nothing was listening to onPlayerDisconnected.
+
+	Server:
+	- Fixed bug where client didn't always receive messages from onPlayerConnected.
+	- Added ConnectionService.onPostPlayerConnect event.
+
+	Unity:
+	- Added HeavySyncDemo
+
+	Documentation:
+	- Added NetworkMessage to Server reference.
+
+V1.4.3
+	Server:
+	- Fixed random dropout glitch
+
+V1.4.4
+	Server:
+	- Security fix
+	- Bug fixes
+
+	API:
+	- Bug fixes

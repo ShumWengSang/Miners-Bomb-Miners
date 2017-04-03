@@ -17,7 +17,10 @@ namespace Roland
         public override void Init()
         {
             if (CurrentPlayer.Instance != null)
-                CurrentPlayer.Instance.DigPowerUI.text = CurrentPlayer.Instance.DigPower.ToString();
+            {
+                if(CurrentPlayer.Instance.DigPowerUI != null)
+                    CurrentPlayer.Instance.DigPowerUI.text = CurrentPlayer.Instance.DigPower.ToString();
+            }
         }
     }
 }

@@ -12,7 +12,7 @@ should cast to a DarkRiftReader and then can read the data off. The data must be
 same order you wrote it in.
 
 Both the DarkRiftWriter and DarkRiftReader classes inherit from the .NET BinaryWriter and BinaryReader 
-objects respectively meaning that you should always dispose of the objects correctly. In most cases asyou
+objects respectively meaning that you should always dispose of the objects correctly. In most cases as you
 pass the DarkRiftWriter object into DarkRift you do not need to worry obout disposal as DarkRift will 
 manage that for you however when using the DarkRiftReader it should be wrapped in a using block so that it
 is cleaned up properly.

@@ -6,7 +6,7 @@ using System.Collections;
 
 public class TagIndex {
 	public const int Controller = 0;		//For controller ralated things (think creating new players etc)
-	public const int PlayerUpdate = 1;		//For player changeing things like change of animation/position/rotation etc
+	public const int PlayerUpdate = 1;		//For player changing things like change of animation/position/rotation etc
 
 	// By the way, there's no problem with using enums for the following,
 	// it's just casting can be confusing so we dont.
