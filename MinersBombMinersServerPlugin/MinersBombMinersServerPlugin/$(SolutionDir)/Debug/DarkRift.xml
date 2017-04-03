@@ -431,7 +431,7 @@
         </member>
         <member name="M:DarkRift.Plugin.Update">
             <summary>
-            	Any overriding member will be called at a user set repetition rate.
+            	Any overriding member will be invoked 100 times per second.
             </summary>
         </member>
         <member name="M:DarkRift.Plugin.IsInstalled">

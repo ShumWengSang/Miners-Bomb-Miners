@@ -17,6 +17,7 @@ namespace Roland
             public const int MineExplode = 0;
             public const int GoldPickedUp = 1;
             public const int ItemPickUp = 2;
+            public const int RetNumOfPlayers = 3;
         }
 
         public class EventSubjects
@@ -67,6 +68,7 @@ namespace Roland
             public const int PlayerRestarting = 8;
             public const int GetMoneyForPlayer = 9;
             public const int SetMoneyForPlayer = 9;
+            public const int GetNumOfPlayers = 11;
         }
 
         public class PlayerSubjects

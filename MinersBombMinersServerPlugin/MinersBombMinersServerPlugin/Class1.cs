@@ -29,8 +29,6 @@ namespace MinersBombMinersServerPlugin
             Game
         }
 
-
-
         public class PlayerInfo
         {
             public int SpawnPoint;
@@ -302,6 +300,10 @@ namespace MinersBombMinersServerPlugin
                 {
                     Interface.Log("setting money to " + (int)msg.data);
                     theClients[con.id].Money = (int)msg.data;
+                }
+                else if(msg.subject == NetworkingTags.ServerSubjects.GetNumOfPlayers)
+                {
+                    con.SendReply(NetworkingTags.Misc, NetworkingTags.MiscSubjects.RetNumOfPlayers, DarkRiftServer.GetNumberOfConnections());
                 }
             }
             else if(msg.tag == NetworkingTags.Controller)
