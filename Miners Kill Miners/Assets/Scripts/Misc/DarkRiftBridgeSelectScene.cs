@@ -36,7 +36,11 @@ public class DarkRiftBridgeSelectScene : MonoBehaviour {
         {
             if(subject == Roland.NetworkingTags.MiscSubjects.RetNumOfPlayers)
             {
-                num_of_connected.text += " " + data.ToString();
+                num_of_connected.text = "Number of players: " + data.ToString();
+            }
+            if(subject == Roland.NetworkingTags.MiscSubjects.FullSlotted)
+            {
+
             }
         }
     }

@@ -233,7 +233,11 @@ namespace Roland
 
                     KillTrackSystem.Instance.AddPlayer(senderID, new PlayerStats());
                     ConnectDisconnect.instance.AddPlayer(color, senderID);
-                    CurrentPlayer.Instance.HPIconSprite = StartingSprite[ConnectDisconnect.instance.GetPlayerColor(DarkRiftAPI.id)];
+                    int ThisPlayerColor = ConnectDisconnect.instance.GetPlayerColor(DarkRiftAPI.id);
+                    if (ThisPlayerColor != -1)
+                    {
+                        CurrentPlayer.Instance.HPIconSprite = StartingSprite[ThisPlayerColor];
+                    }
                     CurrentPlayer.Instance.UpdateHealthPointInGame();
                 }
 

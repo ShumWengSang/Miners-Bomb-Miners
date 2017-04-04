@@ -303,7 +303,27 @@ namespace MinersBombMinersServerPlugin
                 }
                 else if(msg.subject == NetworkingTags.ServerSubjects.GetNumOfPlayers)
                 {
-                    con.SendReply(NetworkingTags.Misc, NetworkingTags.MiscSubjects.RetNumOfPlayers, DarkRiftServer.GetNumberOfConnections());
+                    if (DarkRiftServer.GetNumberOfConnections() <= 4)
+                    {
+                        ConnectionService[] allID = DarkRiftServer.GetAllConnections();
+                        for (int i = 0; i < allID.Length; i++)
+                        {
+                            allID[i].SendReply(NetworkingTags.Misc, NetworkingTags.MiscSubjects.RetNumOfPlayers, DarkRiftServer.GetNumberOfConnections());
+                        }
+                    }
+                    else
+                    {
+                        con.Close();
+                        //con.SendReply(NetworkingTags.Misc, NetworkingTags.MiscSubjects.FullSlotted, "");
+                    }
+                }
+                else if(msg.subject == NetworkingTags.ServerSubjects.StartGameFromHost)
+                {
+                    //ConnectionService[] allID = DarkRiftServer.GetAllConnections();
+                    //for (int i = 0; i < allID.Length; i++)
+                    //{
+                    //    allID[i].SendReply(NetworkingTags.Misc, NetworkingTags.ServerSubjects.StartGameFromHost, "");
+                    //}
                 }
             }
             else if(msg.tag == NetworkingTags.Controller)

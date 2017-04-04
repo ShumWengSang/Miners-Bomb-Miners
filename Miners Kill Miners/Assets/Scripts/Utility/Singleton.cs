@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using UnityEditor;
 /// <summary>
 /// Be aware this will not prevent a non singleton constructor
 ///   such as `T myT = new T();`

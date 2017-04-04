@@ -33,7 +33,9 @@ namespace Roland
 
         public int GetPlayerColor(ushort id)
         {
-            return Players[id];
+            if(Players.ContainsKey(id))
+                return Players[id];
+            return -1;
         }
 
         public void SetPlayerColor(ushort id, int color)

@@ -32,6 +32,7 @@ public class InputeField : MonoBehaviour {
             button.GetComponent<Button>().interactable = true;
             input.text = "";
             PlaceHolder.GetComponent<Text>().text = "";
+            DarkRiftAPI.SendMessageToServer(Roland.NetworkingTags.Server, Roland.NetworkingTags.ServerSubjects.GetNumOfPlayers, "");
         }
         else
         {

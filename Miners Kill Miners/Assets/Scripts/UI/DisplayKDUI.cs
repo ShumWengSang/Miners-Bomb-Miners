@@ -30,6 +30,11 @@ namespace Roland
 
         public void UpdateUI(int id)
         {
+            if(id == 999)
+            {
+                //End Explosion..
+                return;
+            }
             int color = ConnectDisconnect.instance.GetPlayerColor((ushort)id);
             Debug.Log("Getting color " + color + " for id " + id);
             PlayerStats stats = KillTrackSystem.Instance.GetPlayerStats((ushort)id);
