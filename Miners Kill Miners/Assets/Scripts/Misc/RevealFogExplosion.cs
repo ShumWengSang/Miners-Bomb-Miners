@@ -11,7 +11,6 @@ namespace Roland
         public float Wait;
         public LayerMask playerMask;
         public MeshRenderer mr;
-        GameObject thePlayer;
         public CircleCollider2D PlayerCollider;
         string remoteBomb = "RemoteBomb";
         void Start()
@@ -64,7 +63,6 @@ namespace Roland
 
         IEnumerator RevealFogPlayer()
         {
-            thePlayer = CurrentPlayer.Instance.ThePlayer.gameObject;
             float currentTime = Time.time;
             float MaxTime = currentTime + Wait;
             while (currentTime < MaxTime)
@@ -82,7 +80,6 @@ namespace Roland
 
         IEnumerator RevealFog()
         {
-            thePlayer = CurrentPlayer.Instance.ThePlayer.gameObject;
             float currentTime = Time.time;
             float MaxTime = currentTime + Wait;
             while (currentTime < MaxTime)

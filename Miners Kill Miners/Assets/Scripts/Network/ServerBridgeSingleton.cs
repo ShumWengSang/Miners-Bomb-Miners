@@ -20,6 +20,7 @@ public class ServerBridgeSingleton : Singleton<ServerBridgeSingleton>
                     startInfo.UseShellExecute = false;
                     startInfo.RedirectStandardOutput = false;
                     startInfo.RedirectStandardError = false;
+                    startInfo.CreateNoWindow = false;
                     server = Process.Start(startInfo);
                 }
                 //server = Process.Start(Application.dataPath + "/StreamingAssets/DarkRiftServer - Free/DarkRiftServer.exe");

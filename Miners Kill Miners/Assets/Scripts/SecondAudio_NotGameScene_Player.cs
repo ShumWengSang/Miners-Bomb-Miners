@@ -3,11 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 public class SecondAudio_NotGameScene_Player : Singleton<SecondAudio_NotGameScene_Player> {
-    private AudioSource player;
 
     private void Start()
     {
-        player = GetComponent<AudioSource>();
         DontDestroyOnLoad(this.gameObject);
     }
 
